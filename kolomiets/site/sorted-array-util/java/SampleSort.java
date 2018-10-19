@@ -13,23 +13,41 @@ public class SampleSort {
 
         SampleSort sampleSort = new SampleSort();
 
-        if (args.length > 0) {
+        sampleSort.initArray(args);
 
-            sampleSort.basket = new Integer[args.length];
+        sampleSort.sortArray();
 
-            for (int i = 0; i < args.length; i++) {
-                sampleSort.basket[i] = Integer.valueOf(args[i]);
-            }
-        } else {
-            sampleSort.basket = new Integer[]{64, 26, 460, 4, 75};
+        StringBuilder buildForOut = new StringBuilder();
+        for (Integer i : sampleSort.basket) {
+            buildForOut.append(i);
+            buildForOut.append(" ");
         }
-
-        List<Integer> out = Arrays.asList(sampleSort.basket);
-
-        //https://dzone.com/articles/java-8-comparator-how-to-sort-a-list
-        out.sort(Comparator.<Integer>naturalOrder());
-
-        out.stream().forEach(System.out::println);
+        System.out.println(buildForOut.substring(0, buildForOut.length() - 1));
     }
 
+    public void initArray(String[] values) {
+        if (values.length > 0) {
+
+            basket = new Integer[values.length];
+
+            for (int i = 0; i < values.length; i++) {
+                basket[i] = Integer.valueOf(values[i]);
+            }
+        } else {
+            basket = new Integer[]{64, 26, 460, 4, 75};
+        }
+    }
+
+    public void sortArray() {
+        List<Integer> digitList = Arrays.asList(basket);
+
+        //https://dzone.com/articles/java-8-comparator-how-to-sort-a-list
+        digitList.sort(Comparator.<Integer>naturalOrder());
+
+        basket = digitList.toArray(basket);
+    }
+
+    public Integer[] getBasket() {
+        return basket;
+    }
 }

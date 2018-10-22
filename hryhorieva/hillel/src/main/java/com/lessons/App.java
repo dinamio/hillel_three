@@ -10,10 +10,12 @@ public class App
     {
         ArrayService arrayService = new ArrayService();
         int testArray[] = arrayService.createArray(10);
+        int testEmptyArray[] = {};
         for(int currentInt: testArray){
             System.out.println(currentInt);
         }
 
-        System.out.println("The greatest number in array is: " + arrayService.findMaxValue(testArray));
+        arrayService.printMaxValue(testArray);
+        arrayService.printMaxValue(testEmptyArray);
     }
 }

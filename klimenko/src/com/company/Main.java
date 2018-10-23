@@ -1,13 +1,21 @@
 package com.company;
 
-import java.util.Arrays;
-
 public class Main {
 
     public static void main(String[] args) {
 
         Integer[] array = {10, 5, 30, 15, 36, 88, 23};
-        System.out.println(Arrays.asList(array).stream().max(Integer::compareTo).get());
+        System.out.println("Max value of array " + findMaxValue(array));
 
+    }
+
+    public static int findMaxValue(Integer[] array ){
+        int maxValue = array[0];
+        for(Integer currentValue:array) {
+            if(currentValue>maxValue)
+                maxValue = currentValue;
+
+        }
+        return maxValue;
     }
 }

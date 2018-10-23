@@ -9,10 +9,12 @@ public class Main {
 
     }
 
-    public static int findMaxValue(Integer[] array ){
+    public static int findMaxValue(Integer[] array) {
+
+        if (array == null || array.length == 0) return 0;
         int maxValue = array[0];
-        for(Integer currentValue:array) {
-            if(currentValue>maxValue)
+        for (Integer currentValue : array) {
+            if (currentValue > maxValue)
                 maxValue = currentValue;
 
         }

@@ -10,6 +10,6 @@ public class Main {
         List<Integer> arrayList = new ArrayList<Integer>();
         arrayList = Arrays.asList(arr);
         ArrayUtil arrayUtil = new ArrayUtil();
-        System.out.println(arrayUtil.maxSize(arrayList));
+        System.out.println(arrayUtil.maxElement(arrayList));
     }
 }

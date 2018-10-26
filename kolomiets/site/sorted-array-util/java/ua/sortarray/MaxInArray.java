@@ -1,3 +1,5 @@
+package ua.sortarray;
+
 /**
  * Find maximum integer value from arguments.
  * May throw NumberFormatException!

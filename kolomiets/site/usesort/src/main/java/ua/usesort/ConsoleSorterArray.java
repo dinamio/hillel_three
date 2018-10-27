@@ -17,7 +17,7 @@ public class ConsoleSorterArray extends SampleSort {
         Scanner scanner = new Scanner(System.in);
         String inputData = scanner.nextLine();
 
-        initArray(inputData.split(" "));
+        initArray(validateInputData(inputData));
     }
 
     /**
@@ -33,5 +33,20 @@ public class ConsoleSorterArray extends SampleSort {
             stringBuilder.append(" ");
         }
         System.out.println(stringBuilder);
+    }
+
+    private String[] validateInputData(String inpitData) {
+        String[] result = inpitData.split(" ");
+
+        for (String chekElement : result) {
+            try {
+                Integer.valueOf(chekElement);
+            } catch (NumberFormatException e) {
+                System.out.println("Incorrect input data, need digits through space");
+                return new String[]{"0"};
+            }
+        }
+
+        return result;
     }
 }

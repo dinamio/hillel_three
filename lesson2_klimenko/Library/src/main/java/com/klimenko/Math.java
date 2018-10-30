@@ -32,6 +32,9 @@ public class Math {
         return arrayForSort;
     }
 
+/**
+Check array is it null or have incorrect elements
+*/
     @Contract(value = "null -> true", pure = true)
     private static boolean checkArray(Integer[] initArray) {
         if (initArray == null || initArray.length == 0) {
@@ -39,7 +42,9 @@ public class Math {
         }
         return false;
     }
-
+/**
+Check if array already sorted
+*/
     public static boolean isArraySorted(Integer[] array, boolean directSort) {
         for (int i = 0; i < array.length - 1; i++) {
             if (directSort != (array[i] > array[i + 1])) {

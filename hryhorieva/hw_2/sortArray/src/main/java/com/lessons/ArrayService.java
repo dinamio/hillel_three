@@ -59,13 +59,17 @@ public class ArrayService {
     public boolean isEmpty(int[] arr){
         boolean res = false;
         boolean empty = true;
+        if(arr == null){
+            res=true;
+            return res;
+        }
         for (int currentInteger : arr) {
             if (currentInteger != 0) {
                 empty = false;
                 break;
             }
         }
-        if(empty || arr == null){
+        if(empty){
             res=true;
         }
         return res;

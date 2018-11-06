@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.hillel:mavenProject:1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/hillel/mavenProject/1/mavenProject-1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/hillel/mavenProject/1/mavenProject-1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/hillel/mavenProject/1/mavenProject-1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

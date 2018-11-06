@@ -1,0 +1,5 @@
+In sorted-array-util project create dependency for maven:
+gradle publishToMavenLocal
+In usesort project run bu next steps:
+mvn package
+java -jar target/usesort-1-jar-with-dependencies.jar

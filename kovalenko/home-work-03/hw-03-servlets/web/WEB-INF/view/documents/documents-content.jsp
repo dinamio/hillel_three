@@ -4,14 +4,17 @@
 <div class="row">
     <div class="col-sm-6 mx-auto mt-3">
         <div class="text-center float-right">
-            <a href="${pageContext.request.contextPath}/documents" class="btn btn-success text-center">Create</a>
+            <form method="get" action="/documents">
+                <input type="hidden" name="action" value="create">
+                <input type="submit" class="btn btn-success text-center" value="Create">
+            </form>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-6 mx-auto mt-3">
         <table class="table">
-            <thead>
+            <thead class="table-info">
                 <tr>
                     <th>Doc. Title</th>
                     <th>Date Created</th>
@@ -25,10 +28,7 @@
                             <td>${document.title}</td>
                             <td>${document.created}</td>
                             <td>
-                                <form method="get" action="/documents/${document.id}">
-                                    <input type="hidden" name="id" value="${document.id}">
-                                    <input type="submit" class="btn btn-success text-center" value="View">
-                                </form>
+                                <a href="/documents/${document.id}" class="btn btn-info text-center">View</a>
                             </td>
                         </tr>
                     </c:forEach>

@@ -2,14 +2,14 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="row">
-    <div class="col-sm-6 mx-auto">
-        <div class="text-center mx-auto">
+    <div class="col-sm-6 mx-auto mt-3">
+        <div class="text-center float-right">
             <a href="${pageContext.request.contextPath}/documents" class="btn btn-success text-center">Create</a>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-6 mx-auto">
+    <div class="col-sm-6 mx-auto mt-3">
         <table class="table">
             <thead>
                 <tr>

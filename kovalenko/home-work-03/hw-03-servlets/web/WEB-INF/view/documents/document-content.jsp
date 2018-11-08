@@ -17,10 +17,10 @@
             </div>
             <div class="card-footer bg-transparent">
                 <div class="text-center float-right">
-                    <a href="${pageContext.request.contextPath}/documents/${document.id}" class="btn btn-danger text-center">Delete</a>
+                    <a href="${pageContext.request.contextPath}/documents/${document.id}?action=delete" class="btn btn-danger text-center">Delete</a>
                 </div>
                 <div class="text-center float-left">
-                    <a href="${pageContext.request.contextPath}/documents/${document.id}" class="btn btn-warning text-center">Update</a>
+                    <a href="${pageContext.request.contextPath}/documents/${document.id}?action=update" class="btn btn-warning text-center">Update</a>
                 </div>
             </div>
         </div>

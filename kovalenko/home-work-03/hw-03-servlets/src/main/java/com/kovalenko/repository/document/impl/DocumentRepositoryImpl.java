@@ -31,7 +31,7 @@ public class DocumentRepositoryImpl implements DocumentRepository {
     public Document save(Document document) {
 
         long maxID = documents.size() == 0
-                ? 1
+                ? 0
                 : documents.get(documents.size()-1).getId();
 
         document.setId(maxID+1);
@@ -41,8 +41,8 @@ public class DocumentRepositoryImpl implements DocumentRepository {
 
     @Override
     public Document update(long id, Document document) {
-        Document updateDocument = find(id);
 
+        Document updateDocument = find(id);
         if (updateDocument != null) {
             updateDocument.setTitle(document.getTitle());
             return updateDocument;

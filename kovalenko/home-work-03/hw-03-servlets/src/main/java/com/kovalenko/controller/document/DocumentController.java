@@ -29,12 +29,29 @@ public class DocumentController extends HttpServlet {
 
         resp.setContentType("application/html;charset=UTF-8");
         RequestDispatcher dispatcher;
-
+        String action = req.getParameter("action");
         String pathInfo = req.getPathInfo();
+        String pathParameter = null;
+
         if (pathInfo != null) {
             String[] pathParts = pathInfo.split("/");
-            String pathParameter = pathParts[1];
-            if (pathParameter != null) {
+            pathParameter = pathParts[1];
+        }
+
+        if (pathParameter != null) {
+
+            if ("update".equals(action)) {
+                Document document = documentService.find(Long.parseLong(pathParameter));
+                req.setAttribute("document", document);
+                dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document-form.jsp");
+                dispatcher.forward(req, resp);
+            }
+
+            if ("delete".equals(action)) {
+                documentService.delete(Long.parseLong(pathParameter));
+                resp.sendRedirect("/documents");
+            } else {
+
                 Document document = documentService.find(Long.parseLong(pathParameter));
                 req.setAttribute("document", document);
 
@@ -43,45 +60,50 @@ public class DocumentController extends HttpServlet {
             }
         }
 
-        String action = req.getParameter("action");
+        if ("create".equals(action)) {
+            dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document-form.jsp");
+            dispatcher.forward(req, resp);
+        }
 
-        if (action == null) {
+        if (action == null && pathParameter == null) {
+
             List<Document> documents = documentService.find();
             req.setAttribute("documents", documents);
 
             dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/documents.jsp");
             dispatcher.forward(req, resp);
-        } else {
-            switch (action) {
-                case "create":
-                    dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document-form.jsp");
-                    dispatcher.forward(req, resp);
-                    break;
-            }
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        resp.setContentType("application/html;charset=UTF-8");
-        String title = req.getParameter("title");
+        String pathInfo = req.getPathInfo();
+        String pathParameter = null;
 
-        Document newDocument = new Document();
-        newDocument.setTitle(title);
-        newDocument = documentService.save(newDocument);
+        if (pathInfo != null) {
+            String[] pathParts = pathInfo.split("/");
+            pathParameter = pathParts[1];
+        }
 
-        req.setAttribute("document", newDocument);
-        resp.sendRedirect("/documents");
-    }
+        if (pathParameter != null) {
+            String title = req.getParameter("title");
+            Document document = new Document();
+            document.setTitle(title);
+            documentService.update(Long.parseLong(pathParameter), document);
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
-    }
+            resp.sendRedirect("/documents");
+        } else {
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+            resp.setContentType("application/html;charset=UTF-8");
+            String title = req.getParameter("title");
+
+            Document newDocument = new Document();
+            newDocument.setTitle(title);
+            newDocument = documentService.save(newDocument);
+
+            req.setAttribute("document", newDocument);
+            resp.sendRedirect("/documents");
+        }
     }
 }

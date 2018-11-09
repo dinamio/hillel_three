@@ -1,6 +1,6 @@
 package task1;
 
-public class MinimalNumber {
+public class MinimalNumber  {
 
     public int minArr(int[] mas) {
 

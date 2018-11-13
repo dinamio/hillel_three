@@ -26,7 +26,6 @@ public class DocumentController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         resp.setContentType("application/html;charset=UTF-8");
         RequestDispatcher dispatcher;
         String action = req.getParameter("action");
@@ -39,22 +38,25 @@ public class DocumentController extends HttpServlet {
         }
 
         if (pathParameter != null) {
-
+            long id;
+            try {
+                id = Long.parseLong(pathParameter);
+            } catch (NumberFormatException e) {
+                id = 0L;
+            }
             if ("update".equals(action)) {
-                Document document = documentService.find(Long.parseLong(pathParameter));
+                Document document = documentService.find(id);
                 req.setAttribute("document", document);
                 dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document-form.jsp");
                 dispatcher.forward(req, resp);
             }
 
             if ("delete".equals(action)) {
-                documentService.delete(Long.parseLong(pathParameter));
+                documentService.delete(id);
                 resp.sendRedirect("/documents");
             } else {
-
-                Document document = documentService.find(Long.parseLong(pathParameter));
+                Document document = documentService.find(id);
                 req.setAttribute("document", document);
-
                 dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document.jsp");
                 dispatcher.forward(req, resp);
             }
@@ -66,10 +68,8 @@ public class DocumentController extends HttpServlet {
         }
 
         if (action == null && pathParameter == null) {
-
             List<Document> documents = documentService.find();
             req.setAttribute("documents", documents);
-
             dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/documents.jsp");
             dispatcher.forward(req, resp);
         }
@@ -77,7 +77,6 @@ public class DocumentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String pathInfo = req.getPathInfo();
         String pathParameter = null;
 
@@ -90,18 +89,19 @@ public class DocumentController extends HttpServlet {
             String title = req.getParameter("title");
             Document document = new Document();
             document.setTitle(title);
-            documentService.update(Long.parseLong(pathParameter), document);
+            try {
+                documentService.update(Long.parseLong(pathParameter), document);
+            } catch (NumberFormatException e) {
+                documentService.update(0L, document);
+            }
 
             resp.sendRedirect("/documents");
         } else {
-
             resp.setContentType("application/html;charset=UTF-8");
             String title = req.getParameter("title");
-
             Document newDocument = new Document();
             newDocument.setTitle(title);
             newDocument = documentService.save(newDocument);
-
             req.setAttribute("document", newDocument);
             resp.sendRedirect("/documents");
         }

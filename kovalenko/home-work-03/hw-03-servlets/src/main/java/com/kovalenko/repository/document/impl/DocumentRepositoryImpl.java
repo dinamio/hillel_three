@@ -13,13 +13,11 @@ public class DocumentRepositoryImpl implements DocumentRepository {
 
     @Override
     public List<Document> find() {
-
         return documents;
     }
 
     @Override
     public Document find(long id) {
-
         return documents
                 .stream()
                 .filter(document -> document.getId() == id)
@@ -29,7 +27,6 @@ public class DocumentRepositoryImpl implements DocumentRepository {
 
     @Override
     public Document save(Document document) {
-
         long maxID = documents.size() == 0
                 ? 0
                 : documents.get(documents.size()-1).getId();
@@ -41,7 +38,6 @@ public class DocumentRepositoryImpl implements DocumentRepository {
 
     @Override
     public Document update(long id, Document document) {
-
         Document updateDocument = find(id);
         if (updateDocument != null) {
             updateDocument.setTitle(document.getTitle());
@@ -52,7 +48,6 @@ public class DocumentRepositoryImpl implements DocumentRepository {
 
     @Override
     public void delete(long id) {
-
         Document removeDocument = find(id);
         if (removeDocument != null) {
             documents.remove(removeDocument);

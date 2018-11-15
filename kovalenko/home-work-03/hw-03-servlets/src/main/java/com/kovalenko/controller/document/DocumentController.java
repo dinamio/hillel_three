@@ -32,13 +32,6 @@ public class DocumentController extends HttpServlet {
         long id = getPathVariable(req.getPathInfo());
 
         if (id != 0) {
-            if ("update".equals(action)) {
-                Document document = documentService.find(id);
-                req.setAttribute("document", document);
-                dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document-form.jsp");
-                dispatcher.forward(req, resp);
-            }
-
             Document document = documentService.find(id);
             req.setAttribute("document", document);
             dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document.jsp");
@@ -60,7 +53,7 @@ public class DocumentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pathInfo = req.getPathInfo();
+        /*String pathInfo = req.getPathInfo();
         String pathParameter = null;
 
         if (pathInfo != null) {
@@ -79,15 +72,29 @@ public class DocumentController extends HttpServlet {
             }
 
             resp.sendRedirect("/documents");
-        } else {
+        } else {*/
             resp.setContentType("application/html;charset=UTF-8");
+
             String title = req.getParameter("title");
             Document newDocument = new Document();
             newDocument.setTitle(title);
             newDocument = documentService.save(newDocument);
+
             req.setAttribute("document", newDocument);
             resp.sendRedirect("/documents");
-        }
+        /*}*/
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/html;charset=UTF-8");
+
+        String title = req.getParameter("title");
+        Document document = new Document();
+        document.setTitle(title);
+
+        long id = getPathVariable(req.getPathInfo());
+        documentService.update(id, document);
     }
 
     @Override

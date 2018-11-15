@@ -4,7 +4,7 @@
 <div class="row mt-3">
     <div class="col-sm-6 mx-auto">
         <div class="card mb-3 text-center">
-            <div class="card-header text-white bg-success">Edit Form</div>
+            <div class="card-header text-white bg-success text-center">Create Form</div>
             <div class="card-body">
                 <c:choose>
                     <c:when test="${empty document}">

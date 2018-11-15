@@ -13,13 +13,35 @@
 </head>
 <body>
 <h1>My Fabulous Application</h1>
-<c:forEach var="fruit" items="request.getAttributes"fruits)">
-
-    <c:out value="${fruit}"/>
+<c:forEach var="pet" items="${pets}">
+    <c:out value="${pet.name}"/>
+    <c:out value="${pet.age}"/>
+    <button class="btn" pet-id="${pet.id}">Увеличить возраст</button>
+    <br/>
 </c:forEach>
 <form action="/registration" method="post">
     Введите ваше имя: <input name="first_name">
     <button> Отправить</button>
 </form>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+       $(".btn").click(function() {
+           var petId = $(this).attr("pet-id");
+           $.ajax({
+               type: "PUT",
+               url: "/hello?id=" + petId,
+               success: function () {
+
+               },
+               failure: function () {
+
+               }
+           })
+       })
+    });
+</script>
+
 </html>

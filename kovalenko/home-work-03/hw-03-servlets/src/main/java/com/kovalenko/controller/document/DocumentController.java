@@ -28,7 +28,6 @@ public class DocumentController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/html;charset=UTF-8");
         RequestDispatcher dispatcher;
-        String action = req.getParameter("action");
         long id = getPathVariable(req.getPathInfo());
 
         if (id != 0) {
@@ -38,17 +37,10 @@ public class DocumentController extends HttpServlet {
             dispatcher.forward(req, resp);
         }
 
-        if ("create".equals(action)) {
-            dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document-form.jsp");
-            dispatcher.forward(req, resp);
-        }
-
-        if (action == null && id == 0) {
-            List<Document> documents = documentService.find();
-            req.setAttribute("documents", documents);
-            dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/documents.jsp");
-            dispatcher.forward(req, resp);
-        }
+        List<Document> documents = documentService.find();
+        req.setAttribute("documents", documents);
+        dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/documents.jsp");
+        dispatcher.forward(req, resp);
     }
 
     @Override
@@ -62,7 +54,6 @@ public class DocumentController extends HttpServlet {
 
             req.setAttribute("document", newDocument);
             resp.sendRedirect("/documents");
-
     }
 
     @Override

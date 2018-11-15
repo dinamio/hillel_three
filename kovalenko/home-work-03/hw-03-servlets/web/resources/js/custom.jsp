@@ -28,4 +28,14 @@ $(document).ready(function() {
         });
     });
 
+    $(".btn-create").click(function() {
+        $("#data-list").hide();
+        $(".btn-create").hide();
+        $("#document-create").removeClass("invisible");
+        $("#document-create").addClass("visible");
+
+        $("#submit").click(function() {
+            $("#form-create").submit();
+        });
+    });
 });

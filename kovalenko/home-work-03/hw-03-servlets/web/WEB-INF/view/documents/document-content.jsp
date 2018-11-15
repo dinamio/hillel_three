@@ -4,6 +4,7 @@
 
 <div class="row">
     <div class="col-sm-6 mx-auto mt-3">
+        <a href="${pageContext.request.contextPath}/documents" id="back" class=" text-center mt-2 mb-2">Back to list of documents</a>
         <div id="document" class="card mb-3">
             <div class="card-header text-center bg-info">
                 <h3><c:out value="${document.title}"/></h3>

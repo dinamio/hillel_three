@@ -53,26 +53,6 @@ public class DocumentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*String pathInfo = req.getPathInfo();
-        String pathParameter = null;
-
-        if (pathInfo != null) {
-            String[] pathParts = pathInfo.split("/");
-            pathParameter = pathParts[1];
-        }
-
-        if (pathParameter != null) {
-            String title = req.getParameter("title");
-            Document document = new Document();
-            document.setTitle(title);
-            try {
-                documentService.update(Long.parseLong(pathParameter), document);
-            } catch (NumberFormatException e) {
-                documentService.update(0L, document);
-            }
-
-            resp.sendRedirect("/documents");
-        } else {*/
             resp.setContentType("application/html;charset=UTF-8");
 
             String title = req.getParameter("title");
@@ -82,7 +62,7 @@ public class DocumentController extends HttpServlet {
 
             req.setAttribute("document", newDocument);
             resp.sendRedirect("/documents");
-        /*}*/
+
     }
 
     @Override

@@ -23,7 +23,7 @@
                     <tr>
                         <th>Doc. Title</th>
                         <th>Date Created</th>
-                        <th></th>
+                        <th colspan="2">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,6 +33,9 @@
                                 <td>${document.created}</td>
                                 <td>
                                     <a href="${pageContext.request.contextPath}/documents/${document.id}" class="btn btn-info text-center">View</a>
+                                </td>
+                                <td>
+                                    <a href="${pageContext.request.contextPath}/documents/${document.id}" class="btn btn-delete btn-danger text-center">Delete</a>
                                 </td>
                             </tr>
                         </c:forEach>

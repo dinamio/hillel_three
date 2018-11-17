@@ -24,7 +24,7 @@
                             <td>${doc.name}</td>
                             <td>${doc.date}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/documents/${doc.name}" class="btn btn-delete btn-danger text-center">Delete</a>
+                                <a href="${pageContext.request.contextPath}/documents/${doc.id}" class="btn btn-delete btn-danger text-center">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>

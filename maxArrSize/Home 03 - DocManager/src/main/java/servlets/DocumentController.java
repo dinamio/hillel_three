@@ -36,17 +36,25 @@ public class DocumentController extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String name = getPathVariable(request.getPathInfo());
-        manager.delete(name);
+        long id = getPathVariable(req.getPathInfo());
+        manager.delete(id);
     }
 
-    private String getPathVariable(String pathInfo){
+    private long getPathVariable(String pathInfo){
+        long result = 0L;
         String pathVariable = null;
         if (pathInfo != null) {
             pathVariable = pathInfo.split("/")[1];
         }
-        return pathVariable;
+        if (pathVariable != null) {
+            try {
+                result = Long.parseLong(pathVariable);
+            } catch (NumberFormatException e){
+                return 0L;
+            }
+        }
+        return result;
     }
 }

@@ -35,14 +35,18 @@ public class DocumentController extends HttpServlet {
         response.sendRedirect("/documents");
     }
 
-   /* protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String name = request.getParameter("doc");
-        Document docFromList = new Document(name);
-        DocumentService manager = new DocumentService();
-        ArrayList<Document> docs = manager.getDocs();
-        manager.removeDoc(docFromList);
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String name = getPathVariable(request.getPathInfo());
+        manager.delete(name);
+    }
 
-        RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/views/documents.jsp");
-        rs.forward(request, response);
-    }*/
+    private String getPathVariable(String pathInfo){
+        String pathVariable = null;
+        if (pathInfo != null) {
+            pathVariable = pathInfo.split("/")[1];
+        }
+        return pathVariable;
+    }
 }

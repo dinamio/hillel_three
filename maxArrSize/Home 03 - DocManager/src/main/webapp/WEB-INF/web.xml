@@ -20,7 +20,7 @@
 
     <servlet-mapping>
         <servlet-name>DocumentController</servlet-name>
-        <url-pattern>/documents</url-pattern>
+        <url-pattern>/documents/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

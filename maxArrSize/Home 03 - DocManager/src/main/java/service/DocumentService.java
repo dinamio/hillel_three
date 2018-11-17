@@ -15,4 +15,17 @@ public class DocumentService {
     public void addDoc(Document newDoc){
         docs.add(newDoc);
     }
+
+    public Document findByName(String name) {
+        if (name != null) {
+            return docs.stream().filter(document -> document.getName().equals(name)).findFirst().get();
+        }
+        return  null;
+    }
+
+    public void delete(String name) {
+        if (name != null) {
+            docs.remove(findByName(name));
+        }
+    }
 }

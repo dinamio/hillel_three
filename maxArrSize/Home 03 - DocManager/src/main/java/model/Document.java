@@ -1,38 +1,40 @@
 package model;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Document {
+
     private String name;
-    private String date;
+    private LocalDate date;
 
-    public Document(String docName){
-        name = docName;
-        Date currentDate = new Date();
-        SimpleDateFormat formatForDate = new SimpleDateFormat("yyyy/mm/dd");
-        date = formatForDate.format(currentDate);
-    }
-
-    public Document(String docName, String date){
-        name = docName;
+    public Document(String name, LocalDate date) {
+        this.name = name;
         this.date = date;
     }
 
-    public String getName(){
-        return this.name;
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getDate(){
-        return this.date;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
+    @Override
+    public String toString() {
+        return "Document{" +
+                "name='" + name + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }

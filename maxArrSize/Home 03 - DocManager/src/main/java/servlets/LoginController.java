@@ -10,27 +10,23 @@ import java.io.IOException;
 
 import static java.lang.System.out;
 
-public class LoginServlet extends HttpServlet {
+public class LoginController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //PrintWriter out = response.getWriter();
 
         String userName = request.getParameter("name");
         String userPass = request.getParameter("pass");
 
         if(loginValidation(userName, userPass)) {
-            RequestDispatcher rs = request.getRequestDispatcher("/views/documentsList.jsp");
-            rs.forward(request, response);
+            response.sendRedirect("/documents");
         } else {
             out.println("Name or Password incorrect");
             RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
             rs.include(request, response);
         }
-
     }
-
 
     public boolean loginValidation (String username,String pass) {
         boolean validLogin = false;

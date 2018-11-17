@@ -1,16 +1,16 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
 
     <servlet>
         <servlet-name>login</servlet-name>
-        <servlet-class>servlets.LoginServlet</servlet-class>
+        <servlet-class>servlets.LoginController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>documentsList</servlet-name>
-        <servlet-class>servlets.DocumentsList</servlet-class>
+        <servlet-name>DocumentController</servlet-name>
+        <servlet-class>servlets.DocumentController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -19,8 +19,8 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>documentsList</servlet-name>
-        <url-pattern>/documentsList</url-pattern>
+        <servlet-name>DocumentController</servlet-name>
+        <url-pattern>/documents</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

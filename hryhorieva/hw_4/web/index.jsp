@@ -1,7 +1,7 @@
 <%-- Created by IntelliJ IDEA. --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="templates/header.jsp" >
-  <jsp:param name="title" value="Add form" />
+  <jsp:param name="title" value="Main page" />
 </jsp:include>
 <div class="buttons py-5">
   <div class="container text-center">

@@ -28,82 +28,67 @@ public class DocumentController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/html;charset=UTF-8");
         RequestDispatcher dispatcher;
-        String action = req.getParameter("action");
-        String pathInfo = req.getPathInfo();
-        String pathParameter = null;
+        long id = getPathVariable(req.getPathInfo());
 
-        if (pathInfo != null) {
-            String[] pathParts = pathInfo.split("/");
-            pathParameter = pathParts[1];
-        }
-
-        if (pathParameter != null) {
-            long id;
-            try {
-                id = Long.parseLong(pathParameter);
-            } catch (NumberFormatException e) {
-                id = 0L;
-            }
-            if ("update".equals(action)) {
-                Document document = documentService.find(id);
-                req.setAttribute("document", document);
-                dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document-form.jsp");
-                dispatcher.forward(req, resp);
-            }
-
-            if ("delete".equals(action)) {
-                documentService.delete(id);
-                resp.sendRedirect("/documents");
-            } else {
-                Document document = documentService.find(id);
-                req.setAttribute("document", document);
-                dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document.jsp");
-                dispatcher.forward(req, resp);
-            }
-        }
-
-        if ("create".equals(action)) {
-            dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document-form.jsp");
+        if (id != 0) {
+            Document document = documentService.find(id);
+            req.setAttribute("document", document);
+            dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/document.jsp");
             dispatcher.forward(req, resp);
         }
 
-        if (action == null && pathParameter == null) {
-            List<Document> documents = documentService.find();
-            req.setAttribute("documents", documents);
-            dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/documents.jsp");
-            dispatcher.forward(req, resp);
-        }
+        List<Document> documents = documentService.find();
+        req.setAttribute("documents", documents);
+        dispatcher = req.getRequestDispatcher("/WEB-INF/view/documents/documents.jsp");
+        dispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pathInfo = req.getPathInfo();
-        String pathParameter = null;
-
-        if (pathInfo != null) {
-            String[] pathParts = pathInfo.split("/");
-            pathParameter = pathParts[1];
-        }
-
-        if (pathParameter != null) {
-            String title = req.getParameter("title");
-            Document document = new Document();
-            document.setTitle(title);
-            try {
-                documentService.update(Long.parseLong(pathParameter), document);
-            } catch (NumberFormatException e) {
-                documentService.update(0L, document);
-            }
-
-            resp.sendRedirect("/documents");
-        } else {
             resp.setContentType("application/html;charset=UTF-8");
+
             String title = req.getParameter("title");
             Document newDocument = new Document();
             newDocument.setTitle(title);
             newDocument = documentService.save(newDocument);
+
             req.setAttribute("document", newDocument);
             resp.sendRedirect("/documents");
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/html;charset=UTF-8");
+
+        String title = req.getParameter("title");
+        Document document = new Document();
+        document.setTitle(title);
+
+        long id = getPathVariable(req.getPathInfo());
+        documentService.update(id, document);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        long id = getPathVariable(req.getPathInfo());
+        documentService.delete(id);
+    }
+
+    private long getPathVariable(String pathInfo){
+        long result = 0L;
+        String pathVariable = null;
+
+        if (pathInfo != null) {
+            pathVariable = pathInfo.split("/")[1];
         }
+
+        if (pathVariable != null) {
+            try {
+                result = Long.parseLong(pathVariable);
+            } catch (NumberFormatException e) {
+                return result;
+            }
+        }
+        return result;
     }
 }

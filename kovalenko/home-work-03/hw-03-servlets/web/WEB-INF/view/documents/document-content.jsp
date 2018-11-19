@@ -4,7 +4,8 @@
 
 <div class="row">
     <div class="col-sm-6 mx-auto mt-3">
-        <div class="card mb-3">
+        <a href="${pageContext.request.contextPath}/documents" id="back" class=" text-center mt-2 mb-2">Back to list of documents</a>
+        <div id="document" class="card mb-3">
             <div class="card-header text-center bg-info">
                 <h3><c:out value="${document.title}"/></h3>
             </div>
@@ -17,11 +18,26 @@
             </div>
             <div class="card-footer bg-transparent">
                 <div class="text-center float-right">
-                    <a href="${pageContext.request.contextPath}/documents/${document.id}?action=delete" class="btn btn-danger text-center">Delete</a>
+                    <button class="btn btn-update btn-warning text-center">Update</button>
                 </div>
-                <div class="text-center float-left">
-                    <a href="${pageContext.request.contextPath}/documents/${document.id}?action=update" class="btn btn-warning text-center">Update</a>
-                </div>
+            </div>
+        </div>
+        <div id="document-update" class="card mb-3 invisible">
+            <div class="card-header text-white bg-warning text-center">Edit Form</div>
+            <div class="card-body">
+                <form id="form-update" action="${pageContext.request.contextPath}/documents/${document.id}">
+                    <div class="form-group row">
+                        <label for="title" class="col-sm-4 col-form-label">Document title</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="title" value="${document.title}" id="title">
+                        </div>
+                    </div>
+                    <div class="form-group row float-right">
+                        <div class="col-sm-8 ">
+                            <button type="submit" id="submit" class="btn btn-warning">Edit</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

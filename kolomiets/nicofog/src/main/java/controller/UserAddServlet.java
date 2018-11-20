@@ -18,13 +18,18 @@ public class UserAddServlet extends HttpServlet {
     private UserService userService;
 
     @Override
+    public void init() throws ServletException {
+        super.init();
+        userService = new UserService();
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("username");
 
         User user = new User();
         user.setName(name);
 
-        userService = new UserService();
         userService.addUser(user);
 
         req.getSession().setAttribute("crud-result", userService.getResultMessage());

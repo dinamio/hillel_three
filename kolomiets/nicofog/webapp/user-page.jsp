@@ -10,8 +10,9 @@
 <html>
 <head>
     <title>User page</title>
+    <link href="css/nicofog-style.css" rel="stylesheet">
 </head>
-<body>
+<body class="masthead">
 <c:set var="user" value="${sessionScope.get('login')}"/>
 Hello <c:out value="${user.name}"/>
 <br><br>

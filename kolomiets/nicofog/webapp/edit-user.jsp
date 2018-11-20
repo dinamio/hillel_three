@@ -7,18 +7,32 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:set var="user" value="${sessionScope.get('user-edit')}"/>
 <html>
 <head>
-    <title>Edit user page</title>
+    <title>Edit ${user.name}</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/nicofog-style.css" rel="stylesheet">
 </head>
-<body>
-Edit <c:out value='${sessionScope.get("user-edit").name}'/> profile
-<form action="/user-edit/" method="post">
-  <input type="hidden" name="id" value="<c:out value='${sessionScope.get("user-edit").id}'/>">
-  Name: <input type="text" name="userName" placeholder="<c:out value='${sessionScope.get("user-edit").name}'/>">
-<br>  Role: <input type="text" name="role" placeholder="<c:out value='${sessionScope.get("user-edit").role}'/>">
-<br>  Cigaret price: <input type="text" value="0" name="price" placeholder="<c:out value='${sessionScope.get("user-edit").sigaretPrice}'/>">
-<br>  <input type="submit" value="Edit">
-</form>
+<body class="masthead">
+<div class="row" style="text-align: right">
+  <div class="col-4">
+    Edit <c:out value='${user.name}'/> profile
+  </div>
+  <div class="col-7">
+
+      <input type="hidden" id="user_id" value="<c:out value='${user.id}'/>">
+      Name: <input type="text" id="user_name" placeholder="<c:out value='${user.name}'/>">
+      <br>  Role: <input type="text" id="role" placeholder="<c:out value='${user.role}'/>">
+      <br>  Cigaret price: <input type="number" id="price" placeholder="<c:out value='${user.sigaretPrice}'/>">
+      <br>  <div class="padding"><input type="submit" id="confirm_edit" value="Edit"></div>
+
+  </div>
+  <div class="col-1"></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/admin.js"></script>
+
 </body>
 </html>

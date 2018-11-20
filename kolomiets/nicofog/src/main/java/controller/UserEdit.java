@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by mihail on 11/10/18.
+ * Edit(PUT) and get(GET) user by his id ( host/user-edit/15 )
  */
 @WebServlet(urlPatterns = "/user-edit/*")
 public class UserEdit extends HttpServlet {
@@ -19,10 +19,14 @@ public class UserEdit extends HttpServlet {
     private UserService userService;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userId =req.getPathInfo().substring(1);
-
+    public void init() throws ServletException {
+        super.init();
         userService = new UserService();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String userId = req.getPathInfo().substring(1);
 
         User user = userService.getById(Long.valueOf(userId));
 
@@ -32,7 +36,7 @@ public class UserEdit extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = new User();
         user.setId(Long.valueOf(req.getParameter("id")));
         user.setName(req.getParameter("userName"));
@@ -43,7 +47,5 @@ public class UserEdit extends HttpServlet {
 
         userService.update(user);
         req.getSession().setAttribute("crud-result", userService.getResultMessage());
-
-        resp.sendRedirect("/admin-page.jsp");
     }
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import entity.User;
+import org.json.JSONObject;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -19,18 +20,21 @@ public class LoginServlet extends HttpServlet {
     private UserService userService;
 
     @Override
+    public void init() throws ServletException {
+        super.init();
+        userService = new UserService();
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        userService = new UserService();
         String userName = req.getParameter("username");
 
         User user = userService.getByName(userName);
 
-        if (user == null) {
-            resp.sendRedirect("/");
-        } else {
+        if (user != null) {
             req.getSession().setAttribute("login", user);
-            resp.sendRedirect("/user-page.jsp");
         }
+        resp.getWriter().write(JSONObject.wrap(user).toString());
     }
 }

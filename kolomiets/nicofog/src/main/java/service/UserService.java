@@ -14,13 +14,16 @@ public class UserService {
     private UserRepository userRepository;
     private String resultMessage;
 
-    public void addUser(User user) {
+    public UserService() {
         userRepository = new UserRepository();
+    }
+
+    public void addUser(User user) {
 
         user.setRole("user");
         user.setDateRegistration(LocalDateTime.now().toString());
         user = userRepository.add(user);
-        
+
         if (user == null) {
             resultMessage = "Can't add user";
         } else {
@@ -29,7 +32,6 @@ public class UserService {
     }
 
     public List<User> getAll() {
-        userRepository = new UserRepository();
         return userRepository.getAll();
     }
 
@@ -48,7 +50,6 @@ public class UserService {
     }
 
     public void delete(long id) {
-        userRepository = new UserRepository();
         resultMessage = userRepository.deleteById(id) ? "User deleted" : "User cant delete";
     }
 

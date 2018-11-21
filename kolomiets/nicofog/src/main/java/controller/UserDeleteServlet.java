@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Created by mihail on 11/10/18.
  */
-@WebServlet(urlPatterns = "/user-delete/*")
+@WebServlet(urlPatterns = "/user-delete")
 public class UserDeleteServlet extends HttpServlet {
 
     private UserService userService;
@@ -25,7 +25,7 @@ public class UserDeleteServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String deleteItem = req.getPathInfo().substring(1);
+        String deleteItem = req.getParameter("userId");
 
         try {
             long userId = Long.valueOf(deleteItem);

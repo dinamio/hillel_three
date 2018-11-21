@@ -6,7 +6,7 @@ function userDelete(id, userName) {
     $(document).ready(function () {
 
         $.ajax({
-            url: "/user-delete/" + id,
+            url: "/user-delete?userId=" + id,
             type: 'DELETE',
             success: function () {
                 $("#result").text("User " + userName + " deleted");

@@ -23,6 +23,7 @@ public class HelloWorldServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("pets", petService.getAllPets());
+        req.setAttribute("name", "Игорь");
         getServletContext().getRequestDispatcher("/index.jsp").forward(req,resp);
     }
 

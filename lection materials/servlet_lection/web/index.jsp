@@ -5,7 +5,6 @@
   Time: 19:54
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -16,12 +15,13 @@
 <c:forEach var="pet" items="${pets}">
     <c:out value="${pet.name}"/>
     <c:out value="${pet.age}"/>
-    <button class="btn" pet-id="${pet.id}">Увеличить возраст</button>
+    <button class="btn" pet-id="${pet.id}">Add age</button>
     <br/>
 </c:forEach>
+<%=request.getAttribute("name")%>
 <form action="/registration" method="post">
-    Введите ваше имя: <input name="first_name">
-    <button> Отправить</button>
+    Enter your name: <input name="first_name">
+    <button> Send</button>
 </form>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

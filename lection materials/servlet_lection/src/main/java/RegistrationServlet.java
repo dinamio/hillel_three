@@ -1,9 +1,6 @@
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 /**
@@ -16,10 +13,14 @@ public class RegistrationServlet extends HttpServlet {
         HttpSession session = req.getSession();
         session.setAttribute("user", req.getParameter("first_name"));
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/greeting.jsp");
-        RequestDispatcher requestDispatcher2 = getServletContext().getRequestDispatcher("/index.jsp");
+        Cookie cookie = new Cookie("userName" , req.getParameter("first_name"));
+        cookie.setMaxAge(60);
+        cookie.setPath("/registration");
+        resp.addCookie(cookie);
+        //RequestDispatcher requestDispatcher2 = getServletContext().getRequestDispatcher("/index.jsp");
         //requestDispatcher.forward(req,resp);
         requestDispatcher.forward(req,resp);
-        requestDispatcher2.include(req,resp);
+        //requestDispatcher2.include(req,resp);
         //resp.sendRedirect("/greeting.jsp");
     }
 }

@@ -26,6 +26,7 @@
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
 
+
     <!-- list servlet -->
     <servlet>
         <servlet-name>list</servlet-name>
@@ -36,6 +37,7 @@
         <servlet-name>list</servlet-name>
         <url-pattern>/list</url-pattern>
     </servlet-mapping>
+
 
 
 </web-app>

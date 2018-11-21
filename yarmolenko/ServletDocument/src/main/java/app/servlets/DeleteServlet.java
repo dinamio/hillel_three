@@ -13,9 +13,9 @@ import java.io.PrintWriter;
 
 public class DeleteServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*PrintWriter writer = resp.getWriter();
-        writer.println("Method GET from DeleteServlet");*/
+        protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            /*PrintWriter writer = resp.getWriter();
+            writer.println("Method GET from DeleteServlet");*/
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/delete.jsp");
         requestDispatcher.forward(req, resp);
@@ -25,5 +25,8 @@ public class DeleteServlet extends HttpServlet {
         Model model = Model.getInstance();
         Document doc = new Document(name, date);
         model.delete(doc);
+        req.setAttribute("documentName", name);
+        doDelete(req, resp);
     }
+
 }

@@ -12,9 +12,7 @@
 </head>
 
 <body>
-<div>
-    <h1>First servlet!</h1>
-</div>
+
 
 <div>
     <%

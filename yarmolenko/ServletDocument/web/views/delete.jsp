@@ -8,14 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Delete document</title>
+    <title>Add new document</title>
 </head>
 
-
 <body>
-<div>
-    <h1>First servlet!</h1>
-</div>
+
 
 <div>
     <%
@@ -28,15 +25,12 @@
             <h2>Delete document</h2>
         </div>
 
-        <form method="post">
-            <label>Name:
-                <input type="text" name="name"><br />
-            </label>
-            <label>Date:
-                <input type="text" name="date"><br />
-            </label>
-            <button type="submit">Submit</button>
+        <form action="/delete" method="post">
+        <input type="hidden" name="id" value="delete">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="Удалить">
         </form>
+
     </div>
 </div>
 
@@ -45,3 +39,5 @@
 </div>
 </body>
 </html>
+
+

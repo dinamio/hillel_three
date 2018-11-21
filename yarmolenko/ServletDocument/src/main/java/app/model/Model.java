@@ -15,6 +15,7 @@ public class Model {
         return instance;
     }
 
+
     private Model() {
         model = new ArrayList<>();
     }
@@ -23,7 +24,7 @@ public class Model {
         model.add(document);
     }
 
-    public void delete(Document document) {
+    public void delete(Document document){
         model.remove(document);
     }
 

@@ -28,5 +28,6 @@ public class AddServlet extends HttpServlet {
 
         req.setAttribute("documentName", name);
         doGet(req, resp);
+
     }
 }

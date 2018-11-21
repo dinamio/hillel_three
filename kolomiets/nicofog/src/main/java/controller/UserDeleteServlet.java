@@ -18,17 +18,21 @@ public class UserDeleteServlet extends HttpServlet {
     private UserService userService;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String deleteItem =req.getPathInfo().substring(1);
-        System.out.println(deleteItem);
+    public void init() throws ServletException {
+        super.init();
         userService = new UserService();
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String deleteItem = req.getPathInfo().substring(1);
+
         try {
             long userId = Long.valueOf(deleteItem);
             userService.delete(userId);
         } catch (NumberFormatException e) {
             userService.delete(-1l);
         }
-        req.getSession().setAttribute("crud-result", userService.getResultMessage());
-        resp.sendRedirect("/admin-page.jsp");
+
     }
 }

@@ -2,6 +2,7 @@ package com.kovalenko.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
@@ -11,14 +12,17 @@ public class AuthFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
 
-        HttpServletRequest request = (HttpServletRequest)servletRequest;
-
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            RequestDispatcher rd = request.getRequestDispatcher("/login");
-            rd.forward(servletRequest, servletResponse);
+
+        if ((session != null && session.getAttribute("user") != null)
+                || "/login".equals(request.getServletPath())
+                ||  "/register".equals(request.getServletPath())) {
+
+            filterChain.doFilter(request, response);
         } else {
-            filterChain.doFilter(servletRequest, servletResponse);
+            response.sendRedirect("/login");
         }
     }
 }

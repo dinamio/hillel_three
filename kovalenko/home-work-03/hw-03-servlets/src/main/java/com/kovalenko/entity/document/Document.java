@@ -14,4 +14,5 @@ public class Document {
     private long id;
     private String title;
     private LocalDateTime created;
+    private String author;
 }

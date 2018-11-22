@@ -33,9 +33,9 @@ public class LoginController extends HttpServlet {
         User user = userService.getUserByCredentials(login, password);
         if (user != null) {
             HttpSession session = req.getSession();
-            session.setAttribute("user-name", user.getName());
+            session.setAttribute("user", user.getName());
             session.setMaxInactiveInterval(30*60);
-            Cookie cookie = new Cookie("user-name", user.getName());
+            Cookie cookie = new Cookie("user", user.getName());
             cookie.setMaxAge(30*60);
             resp.addCookie(cookie);
             resp.sendRedirect("/");

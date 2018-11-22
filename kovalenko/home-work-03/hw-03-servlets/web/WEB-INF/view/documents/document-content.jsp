@@ -10,8 +10,8 @@
                 <h3><c:out value="${document.title}"/></h3>
             </div>
             <div class="card-body">
-                <h5 class="card-title text-center"><c:out value="${document.title}"/></h5>
-                <p class="card-text"></p>
+                <p class="card-text text-center text-dark">Author: <c:out value="${document.author}"/></p>
+
                 <div class="text-center float-right">
                     <p class="card-text text-primary ">Created time: <c:out value="${document.created}"/></p>
                 </div>

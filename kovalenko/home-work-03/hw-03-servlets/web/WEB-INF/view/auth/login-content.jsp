@@ -23,9 +23,14 @@
                             <input type="password" class="form-control" name="password" id="password" required>
                         </div>
                     </div>
-                    <div class="form-group row float-right">
-                        <div class="col-sm-8 ">
-                            <button type="submit" class="btn btn-success">Login</button>
+                    <div class="form-group row">
+                        <div class="col-sm-12 mx-auto mt-1">
+                            <button type="submit" class="btn btn-block btn-success">Login</button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12 mx-auto">
+                            <a href="${pageContext.request.contextPath}/register" class="btn btn-block btn-info text-center mt-2 mb-2">Register</a>
                         </div>
                     </div>
                 </form>

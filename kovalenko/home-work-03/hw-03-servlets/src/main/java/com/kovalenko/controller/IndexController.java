@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "IndexServlet", urlPatterns = "/index")
+@WebServlet(name = "IndexController", urlPatterns = "/index")
 public class IndexController extends HttpServlet {
 
     @Override

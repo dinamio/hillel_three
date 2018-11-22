@@ -7,9 +7,7 @@ import com.kovalenko.service.user.impl.UserServiceImpl;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
@@ -34,7 +32,12 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter("password");
         User user = userService.getUserByCredentials(login, password);
         if (user != null) {
-            req.getSession().setAttribute("user-name", user.getName());
+            HttpSession session = req.getSession();
+            session.setAttribute("user-name", user.getName());
+            session.setMaxInactiveInterval(30*60);
+            Cookie cookie = new Cookie("user-name", user.getName());
+            cookie.setMaxAge(30*60);
+            resp.addCookie(cookie);
             resp.sendRedirect("/");
         } else {
             resp.sendRedirect("/login");

@@ -4,6 +4,7 @@ import com.kovalenko.entity.user.User;
 import com.kovalenko.repository.user.UserRepository;
 import com.kovalenko.repository.user.impl.UserRepositoryImpl;
 import com.kovalenko.service.user.UserService;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
@@ -27,7 +28,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByCredentials(String login, String password) {
-        return userRepository.findByCredentials(login, password);
+        User user = userRepository.findByLogin(login);
+        return user != null && BCrypt.checkpw(password, user.getPassword())
+                ? user
+                : null;
     }
 
     @Override

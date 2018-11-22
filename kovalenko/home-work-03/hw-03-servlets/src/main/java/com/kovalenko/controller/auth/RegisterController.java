@@ -3,6 +3,7 @@ package com.kovalenko.controller.auth;
 import com.kovalenko.entity.user.User;
 import com.kovalenko.service.user.UserService;
 import com.kovalenko.service.user.impl.UserServiceImpl;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,8 +39,9 @@ public class RegisterController extends HttpServlet {
             User newUser = new User();
             newUser.setName(name);
             newUser.setLogin(login);
-            newUser.setPassword(password);
+            newUser.setPassword(BCrypt.hashpw(password, BCrypt.gensalt(12)));
             userService.register(newUser);
+            System.out.println(userService.find());
             resp.sendRedirect("/login");
         } else {
             resp.sendRedirect("/register");

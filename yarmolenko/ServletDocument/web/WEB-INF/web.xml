@@ -26,6 +26,18 @@
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
 
+    <!-- registration -->
+    <servlet>
+        <servlet-name>registration</servlet-name>
+        <servlet-class>app.servlets.RegistrationServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>registration</servlet-name>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+
+
 
     <!-- list servlet -->
     <servlet>

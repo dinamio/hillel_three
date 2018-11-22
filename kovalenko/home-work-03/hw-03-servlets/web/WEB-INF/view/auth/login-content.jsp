@@ -7,9 +7,6 @@
         <div class="card mb-3">
             <div class="card-header text-white bg-success text-center">Login Form</div>
             <div class="card-body">
-                <c:if test = "${not empty error}">
-                    <p class="text-center"><c:out value = "${error}"/></p>
-                </c:if>
                 <form method="post" action="${pageContext.request.contextPath}/login">
                     <div class="form-group row">
                         <label for="login" class="col-sm-4 col-form-label">Login:</label>

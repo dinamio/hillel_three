@@ -34,7 +34,7 @@ public class RegisterController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        if (userService.getUserByCredentials(login, password) == null) {
+        if (userService.getUserByLogin(login) == null) {
             User newUser = new User();
             newUser.setName(name);
             newUser.setLogin(login);

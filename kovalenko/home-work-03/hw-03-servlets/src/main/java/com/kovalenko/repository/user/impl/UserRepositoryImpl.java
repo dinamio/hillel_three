@@ -35,6 +35,15 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public User findByLogin(String login) {
+        return users
+                .stream()
+                .filter(user -> user.getLogin().equals(login))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
     public User save(User user) {
         long maxID = users.size() == 0
                 ? 0

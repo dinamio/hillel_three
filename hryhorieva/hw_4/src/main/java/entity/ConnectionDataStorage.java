@@ -1,14 +1,14 @@
 package entity;
 
 public class ConnectionDataStorage {
-    String host = "localhost:3306";
-    String database = "docs";
-    String user = "root";
-    String password = "root";
+    private static final String host = "localhost:3306";
+    private static final String database = "docs";
+    private static final String user = "root";
+    private static final String password = "root";
 
     public String getHost() {
         return host;
-    }
+    } 
 
     public String getDatabase() {
         return database;

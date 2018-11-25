@@ -4,11 +4,7 @@ $(document).ready(function () {
         var id = $(this).parents(".doc").attr("data-id");
         $.ajax({
             type: "DELETE",
-            url: "/documents?id=" + id,
-            success: function () {
-            },
-            failure: function () {
-            }
+            url: "/documents?id=" + id
         })
     })
 
@@ -22,11 +18,7 @@ $(document).ready(function () {
             var new_name = $(this).siblings(".new_name").val();
             $.ajax({
                 type: "PUT",
-                url: "/documents?id=" + id + "&name=" + new_name,
-                success: function () {
-                },
-                failure: function () {
-                }
+                url: "/documents?id=" + id + "&name=" + new_name
             })
             parent.find(".name").html("<span>"+ new_name +"</span>");
         });

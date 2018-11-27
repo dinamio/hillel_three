@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,7 +27,6 @@ public class DocumentController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/html;charset=UTF-8");
         RequestDispatcher dispatcher;
         long id = getPathVariable(req.getPathInfo());
 
@@ -45,11 +45,14 @@ public class DocumentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            resp.setContentType("application/html;charset=UTF-8");
-
             String title = req.getParameter("title");
             Document newDocument = new Document();
             newDocument.setTitle(title);
+            HttpSession session = req.getSession();
+            String userName = (String) session.getAttribute("user");
+            if (userName != null){
+                newDocument.setAuthor(userName);
+            }
             newDocument = documentService.save(newDocument);
 
             req.setAttribute("document", newDocument);
@@ -58,8 +61,6 @@ public class DocumentController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/html;charset=UTF-8");
-
         String title = req.getParameter("title");
         Document document = new Document();
         document.setTitle(title);

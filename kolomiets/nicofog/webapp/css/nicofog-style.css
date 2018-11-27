@@ -2,6 +2,10 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i");
 @import "grayscale.min.css";
 
+a {
+    color: #424d5f
+}
+
 .user-list {
     text-align: right;
 }
@@ -15,4 +19,14 @@
     position: fixed;
     bottom: 0;
     right: 10%;
+}
+
+.registration-name {
+    position: absolute;
+    right: 52%;
+}
+
+.registration-input {
+    position: relative;
+    left: 48%;
 }

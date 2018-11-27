@@ -15,3 +15,5 @@ CREATE TABLE user
     dateRegistration VARCHAR(23)
 );
 
+ALTER TABLE user ADD password VARCHAR(32) DEFAULT 0 NOT NULL;
+ALTER TABLE user CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

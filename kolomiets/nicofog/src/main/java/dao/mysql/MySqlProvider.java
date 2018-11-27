@@ -13,7 +13,7 @@ public class MySqlProvider {
 
     public static final String dbUSER = "root";
     public static final String dbPASSWORD = "xxxxxxxx";
-    public static final String BASEURL = "jdbc:mysql://localhost:3306/nicofog";
+    public static final String BASEURL = "jdbc:mysql://localhost:3306/nicofog?useUnicode=yes&characterEncoding=UTF-8";
 
     public MySqlProvider() {
 

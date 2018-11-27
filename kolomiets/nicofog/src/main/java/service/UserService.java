@@ -18,17 +18,28 @@ public class UserService {
         userRepository = new UserRepository();
     }
 
-    public void addUser(User user) {
+    /**
+     * Bridge with controller and repository
+     * Check by user exist, if issue -> null
+     */
+    public User addUser(User user) {
 
         user.setRole("user");
         user.setDateRegistration(LocalDateTime.now().toString());
-        user = userRepository.add(user);
+        if (userRepository.getByName(user.getName()) == null) {
+            user = userRepository.add(user);
+        } else {
+            resultMessage = "user " + user.getName() + " is exist";
+            return null;
+        }
 
         if (user == null) {
             resultMessage = "Can't add user";
         } else {
             resultMessage = user.getName() + " added success";
         }
+
+        return user;
     }
 
     public List<User> getAll() {
@@ -36,17 +47,19 @@ public class UserService {
     }
 
     public User getById(long id) {
-        return new UserRepository().getById(id);
+        return userRepository.getById(id);
     }
 
-    public void update(User user) {
-        resultMessage = new UserRepository().update(user) == null ?
+    public User update(User user) {
+        user = userRepository.update(user);
+        resultMessage = user == null ?
                 "User " + user.getName() + " can't update" :
                 "User " + user.getName() + " success updated";
+        return user;
     }
 
     public User getByName(String name) {
-        return new UserRepository().getByName(name);
+        return userRepository.getByName(name);
     }
 
     public void delete(long id) {

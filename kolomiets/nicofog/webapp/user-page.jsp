@@ -22,7 +22,8 @@ and create date accaunt: <c:out value="${user.dateRegistration}"/>
 
 <!-- Navigation -->
 <div class="menu" id="mainNav">
-    <a href="/">main page</a>
+    <a href="/login">exit</a>
+    | <a href="user-edit/${user.id}">edit (sample)</a>
 </div>
 </body>
 </html>

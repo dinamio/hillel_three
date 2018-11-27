@@ -5,11 +5,13 @@ package entity;
  */
 public class User {
 
-    public User(){}
+    public User() {
+    }
 
     private long id;
     private String name;
     private String role;
+    private String password;
 
     /**
      * Price 20 sigarets of user smoke
@@ -51,6 +53,14 @@ public class User {
 
     public void setSigaretPrice(Integer sigaretPrice) {
         this.sigaretPrice = sigaretPrice;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getDateRegistration() {

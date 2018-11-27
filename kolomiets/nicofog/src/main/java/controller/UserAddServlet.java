@@ -26,14 +26,22 @@ public class UserAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("username");
+        String password = req.getParameter("password");
+        int price = Integer.valueOf(req.getParameter("price"));
 
         User user = new User();
         user.setName(name);
+        user.setSigaretPrice(price);
+        user.setPassword(password);
 
-        userService.addUser(user);
+        user = userService.addUser(user);
 
-        req.getSession().setAttribute("crud-result", userService.getResultMessage());
-
-        resp.sendRedirect("/admin-page.jsp");
+        if (user != null) {
+            req.getSession().setAttribute("login", user);
+            req.getSession().setAttribute("crud-result", userService.getResultMessage());
+            resp.getWriter().write("ok");
+        } else {
+            resp.getWriter().write(userService.getResultMessage());
+        }
     }
 }

@@ -25,16 +25,35 @@ public class LoginServlet extends HttpServlet {
         userService = new UserService();
     }
 
+    /**
+     * Logout
+     */
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().setAttribute("login", null);
+        resp.sendRedirect("/");
+    }
+
+    /**
+     * Login
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String userName = req.getParameter("username");
+        String password = req.getParameter("password");
 
         User user = userService.getByName(userName);
 
         if (user != null) {
-            req.getSession().setAttribute("login", user);
+            if (password.equals(user.getPassword())) {
+                req.getSession().setAttribute("login", user);
+                resp.getWriter().write("ok");
+            } else {
+                resp.getWriter().write("Incorrect password");
+            }
+        } else {
+            resp.getWriter().write("user " + userName + " no exist");
         }
-        resp.getWriter().write(JSONObject.wrap(user).toString());
     }
 }

@@ -12,12 +12,12 @@ public class UserRepositoryImpl implements UserRepository {
     private static List<User> users = Collections.synchronizedList(new ArrayList<>());
 
     @Override
-    public List<User> find() {
+    public List<User> findAll() {
         return users;
     }
 
     @Override
-    public User find(long id) {
+    public User findAll(long id) {
         return users
                 .stream()
                 .filter(user -> user.getId() == id)
@@ -56,7 +56,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User update(long id, User user) {
-        User updateUser = find(id);
+        User updateUser = findAll(id);
         if (updateUser != null) {
             updateUser.setName(user.getName());
             return updateUser;
@@ -66,7 +66,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void delete(long id) {
-        User removeUser = find(id);
+        User removeUser = findAll(id);
         if (removeUser != null) {
             users.remove(removeUser);
         }

@@ -27,7 +27,9 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
+                                        <form method="post" action="${pageContext.request.contextPath}/logout" class="dropdown-item">
+                                                <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
                                 </div>
                                 </li>
                                 </ul>

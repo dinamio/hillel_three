@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface UserRepository {
 
-    List<User> find();
-    User find(long id);
+    List<User> findAll();
+    User findAll(long id);
     User findByCredentials(String login, String password);
     User findByLogin(String login);
     User save(User user);

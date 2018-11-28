@@ -9,6 +9,7 @@
     <title>Servlet Login</title>
 </head>
 <body>
+<div style="color:red" align="center">${errorMsg}</div>
 <div class="container">
     <div id="login-row" class="row justify-content-center align-items-center">
         <div id="login-column" class="col-md-6">
@@ -32,17 +33,21 @@
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="LOGIN">
+                            <!--<input type="button" class="btn btn-info btn-md" value="REGISTRY NOW" onclick="window.location.href='/registrationForm'"/>-->
+                            <form method="LINK" action="/registrationForm">
+                                <input type="button" class="btn btn-info btn-md" value="REGISTRY NOW" onclick="window.location.href='/registrationForm'">
+                            </form>
+
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<!--<form method="post" action="login">
-    User:<input type="text" name="name" placeholder="admin"/><br/>
-    Password:<input type="text" name="pass" placeholder="admin"/><br/>
-    <input type="submit" value="LOGIN" />
-</form>-->
-</body>
-</html>
+            <!-- <div class="col-md-6 text-right">
+               <form> -->
+                <!--  </form>
+             </div>-->
+         </div>
+     </div>
+ </div>
+ </body>
+ </html>

@@ -1,5 +1,9 @@
 package servlets;
 
+import model.User;
+import org.apache.commons.codec.digest.DigestUtils;
+import service.UserService;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,36 +12,59 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-import static java.lang.System.out;
-
 public class LoginServlet extends HttpServlet {
+    UserService userService;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        userService = new UserService();
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String invalidCredentials = "Invalid credentials";
+        String fillAllFields = "Fill all fields!!";
 
-        String userName = request.getParameter("name");
-        String userPass = request.getParameter("pass");
+        String name = request.getParameter("name");
+        String pass = md5Apache(request.getParameter("pass"));
 
-        if(loginValidation(userName, userPass)) {
-            RequestDispatcher rs = request.getRequestDispatcher("/views/documentsList.jsp");
-            rs.forward(request, response);
+        if ((name != "") && (pass != "")) {
+            User user = new User(name, pass);
+            if ((request.getSession().getAttribute("newUser") != null)) {
+                User newUser = (User) request.getSession().getAttribute("newUser");
+                if (newUser.getUserName().equals(user.getUserName()) && newUser.getUserPass().equals(user.getUserPass())) {
+                    request.getSession().setAttribute("currentUserName", user.getUserName());
+                    sendRequest(request, response, "/views/documentsList.jsp", "");
+                } else {
+                    sendRequest(request, response, "index.jsp", invalidCredentials);
+                }
+            } else if (userService.checkRegisteredUsers(user)) {
+                request.getSession().setAttribute("currentUserName", user.getUserName());
+                sendRequest(request, response, "/views/documentsList.jsp", "");
+            } else {
+                sendRequest(request, response, "index.jsp", invalidCredentials);
+            }
         } else {
-            out.println("Name or Password incorrect");
-            RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
-            rs.include(request, response);
+            sendRequest(request, response, "index.jsp", fillAllFields);
         }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
     }
 
+    protected void sendRequest(HttpServletRequest request, HttpServletResponse response, String page, String message)
+            throws ServletException, IOException {
+        RequestDispatcher rs = request.getRequestDispatcher(page);
+        request.setAttribute("errorMsg", message);
+        rs.include(request, response);
+    }
 
-    public boolean loginValidation (String username,String pass) {
-        boolean validLogin = false;
-        if ((username != null) && (username.equals("admin"))) {
-            if ((pass != null) && (pass.equals("admin"))) {
-                validLogin = true;
-            }
-        }
-        return validLogin;
+    public static String md5Apache(String pass) {
+        String md5Hex = DigestUtils.md5Hex(pass);
+        return md5Hex;
     }
 }

@@ -5,7 +5,7 @@ import model.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocManager {
+public class DocumentService {
     private List<Document> docs = new ArrayList<Document>();
 
     public List<Document> getAllDocs(){

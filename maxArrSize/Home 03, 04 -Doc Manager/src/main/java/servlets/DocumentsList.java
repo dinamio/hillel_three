@@ -1,6 +1,6 @@
 package servlets;
 
-import service.DocManager;
+import service.DocumentService;
 import model.Document;
 
 import javax.servlet.ServletException;
@@ -11,12 +11,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class DocumentsList extends HttpServlet {
-    DocManager manager;
+    DocumentService manager;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        manager = new DocManager();
+        manager = new DocumentService();
     }
 
     @Override

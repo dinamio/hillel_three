@@ -17,10 +17,13 @@
     <div class="table-wrapper">
         <div class="table-title">
             <div class="row">
+                <form method="post" action="logoutServlet">
+                    <input type="submit" class="btn btn-info btn-md" value="LOGOUT" onclick="window.location.href='/login'">
+                </form>
                 <div class="col-sm-6">
-                    <h2>Manage <b>Documents</b></h2>
-                </div>
-                <div class="col-sm-6">
+                    <div class="col-sm-6">
+                        <h2>Manage <b>Documents</b></h2>
+                    </div>
                     <a href="#addDocModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Document</span></a>
                    <!-- <a href="#deleteDocModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
                 </div>
@@ -35,9 +38,10 @@
                         <label for="selectAll"></label>
                     </span>
                 </th>
-                <th>ID</th>
+                <th hidden="hidden">ID</th>
                 <th>Name</th>
                 <th>Date</th>
+                <th>Added By</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -50,9 +54,10 @@
 								<label for="checkbox1"></label>
 							</span>
                 </td>
-                <td name="docID">${doc.id}</td>
+                <td name="docID" hidden="hidden">${doc.id}</td>
                 <td>${doc.name}</td>
                 <td>${doc.date}</td>
+                <td><%=session.getAttribute("currentUserName")%></td>
                 <td>
                     <!--<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>-->
                     <!--<a href="#deleteDocModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->

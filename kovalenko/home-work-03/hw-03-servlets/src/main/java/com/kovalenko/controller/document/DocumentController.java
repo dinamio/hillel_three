@@ -1,6 +1,7 @@
 package com.kovalenko.controller.document;
 
 import com.kovalenko.entity.document.Document;
+import com.kovalenko.entity.user.User;
 import com.kovalenko.service.document.DocumentService;
 import com.kovalenko.service.document.impl.DocumentServiceImpl;
 
@@ -49,13 +50,11 @@ public class DocumentController extends HttpServlet {
             Document newDocument = new Document();
             newDocument.setTitle(title);
             HttpSession session = req.getSession();
-            String userName = (String) session.getAttribute("user");
-            if (userName != null){
-                newDocument.setAuthor(userName);
+            User user = (User) session.getAttribute("user");
+            if (user != null){
+                newDocument.setAuthor(user);
             }
-            newDocument = documentService.save(newDocument);
-
-            req.setAttribute("document", newDocument);
+            documentService.save(newDocument);
             resp.sendRedirect("/documents");
     }
 

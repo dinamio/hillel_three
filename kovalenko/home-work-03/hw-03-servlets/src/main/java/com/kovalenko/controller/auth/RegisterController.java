@@ -41,7 +41,6 @@ public class RegisterController extends HttpServlet {
             newUser.setLogin(login);
             newUser.setPassword(BCrypt.hashpw(password, BCrypt.gensalt(12)));
             userService.register(newUser);
-            System.out.println(userService.find());
             resp.sendRedirect("/login");
         } else {
             resp.sendRedirect("/register");

@@ -13,4 +13,9 @@ public class User {
     private String name;
     private String login;
     private String password;
+
+    public User(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

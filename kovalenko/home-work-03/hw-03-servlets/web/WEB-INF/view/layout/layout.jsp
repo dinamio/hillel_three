@@ -23,7 +23,7 @@
                                 <ul class="navbar-nav ">
                                 <li class="nav-item dropdown">
                                 <a class="justify-content-end nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <c:out value="${sessionScope.user}"/>
+                                        <c:out value="${sessionScope.user.name}"/>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <div class="dropdown-divider"></div>

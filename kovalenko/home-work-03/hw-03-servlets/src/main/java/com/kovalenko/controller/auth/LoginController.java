@@ -36,7 +36,7 @@ public class LoginController extends HttpServlet {
         User user = userService.getUserByCredentials(login, password);
         if (user != null) {
             HttpSession session = req.getSession();
-            session.setAttribute("user", user.getName());
+            session.setAttribute("user", user);
             session.setMaxInactiveInterval(30*60);
             resp.sendRedirect("/");
         } else {

@@ -53,7 +53,7 @@ public class UserService {
     public User update(User user) {
         user = userRepository.update(user);
         resultMessage = user == null ?
-                "User " + user.getName() + " can't update" :
+                "User null can't update" :
                 "User " + user.getName() + " success updated";
         return user;
     }

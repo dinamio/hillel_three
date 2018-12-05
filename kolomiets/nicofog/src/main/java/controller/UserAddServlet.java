@@ -27,11 +27,13 @@ public class UserAddServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("username");
         String password = req.getParameter("password");
-        int price = Integer.valueOf(req.getParameter("price"));
+        String priceParam = req.getParameter("price");
+
+        int price = priceParam == null ? 0 : Integer.valueOf(priceParam);
 
         User user = new User();
         user.setName(name);
-        user.setSigaretPrice(price);
+        user.setCigarettePrice(price);
         user.setPassword(password);
 
         user = userService.addUser(user);

@@ -41,7 +41,7 @@ public class UserEdit extends HttpServlet {
         user.setId(Long.valueOf(req.getParameter("id")));
         user.setName(req.getParameter("userName"));
         user.setRole(req.getParameter("role"));
-        user.setSigaretPrice(Integer.valueOf(req.getParameter("price")));
+        user.setCigarettePrice(Integer.valueOf(req.getParameter("price")));
 
         user = userService.update(user);
         if (user != null) {

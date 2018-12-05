@@ -17,7 +17,7 @@
 Hello <c:out value="${user.name}"/>
 <br><br>
 You status <c:out value="${user.role}"/><br>
-your 20 sigarets cost <c:out value="${user.sigaretPrice}"/><br>
+your 20 sigarets cost <c:out value="${user.cigarettePrice}"/><br>
 and create date accaunt: <c:out value="${user.dateRegistration}"/>
 
 <!-- Navigation -->

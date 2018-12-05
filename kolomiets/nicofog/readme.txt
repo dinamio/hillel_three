@@ -11,7 +11,7 @@ CREATE TABLE user
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(23),
     role VARCHAR(20),
-    sigaretPrice INT,
+    cigarettePrice INT,
     dateRegistration VARCHAR(23)
 );
 

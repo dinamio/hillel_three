@@ -43,6 +43,8 @@ public class LoginServlet extends HttpServlet {
         String userName = req.getParameter("username");
         String password = req.getParameter("password");
 
+        System.out.println(userName);
+
         User user = userService.getByName(userName);
 
         if (user != null) {

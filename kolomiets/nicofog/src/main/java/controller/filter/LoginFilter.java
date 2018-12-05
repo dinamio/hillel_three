@@ -17,8 +17,6 @@ public class LoginFilter implements Filter {
     }
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        filterChain.doFilter(servletRequest, servletResponse);
-
         HttpSession session = ((HttpServletRequest) servletRequest).getSession();
 
         if (session.getAttribute("login") == null) {
@@ -29,6 +27,8 @@ public class LoginFilter implements Filter {
                 ((HttpServletResponse) servletResponse).sendRedirect("/");
             }
         }
+
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     public void destroy() {

@@ -17,12 +17,13 @@
 Hello <c:out value="${user.name}"/>
 <br><br>
 You status <c:out value="${user.role}"/><br>
-your 20 sigarets cost <c:out value="${user.sigaretPrice}"/><br>
+your 20 sigarets cost <c:out value="${user.cigarettePrice}"/><br>
 and create date accaunt: <c:out value="${user.dateRegistration}"/>
 
 <!-- Navigation -->
 <div class="menu" id="mainNav">
-    <a href="/">main page</a>
+    <a href="/login">exit</a>
+    | <a href="user-edit/${user.id}">edit (sample)</a>
 </div>
 </body>
 </html>

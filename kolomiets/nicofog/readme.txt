@@ -11,7 +11,9 @@ CREATE TABLE user
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(23),
     role VARCHAR(20),
-    sigaretPrice INT,
+    cigarettePrice INT,
     dateRegistration VARCHAR(23)
 );
 
+ALTER TABLE user ADD password VARCHAR(32) DEFAULT 0 NOT NULL;
+ALTER TABLE user CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

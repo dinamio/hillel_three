@@ -24,7 +24,7 @@
       <input type="hidden" id="user_id" value="<c:out value='${user.id}'/>">
       Name: <input type="text" id="user_name" placeholder="<c:out value='${user.name}'/>">
       <br>  Role: <input type="text" id="role" placeholder="<c:out value='${user.role}'/>">
-      <br>  Cigaret price: <input type="number" id="price" placeholder="<c:out value='${user.sigaretPrice}'/>">
+      <br>  Cigaret price: <input type="number" id="price" placeholder="<c:out value='${user.cigarettePrice}'/>">
       <br>  <div class="padding"><input type="submit" id="confirm_edit" value="Edit"></div>
 
   </div>

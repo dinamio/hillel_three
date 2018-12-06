@@ -19,14 +19,7 @@ import java.util.ArrayList;
 public class RegistrationServlet extends HttpServlet {
     Connection connection = DBConnection.getInstance().getConnection();
     JDBCUserDao userDao = new JDBCUserDao(connection);
-    ArrayList<User> userList = (ArrayList<User>) userDao.selectAll();
-    ArrayList<String> userLoginList = getLoginList();
 
-    private ArrayList<String> getLoginList(){
-        ArrayList<String> loginList = new ArrayList<>();
-        this.userList.stream().forEach((a) -> loginList.add(a.getLogin()));
-        return loginList;
-    }
     @Override
     public void init() throws ServletException {
         System.out.print("init registration");
@@ -46,16 +39,14 @@ public class RegistrationServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         if((new_login != null) && (new_password != null)){
-            if(userLoginList.contains(new_login)){
-                req.setAttribute("result_message", "this login is already used");
-            }else{
+            if(userDao.getByLogin(new_login) == null){
                 User user = new User(new_login, DigestUtils.md5Hex(new_password));
                 userDao.insert(user);
                 User newUser = userDao.getByLoginAndPassword(user.getLogin(), user.getPassword());
-                this.userList.add(newUser);
-                this.userLoginList.add(newUser.getLogin());
                 session.setAttribute("user", newUser);
                 req.setAttribute("result_message", "you registered successfully");
+            }else{
+                req.setAttribute("result_message", "this login is already used");
             }
         }
 

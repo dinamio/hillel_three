@@ -22,7 +22,7 @@ public class AuthorizationServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        System.out.print("init registration");
+        System.out.print("init authorization");
         super.init();
     }
 
@@ -37,19 +37,13 @@ public class AuthorizationServlet extends HttpServlet {
         String login = req.getParameter("user_login");
         String password = req.getParameter("user_password");
         HttpSession session = req.getSession();
-        ArrayList<User> userList = (ArrayList<User>) userDao.selectAll();
 
         if((login != null) && (password != null)){
             User user = null;
-            for(User currentUser: userList){
-                if(currentUser.getLogin().equals(login)){
-                    if(currentUser.getPassword().equals(DigestUtils.md5Hex(password))){
-                        user = currentUser;
-                        System.out.print(user);
-                    }
-                }
-            }
-            if(user != null){
+            User currentUser = userDao.getByLoginAndPassword(login, DigestUtils.md5Hex(password));
+            if(currentUser != null){
+                user = currentUser;
+                System.out.print(user);
                 session.setAttribute("user", user);
                 req.setAttribute("result_message", "you sign in successfully");
             }else{
@@ -64,7 +58,7 @@ public class AuthorizationServlet extends HttpServlet {
 
     @Override
     public void destroy() {
-        System.out.print("destroy registration");
+        System.out.print("destroy authorization");
         super.destroy();
     }
 }

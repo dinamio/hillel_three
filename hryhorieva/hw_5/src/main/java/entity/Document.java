@@ -24,6 +24,11 @@ public class Document {
         this.user = user;
     }
 
+    public Document(String name, User user) {
+        this.name = name;
+        this.user = user;
+    }
+
     public Document(String name) {
         this.name = name;
     }

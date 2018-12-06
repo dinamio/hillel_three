@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class Registration  extends HttpServlet {
+public class RegistrationServlet extends HttpServlet {
     Connection connection = DBConnection.getInstance().getConnection();
     JDBCUserDao userDao = new JDBCUserDao(connection);
     ArrayList<User> userList = (ArrayList<User>) userDao.selectAll();
@@ -41,10 +41,8 @@ public class Registration  extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String new_login = req.getParameter("new_user_login");
-        String new_password = req.getParameter("new_user_password");
-        String login = req.getParameter("user_login");
-        String password = req.getParameter("user_password");
+        String new_login = req.getParameter("user_login");
+        String new_password = req.getParameter("user_password");
         HttpSession session = req.getSession();
 
         if((new_login != null) && (new_password != null)){
@@ -61,25 +59,6 @@ public class Registration  extends HttpServlet {
             }
         }
 
-        if((login != null) && (password != null)){
-            User user = null;
-            for(User currentUser: userList){
-                if(currentUser.getLogin().equals(login)){
-                    System.out.print(login);
-                    if(currentUser.getPassword().equals(DigestUtils.md5Hex(password))){
-                        System.out.print(password);
-                        user = currentUser;
-                        System.out.print(user);
-                    }
-                }
-            }
-            if(user != null){
-                session.setAttribute("user", user);
-                req.setAttribute("result_message", "you sign in successfully");
-            }else{
-                req.setAttribute("result_message", "wrong login or password");
-            }
-        }
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/registration_result.jsp");
         requestDispatcher.forward(req,resp);
 

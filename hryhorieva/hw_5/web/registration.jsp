@@ -24,10 +24,10 @@
                                 <div class="title">Registration:</div>
                             </div>
                             <div class="col-md-4 col-sm-6 col-12">
-                                <input type="text" name="new_user_login" placeholder="your login">
+                                <input type="text" name="user_login" placeholder="your login">
                             </div>
                             <div class="col-md-4 col-sm-6 col-12">
-                                <input type="password" name="new_user_password" placeholder="your password">
+                                <input type="password" name="user_password" placeholder="your password">
                             </div>
                             <div class="col-md-4 col-sm-6 col-12">
                                 <input type="submit" class="button" value="send">
@@ -36,7 +36,7 @@
                     </form>
                 </div>
                 <div class="tab_text p-4">
-                    <form action="/registration" method="post" name="singin">
+                    <form action="/authorization" method="post" name="singin">
                         <div class="row align-items-center">
                             <div class="col-md-12 col-sm-12 col-12 mb-2">
                                 <div class="title">Sign in:</div>

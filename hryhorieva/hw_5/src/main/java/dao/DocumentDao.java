@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DocumentDao {
     List<Document> selectAll();
-    void insert(Document document, User user);
+    void insert(Document document);
     void deleteById(Integer id);
-    void updateById(Document document, User user);
+    void updateById(Document document);
 }

@@ -18,7 +18,7 @@ public class RegistrationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         User currentUser = (User)request.getSession().getAttribute("user");
         String uri = request.getRequestURI();
-        if(currentUser !=null || uri.equals("/") || uri.equals("/registration") || uri.startsWith("/js") || uri.startsWith("/css")){
+        if(currentUser !=null || uri.equals("/") || uri.equals("/registration") || uri.equals("/authorization") || uri.startsWith("/js") || uri.startsWith("/css")){
             filterChain.doFilter(servletRequest, servletResponse);
         }else{
             ((HttpServletResponse)servletResponse).sendError(HttpServletResponse.SC_FORBIDDEN);

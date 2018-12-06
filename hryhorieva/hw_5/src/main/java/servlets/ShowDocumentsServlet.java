@@ -15,34 +15,43 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
 
-public class AddDocument extends HttpServlet {
+public class ShowDocumentsServlet extends HttpServlet {
     Connection connection = DBConnection.getInstance().getConnection();
     JDBCDocumentDao documentDao = new JDBCDocumentDao(connection);
+
     @Override
     public void init() throws ServletException {
-        System.out.print("init");
+        System.out.print("init show");
         super.init();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/add.jsp");
+        List<Document> documents = documentDao.selectAll();
+        req.setAttribute("documents", documents);
+        RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/show_docs.jsp");
         requestDispatcher.forward(req,resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("document_name");
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer id = Integer.valueOf(req.getParameter("id"));
+        documentDao.deleteById(id);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer id = Integer.valueOf(req.getParameter("id"));
+        String name = req.getParameter("name");
         HttpSession session = req.getSession();
         User user = (User)session.getAttribute("user");
-        documentDao.insert(new Document(name), user);
-        System.out.print(name);
-        resp.sendRedirect(req.getContextPath() + "/documents");
+        Document document = new Document(id, name, user);
+        documentDao.updateById(document);
     }
 
     @Override
     public void destroy() {
-        System.out.print("destroy");
+        System.out.print("destroy show");
         super.destroy();
     }
 

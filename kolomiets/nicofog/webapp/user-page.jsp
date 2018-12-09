@@ -22,6 +22,8 @@ and create date accaunt: <c:out value="${user.dateRegistration}"/>
 <div class="smoke-info">
     <div id="trow"></div>
     <button id="smoke">Smoke</button>
+    <div id="time">${user.cigarette.lastSmokeTime}</div>
+    <div id="count">You smoke ${user.cigarette.allCigarettesSmoke} cigarettes for ${user.cigarettePrice*user.cigarette.allCigarettesSmoke/20} money</div>
 </div>
 
 <!-- Navigation -->

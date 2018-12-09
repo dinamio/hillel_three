@@ -27,6 +27,9 @@
             <column name="last_smoke_time" type="varchar(23)" defaultValue="">
                 <constraints nullable="false"/>
             </column>
+                <column name="average_time" type="int" defaultValue="0">
+                    <constraints nullable="false"/>
+                </column>
             <column name="level" type="int" defaultValue="0">
                 <constraints nullable="false"/>
             </column>
@@ -37,6 +40,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <addAutoIncrement tableName="cigarette" columnName="id" columnDataType="int"/>
         <addForeignKeyConstraint baseTableName="user" baseColumnNames="cigarette_id" constraintName="ucfk"
                                  referencedTableName="cigarette" referencedColumnNames="id"/>
     </changeSet>

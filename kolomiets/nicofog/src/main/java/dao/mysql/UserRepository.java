@@ -1,6 +1,7 @@
 package dao.mysql;
 
 import dao.CRUDbase;
+import entity.Cigarette;
 import entity.User;
 
 import java.sql.PreparedStatement;
@@ -18,16 +19,21 @@ public class UserRepository extends MySqlProvider implements CRUDbase<User> {
      * Add user in base. Return null if user don't added, else - user
      */
     public User add(User user) {
+        Cigarette cigarette = new CigaretteRepository().add(new Cigarette());
         try {
-            String prepareQuery = "INSERT INTO user (name, role, registration_date, password, cigarette_price)  VALUES (?,?,?,?,?);";
+            String prepareQuery = "INSERT INTO user (name, role, registration_date, password, cigarette_price, cigarette_id)" +
+                    "  VALUES (?,?,?,?,?,?);";
             PreparedStatement ps = getConnection().prepareStatement(prepareQuery);
             ps.setString(1, user.getName());
             ps.setString(2, user.getRole());
             ps.setString(3, user.getDateRegistration());
             ps.setString(4, user.getPassword());
             ps.setInt(5, user.getCigarettePrice());
+            ps.setInt(6, (int) cigarette.getId());
             ps.execute();
-            return getByName(user.getName());
+            user = getByName(user.getName());
+            user.setCigarette(cigarette);
+            return user;
         } catch (SQLException e) {
             System.out.println("Cant add new user in base course" + e.toString());
         }
@@ -44,6 +50,7 @@ public class UserRepository extends MySqlProvider implements CRUDbase<User> {
             user.setRole(resultSet.getString("role"));
             user.setCigarettePrice(resultSet.getInt("cigarette_price"));
             user.setDateRegistration(resultSet.getString("registration_date"));
+            user.setCigaretteId(resultSet.getInt("cigarette_id"));
             return user;
         } catch (SQLException e) {
             return null;
@@ -67,6 +74,7 @@ public class UserRepository extends MySqlProvider implements CRUDbase<User> {
                 user.setCigarettePrice(resultSet.getInt("cigarette_price"));
                 user.setDateRegistration(resultSet.getString("registration_date"));
                 user.setPassword(resultSet.getString("password"));
+                user.setCigaretteId(resultSet.getInt("cigarette_id"));
                 return user;
             }
         } catch (SQLException e) {
@@ -130,6 +138,7 @@ public class UserRepository extends MySqlProvider implements CRUDbase<User> {
                 user.setRole(queryResult.getString("role"));
                 user.setCigarettePrice(queryResult.getInt("cigarette_price"));
                 user.setDateRegistration(queryResult.getString("registration_date"));
+                user.setCigaretteId(queryResult.getInt("cigarette_id"));
 
                 userList.add(user);
             }

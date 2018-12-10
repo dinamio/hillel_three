@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -37,6 +38,7 @@ public class RegistrationServlet extends HttpServlet {
         String new_login = req.getParameter("user_login");
         String new_password = req.getParameter("user_password");
         HttpSession session = req.getSession();
+        System.out.print(new_login + new_password);
 
         if((new_login != null) && (new_password != null)){
             if(userDao.getByLogin(new_login) == null){
@@ -49,7 +51,6 @@ public class RegistrationServlet extends HttpServlet {
                 req.setAttribute("result_message", "this login is already used");
             }
         }
-
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/registration_result.jsp");
         requestDispatcher.forward(req,resp);
 

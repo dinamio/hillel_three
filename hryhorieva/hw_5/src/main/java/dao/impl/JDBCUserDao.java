@@ -22,16 +22,6 @@ public class JDBCUserDao implements UserDao {
 
     public JDBCUserDao(Connection connection) {
         this.connection = connection;
-        createTable();
-    }
-
-    private void createTable(){
-        try {
-            Statement statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS users (id int PRIMARY KEY AUTO_INCREMENT, login varchar(255) NOT NULL UNIQUE, password varchar(255) NOT NULL);");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public List<User> selectAll() {
@@ -118,6 +108,10 @@ public class JDBCUserDao implements UserDao {
             }
 
             rs = preparedStatement.executeQuery();
+            if(!rs.isBeforeFirst()){
+                return null;
+            }
+
             rs.first();
 
             User currentUser = new User();

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
+                   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+                   xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
+
+    <changeSet id="1" author="hryhorieva">
+        <createTable tableName="users">
+            <column name="id" type="int"></column>
+            <column name="login" type="varchar(100)"></column>
+            <column name="password" type="varchar(100)"></column>
+        </createTable>
+        <addPrimaryKey tableName="users" columnNames="id"/>
+        <addAutoIncrement tableName="users" columnName="id" columnDataType="int"/>
+        <addNotNullConstraint tableName="users" columnName="login" columnDataType="varchar(100)"/>
+        <addNotNullConstraint tableName="users" columnName="password" columnDataType="varchar(100)"/>
+        <sql>ALTER TABLE users CONVERT TO CHARACTER SET utf8_unicode_ci;</sql>
+    </changeSet>
+    <changeSet id="2" author="hryhorieva">
+        <createTable tableName="documents">
+            <column name="id" type="int" autoIncrement="1"></column>
+            <column name="name" type="varchar(100)"></column>
+            <column name="date" type="timestamp"></column>
+            <column name="user" type="int"></column>
+        </createTable>
+        <addPrimaryKey tableName="documents" columnNames="id"/>
+        <addForeignKeyConstraint baseTableName="documents" baseColumnNames="user" constraintName="" referencedTableName="users"
+                                 referencedColumnNames="id"/>
+        <addAutoIncrement tableName="documents" columnName="id" columnDataType="int"/>
+        <addNotNullConstraint tableName="documents" columnName="name" columnDataType="varchar(100)"/>
+        <addNotNullConstraint tableName="documents" columnName="date" columnDataType="timestamp"/>
+        <addNotNullConstraint tableName="documents" columnName="user" columnDataType="int"/>
+    </changeSet>
+</databaseChangeLog>

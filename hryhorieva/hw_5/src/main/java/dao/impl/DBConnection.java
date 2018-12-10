@@ -1,7 +1,8 @@
 package dao.impl;
 
-import entity.ConnectionDataStorage;
-
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,22 +10,24 @@ import java.util.Properties;
 
 public class DBConnection {
     private static DBConnection _instance = null;
-    private ConnectionDataStorage connectionData = new ConnectionDataStorage();
     private Connection connection;
+    private Properties property = new Properties();
+    private String driver;
+    private String url;
+    private String user;
+    private String password;
+
 
     private DBConnection(){
+        getConnectionData();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(this.driver);
         } catch (ClassNotFoundException e) {
             System.out.println("There are some problems with driver loading");
         }
 
         try {
-            Properties properties = new Properties();
-            properties.setProperty("user", connectionData.getUser());
-            properties.setProperty("password", connectionData.getPassword());
-            properties.setProperty("useSSL", "false");
-            this.connection = DriverManager.getConnection("jdbc:mysql://" + connectionData.getHost() +"/" +connectionData.getDatabase() + "?serverTimezone=Europe/Kiev", properties);
+            this.connection = DriverManager.getConnection(this.url, this.user, this.password);
         } catch (SQLException e) {
             System.out.println("failed connection");
         }
@@ -37,5 +40,23 @@ public class DBConnection {
     }
     public Connection getConnection(){
         return this.connection;
+    }
+
+    private void getConnectionData(){
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(getClass().getResource("/liquibase/liquibase.properties").getPath());
+            property.load(fis);
+            this.driver = property.getProperty("driver");
+            this.url = property.getProperty("url");
+            this.user = property.getProperty("username");
+            this.password = property.getProperty("password");
+            fis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

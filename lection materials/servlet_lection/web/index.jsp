@@ -18,7 +18,6 @@
     <button class="btn" pet-id="${pet.id}">Add age</button>
     <br/>
 </c:forEach>
-<%=request.getAttribute("name")%>
 <form action="/registration" method="post">
     Enter your name: <input name="first_name">
     <button> Send</button>

@@ -1,8 +1,9 @@
 package service;
 
+import dao.PetDao;
+import dao.impl.JdbcPetDaoImpl;
 import model.Pet;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,24 +11,26 @@ import java.util.List;
  */
 public class PetService {
 
-    List<Pet> pets = new ArrayList<Pet>();
+    PetDao petDao = new JdbcPetDaoImpl();
 
     public PetService() {
-        pets.add(new Pet(1, "Mosha", 6));
-        pets.add(new Pet(2, "Tuzik", 1));
-        pets.add(new Pet(3, "Kesha", 2));
+
     }
 
     public List<Pet> getAllPets() {
-        return pets;
+        return petDao.findAll();
+    }
+
+    public List<Pet> getAllPetsByName(String name) {
+        return petDao.findPetsByName(name);
     }
 
     public void addOneYear(Integer id) {
-        for (int i = 0; i < pets.size(); i++) {
+        /*for (int i = 0; i < pets.size(); i++) {
             Pet pet = pets.get(i);
             if (pet.getId().equals(id)) {
                 pet.setAge(pet.getAge() + 1);
             }
-        }
+        }*/
     }
 }

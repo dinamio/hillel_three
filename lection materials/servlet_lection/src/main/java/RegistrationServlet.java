@@ -1,3 +1,5 @@
+import service.PetService;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -8,10 +10,12 @@ import java.io.IOException;
  */
 public class RegistrationServlet extends HttpServlet {
 
+    PetService petService = new PetService();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.setAttribute("user", req.getParameter("first_name"));
+        req.setAttribute("pets", petService.getAllPetsByName(req.getParameter("first_name")));
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/greeting.jsp");
         Cookie cookie = new Cookie("userName" , req.getParameter("first_name"));
         cookie.setMaxAge(60);

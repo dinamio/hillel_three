@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="1"
+               author="jimmy">
+        <createTable tableName="pet">
+            <column name="id" type="int"></column>
+            <column name="name" type="varchar(20)"></column>
+            <column name="age" type="int"></column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="jimmy">
+        <addUniqueConstraint tableName="pet" columnNames="id"/>
+    </changeSet>
+    <changeSet id="3" author="jimmy">
+        <addDefaultValue tableName="pet" columnName="age" defaultValue="10"/>
+    </changeSet>
+    <changeSet id="4" author="jimmy">
+        <addNotNullConstraint tableName="pet" columnName="id" columnDataType="int"></addNotNullConstraint>
+    </changeSet>
+    <changeSet id="5" author="jimmy">
+        <addAutoIncrement tableName="pet" columnName="id" columnDataType="int"></addAutoIncrement>
+    </changeSet>
+
+</databaseChangeLog>

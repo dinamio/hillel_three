@@ -52,7 +52,6 @@ public class AuthorizationServlet extends HttpServlet {
         }
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/registration_result.jsp");
         requestDispatcher.forward(req,resp);
-
     }
 
 

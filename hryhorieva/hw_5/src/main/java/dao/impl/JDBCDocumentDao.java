@@ -17,17 +17,8 @@ public class JDBCDocumentDao implements DocumentDao {
     public JDBCDocumentDao(Connection connection) {
         this.connection = connection;
         this.userDao = new JDBCUserDao(connection);
-        createTable();
     }
 
-    private void createTable(){
-        try {
-            Statement statement = connection.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS documents (id int PRIMARY KEY AUTO_INCREMENT, name varchar(255) NOT NULL UNIQUE, date timestamp NOT NULL, user int NOT NULL, FOREIGN KEY (user) REFERENCES users(id))");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public List<Document> selectAll() {
         List<Document> documentList = new ArrayList<Document>();

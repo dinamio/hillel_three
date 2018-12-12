@@ -20,39 +20,42 @@
     <table border="0" class="table table-hover">
         <tr>
             <td>Адрес</td>
-            <td><input autocomplete="off" type="text" name="address" value="${appartment.address}" /></td>
+            <td><input autocomplete="off" type="text" name="address" value="${appartment.address}"/></td>
         </tr>
         <tr>
             <td>Тип</td>
             <td>
                 <%--<input autocomplete="off" type="text" name="typeEstate" value="${appartment.typeEstate}" />--%>
-            <select name="typeEstate" type="text">
-                <option value="Квартира">Квартира</option>
-                <option value="Дом">Дом</option>
-                <option value="Нежилой фонд">Нежилой фонд</option>
-            </select>
+                <select name="typeEstate" type="text">
+                    <option value="Квартира">Квартира</option>
+                    <option value="Дом">Дом</option>
+                    <option value="Нежилой фонд">Нежилой фонд</option>
+                </select>
             </td>
         </tr>
         <tr>
             <td>Этаж</td>
-            <td><input pattern="^[ 0-9]+$" autocomplete="off" type="text" name="floor" value="${appartment.floor}" /></td>
+            <td><input pattern="^[ 0-9]+$" autocomplete="off" type="text" name="floor" value="${appartment.floor}"/>
+            </td>
         </tr>
         <tr>
             <td>Количество комнат</td>
-            <td><input pattern="^[ 0-9]+$" autocomplete="off" type="text" name="countOfRoom" value="${appartment.countOfRoom}" /></td>
+            <td><input pattern="^[ 0-9]+$" autocomplete="off" type="text" name="countOfRoom"
+                       value="${appartment.countOfRoom}"/></td>
         </tr>
         <tr>
             <td>Размер</td>
-            <td><input pattern="^[ 0-9]+$" autocomplete="off" type="text" name="size" value="${appartment.size}" /></td>
+            <td><input pattern="^[ 0-9]+$" autocomplete="off" type="text" name="size" value="${appartment.size}"/></td>
         </tr>
         <tr>
             <td>Дополнительня информация</td>
-            <td><input autocomplete="off" type="text" name="additionalDescription" value="${appartment.additionalDescription}" /></td>
+            <td><input autocomplete="off" type="text" name="additionalDescription"
+                       value="${appartment.additionalDescription}"/></td>
         </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" class="btn btn-primary" value="Добавить" />
-                <a href="/allApartments.jsp">Отменить</a>
+                <input type="submit" class="btn btn-primary" value="Добавить"/>
+                <a href="/allApartments.jspts.jsp">Отменить</a>
             </td>
         </tr>
     </table>

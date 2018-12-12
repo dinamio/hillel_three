@@ -1,6 +1,6 @@
 package dao;
 
-import entity.Apartments;
+import entity.Apartment;
 
 import java.util.List;
 
@@ -8,12 +8,12 @@ public interface ApartmentsDAO {
 
     public void deleteApartment(int id);
 
-    public void addApartment(Apartments apartment);
+    public void addApartment(Apartment apartment);
 
-    public void updateApartment(Apartments apartment);
+    public void updateApartment(Apartment apartment);
 
-    public Apartments getApartment(int id);
+    public Apartment getApartment(int id);
 
-    public List<Apartments> getAllAppartments();
+    public List<Apartment> getAllAppartments();
 
 }

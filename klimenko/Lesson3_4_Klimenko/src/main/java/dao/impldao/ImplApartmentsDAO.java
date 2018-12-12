@@ -2,7 +2,7 @@ package dao.impldao;
 
 import dao.ApartmentsDAO;
 import dao.MySqlConnector;
-import entity.Apartments;
+import entity.Apartment;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,10 +30,10 @@ public class ImplApartmentsDAO implements ApartmentsDAO {
 
     }
 
-    public void addApartment(Apartments apartment) {
+    public void addApartment(Apartment apartment) {
         String sql = "INSERT INTO `real_estate_agency`.`apartments` (`address`, `typeEstate`, " +
-                "`floor`, `countOfRoom`, `size`, `additionalDescription`) " +
-                "VALUES (?, ?, ?, ?, ?, ?);";
+                "`floor`, `countOfRoom`, `size`, `additionalDescription`, 'user', 'date') " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -44,7 +44,7 @@ public class ImplApartmentsDAO implements ApartmentsDAO {
         }
     }
 
-    public void updateApartment(Apartments apartment) {
+    public void updateApartment(Apartment apartment) {
         String sql = "UPDATE `real_estate_agency`.`apartments` set `address` = ?, `typeEstate` = ?, " +
                 "`floor` = ?, `countOfRoom` = ?, `size` = ?, `additionalDescription` = ? " +
                 " where IDApartments = ?; ";
@@ -59,16 +59,18 @@ public class ImplApartmentsDAO implements ApartmentsDAO {
         }
     }
 
-    public void prepareStatement(PreparedStatement statement, Apartments apartment) throws SQLException {
+    public void prepareStatement(PreparedStatement statement, Apartment apartment) throws SQLException {
         statement.setString(1, apartment.getAddress());
         statement.setString(2, apartment.getTypeEstate());
         statement.setInt(3, apartment.getFloor());
         statement.setInt(4, apartment.getCountOfRoom());
         statement.setInt(5, apartment.getSize());
         statement.setString(6, apartment.getAdditionalDescription());
+        statement.setInt(7, (new ImplUserDAO().getUserByName(apartment.getUser()).getId()));
+        statement.setString(7, apartment.getDate());
     }
 
-    public Apartments getApartment(int id) {
+    public Apartment getApartment(int id) {
         String sql = "SELECT * from `real_estate_agency`.`apartments` where IDApartments = ?;";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -85,7 +87,7 @@ public class ImplApartmentsDAO implements ApartmentsDAO {
         return null;
     }
 
-    public Apartments extractObject(ResultSet resultSet) throws SQLException {
+    public Apartment extractObject(ResultSet resultSet) throws SQLException {
 
         String address = resultSet.getString("address");
         String typeEstate = resultSet.getString("typeEstate");
@@ -94,14 +96,17 @@ public class ImplApartmentsDAO implements ApartmentsDAO {
         int countOfRoom = resultSet.getInt("countOfRoom");
         int IDApartments = resultSet.getInt("IDApartments");
         int size = resultSet.getInt("size");
+        String date = resultSet.getString("date");
+        String user = new ImplUserDAO().getUser(resultSet.getInt("user")).getName();
 
-        return new Apartments(address, typeEstate, floor, countOfRoom, size, additionalDescription, IDApartments);
+        return new Apartment(address, typeEstate, floor, countOfRoom, size, additionalDescription, IDApartments, user, date);
     }
 
-    public List<Apartments> getAllAppartments() {
+    public List<Apartment> getAllAppartments() {
 
-        String sql = "SELECT * from `real_estate_agency`.`apartments`;";
-        ArrayList<Apartments> list = new ArrayList<Apartments>();
+        String sql = "SELECT * from `real_estate_agency`.`apartments` as ap " +
+                "inner JOIN real_estate_agency.users as us on ap.user = us.id;";
+        ArrayList<Apartment> list = new ArrayList<Apartment>();
 
         try {
             Statement statement = connection.createStatement();

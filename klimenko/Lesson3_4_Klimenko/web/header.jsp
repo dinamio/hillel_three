@@ -37,20 +37,36 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="/Appartments">Список объектов</a></li>
-                <li><a href="addAppartment.jsp">Добавить объект</a></li>
+                <li><a href=Appartments/addAppartment.jsp" methods="POST">Добавить объект</a></li>
             </ul>
-            <form class="navbar-form navbar-left" role="search">
+            <form class="navbar-form navbar-right">
+
+                <%
+                    if (session.getAttribute("Name") == null) {
+                %>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Поиск">
+                    Пользователь
+                    <input type="text" class="form-control" placeholder="Пользователь">
                 </div>
-                <button type="submit" class="btn btn-default">Отправить</button>
+                <div class="form-group">
+                    Пароль
+                    <input type="text" class="form-control" placeholder="Пароль">
+                </div>
+                <button type="submit" id="Login" class="btn btn-default">Войти</button>
+                <a href="registration.jsp">Регистрация</a>
+                <%
+                } else {
+                    out.write(session.getAttribute("Name").toString());
+                %>
+                <button type="submit" id="Logout" class="btn btn-default">Выйти</button>
+                <%}%>
             </form>
         </div>
     </div>
 </nav>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
@@ -59,7 +75,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-
 ﻿
 </body>
+<script src="js/main.js">
+</script>
 </html>

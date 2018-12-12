@@ -18,7 +18,7 @@
 <table border="3" class="table table-hover">
     <thead>
     <tr>
-        <th>Адресс</th>
+        <th>Адрес</th>
         <th>Тип</th>
         <th>Этаж</th>
         <th>Количество комнат</th>
@@ -67,19 +67,23 @@
         </tr>
         <tr>
             <td>Тип</td>
-            <td><input autocomplete="off" id="typeEstate" type="text" name="typeEstate" value="${appartment.typeEstate}"/></td>
+            <td><input autocomplete="off" id="typeEstate" type="text" name="typeEstate"
+                       value="${appartment.typeEstate}"/></td>
         </tr>
         <tr>
             <td>Этаж</td>
-            <td><input pattern="^[ 0-9]+$" autocomplete="off" id="floor" type="text" name="floor" value="${appartment.floor}"/></td>
+            <td><input pattern="^[ 0-9]+$" autocomplete="off" id="floor" type="text" name="floor"
+                       value="${appartment.floor}"/></td>
         </tr>
         <tr>
             <td>Количество комнат</td>
-            <td><input pattern="^[ 0-9]+$" autocomplete="off" id="countOfRoom" type="text" name="countOfRoom" value="${appartment.countOfRoom}"/></td>
+            <td><input pattern="^[ 0-9]+$" autocomplete="off" id="countOfRoom" type="text" name="countOfRoom"
+                       value="${appartment.countOfRoom}"/></td>
         </tr>
         <tr>
             <td>Размер</td>
-            <td><input pattern="^[ 0-9]+$" autocomplete="off" id="size" type="text" name="size" value="${appartment.size}"/></td>
+            <td><input pattern="^[ 0-9]+$" autocomplete="off" id="size" type="text" name="size"
+                       value="${appartment.size}"/></td>
         </tr>
         <tr>
             <td>Дополнительня информация</td>

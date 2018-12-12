@@ -1,9 +1,7 @@
 $(document).ready(function () {
-
     $(".edit-btn").click(function () {
         debugger;
         if ($("#edit-div").is(':visible')) {
-            debugger;
             $("#edit-div").hide();
         }
         else {
@@ -21,8 +19,6 @@ $(document).ready(function () {
             $("#size").val($("#" + size).text().trim());
             var additionalDescription = "additionalDescription"+$("#id-for-edit").val();
             $("#additionalDescription").val($("#" + additionalDescription).text().trim());
-
-
         }
     })
 });
@@ -42,7 +38,6 @@ $(document).ready(function () {
             url: url,
             success: function () {
                 if ($("#edit-div").is(':visible')) {
-                    debugger;
                     $("#edit-div").hide();
                     $(location).attr('href', "Appartments");
                 }
@@ -56,13 +51,59 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".del-btn ").click(function () {
         var idApart = $(this).attr("id-apart");
-        debugger;
         $.ajax({
             url: 'Appartments?idApart=' + idApart,
             type: 'delete',
             success: function () {
                 $(location).attr('href', "Appartments");
 
+            }
+        });
+    })
+});
+
+$(document).ready(function () {
+    $("#Login").click(function () {
+        var name = $("#name").val();
+        var password = $("#password").val();
+
+        $.ajax({
+            url: '/UserController?name=' + name + '&password=' + password,
+            type: 'get',
+            success: function () {
+                $(location).attr('href', "Appartments");
+            }
+        });
+    })
+});
+
+$(document).ready(function () {
+    $("#register-btn").click(function () {
+        debugger;
+       var name = $("#name").val();
+       var email = $("#email").val();
+       var password = $("#password").val();
+
+       $.ajax({
+            url: '/UserController',
+            type: 'post',
+            data: {name : name,
+            email:email,
+            password:password},
+            success: function () {
+                $(location).attr('href', "Appartments");
+            }
+        });
+    })
+});
+
+$(document).ready(function () {
+    $("#logout").click(function () {
+        $.ajax({
+            url: '/UserController',
+            type: 'delete',
+            success: function () {
+                $(location).attr('href', "index.jsp");
             }
         });
     })

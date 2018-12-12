@@ -18,18 +18,18 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public List<Document> find() {
-        return documentRepository.find();
+        return documentRepository.findAll();
     }
 
     @Override
     public Document find(long id) {
-        return documentRepository.find(id);
+        return documentRepository.findByID(id);
     }
 
     @Override
-    public Document save(Document document) {
+    public void save(Document document) {
         document.setCreated(LocalDateTime.now());
-        return documentRepository.save(document);
+        documentRepository.save(document);
     }
 
     @Override

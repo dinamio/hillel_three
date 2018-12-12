@@ -1,6 +1,7 @@
 package com.kovalenko.controller.document;
 
 import com.kovalenko.entity.document.Document;
+import com.kovalenko.entity.user.User;
 import com.kovalenko.service.document.DocumentService;
 import com.kovalenko.service.document.impl.DocumentServiceImpl;
 
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,7 +28,6 @@ public class DocumentController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/html;charset=UTF-8");
         RequestDispatcher dispatcher;
         long id = getPathVariable(req.getPathInfo());
 
@@ -45,21 +46,20 @@ public class DocumentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            resp.setContentType("application/html;charset=UTF-8");
-
             String title = req.getParameter("title");
             Document newDocument = new Document();
             newDocument.setTitle(title);
-            newDocument = documentService.save(newDocument);
-
-            req.setAttribute("document", newDocument);
+            HttpSession session = req.getSession();
+            User user = (User) session.getAttribute("user");
+            if (user != null){
+                newDocument.setAuthor(user);
+            }
+            documentService.save(newDocument);
             resp.sendRedirect("/documents");
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/html;charset=UTF-8");
-
         String title = req.getParameter("title");
         Document document = new Document();
         document.setTitle(title);

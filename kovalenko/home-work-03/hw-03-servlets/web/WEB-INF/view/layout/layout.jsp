@@ -12,7 +12,31 @@
 
         </head>
         <body>
+                <nav class=" container navbar navbar-expand-lg navbar-light bg-secondary">
+                        <a class="navbar-brand" href="${pageContext.request.contextPath}/">Home</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
 
+                        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+                        <c:if test="${sessionScope.user != null}">
+                                <ul class="navbar-nav ">
+                                <li class="nav-item dropdown">
+                                <a class="justify-content-end nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <c:out value="${sessionScope.user.name}"/>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-divider"></div>
+                                        <form method="post" action="${pageContext.request.contextPath}/logout" class="dropdown-item">
+                                                <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
+                                </div>
+                                </li>
+                                </ul>
+                        </c:if>
+
+                        </div>
+                </nav>
                 <div role="main" class="container">
                         <jsp:include page="/WEB-INF/view/${param.content}.jsp"/>
                 </div>

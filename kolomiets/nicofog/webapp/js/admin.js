@@ -26,8 +26,12 @@ $(document).ready(function () {
         $.ajax({
             url: '/user-edit?' + paramethers,
             type: 'PUT',
-            success: function () {
-                window.location.replace("/admin-page.jsp");
+            success: function (data) {
+                if (data == 'admin') {
+                    window.location.replace("/admin-page.jsp");
+                } else {
+                    window.location.replace("/user-page.jsp");
+                }
             }
         })
     });

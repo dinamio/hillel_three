@@ -5,16 +5,20 @@ package entity;
  */
 public class User {
 
-    public User(){}
+    public User() {
+    }
 
     private long id;
     private String name;
     private String role;
+    private String password;
+    private long cigaretteId;
+    private Cigarette cigarette;
 
     /**
-     * Price 20 sigarets of user smoke
+     * Price 20 cigarettes of user smoke
      */
-    private Integer sigaretPrice;
+    private Integer cigarettePrice;
 
     /**
      * Represent like LocalDateTime.now() to string value
@@ -45,12 +49,20 @@ public class User {
         this.role = role;
     }
 
-    public Integer getSigaretPrice() {
-        return sigaretPrice;
+    public Integer getCigarettePrice() {
+        return cigarettePrice;
     }
 
-    public void setSigaretPrice(Integer sigaretPrice) {
-        this.sigaretPrice = sigaretPrice;
+    public void setCigarettePrice(Integer cigarettePrice) {
+        this.cigarettePrice = cigarettePrice;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getDateRegistration() {
@@ -59,5 +71,21 @@ public class User {
 
     public void setDateRegistration(String dateRegistration) {
         this.dateRegistration = dateRegistration;
+    }
+
+    public Cigarette getCigarette() {
+        return cigarette;
+    }
+
+    public void setCigarette(Cigarette cigarette) {
+        this.cigarette = cigarette;
+    }
+
+    public long getCigaretteId() {
+        return cigaretteId;
+    }
+
+    public void setCigaretteId(long cigaretteId) {
+        this.cigaretteId = cigaretteId;
     }
 }

@@ -2,6 +2,7 @@ package controller;
 
 import entity.User;
 import org.json.JSONObject;
+import service.CigaretteService;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -18,11 +19,13 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     private UserService userService;
+    private CigaretteService cigaretteService;
 
     @Override
     public void init() throws ServletException {
         super.init();
         userService = new UserService();
+        cigaretteService = new CigaretteService();
     }
 
     /**
@@ -49,6 +52,7 @@ public class LoginServlet extends HttpServlet {
 
         if (user != null) {
             if (password.equals(user.getPassword())) {
+                user.setCigarette(cigaretteService.getById(user.getCigaretteId()));
                 req.getSession().setAttribute("login", user);
                 resp.getWriter().write("ok");
             } else {

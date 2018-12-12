@@ -1,6 +1,7 @@
 package service;
 
 import dao.mysql.UserRepository;
+import entity.Cigarette;
 import entity.User;
 
 import java.time.LocalDateTime;

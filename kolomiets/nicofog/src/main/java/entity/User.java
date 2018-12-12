@@ -12,6 +12,8 @@ public class User {
     private String name;
     private String role;
     private String password;
+    private long cigaretteId;
+    private Cigarette cigarette;
 
     /**
      * Price 20 cigarettes of user smoke
@@ -69,5 +71,21 @@ public class User {
 
     public void setDateRegistration(String dateRegistration) {
         this.dateRegistration = dateRegistration;
+    }
+
+    public Cigarette getCigarette() {
+        return cigarette;
+    }
+
+    public void setCigarette(Cigarette cigarette) {
+        this.cigarette = cigarette;
+    }
+
+    public long getCigaretteId() {
+        return cigaretteId;
+    }
+
+    public void setCigaretteId(long cigaretteId) {
+        this.cigaretteId = cigaretteId;
     }
 }

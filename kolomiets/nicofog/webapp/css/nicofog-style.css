@@ -21,6 +21,12 @@ a {
     right: 10%;
 }
 
+.smoke-info {
+    position: fixed;
+    top: 5%;
+    right: 5%;
+}
+
 .registration-name {
     position: absolute;
     right: 52%;

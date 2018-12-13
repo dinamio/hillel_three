@@ -2,18 +2,21 @@ package com.kovalenko.service.document.impl;
 
 import com.kovalenko.entity.document.Document;
 import com.kovalenko.repository.document.DocumentRepository;
-import com.kovalenko.repository.document.impl.DocumentRepositoryImpl;
 import com.kovalenko.service.document.DocumentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepository;
 
-    public DocumentServiceImpl() {
-        documentRepository = new DocumentRepositoryImpl();
+    @Autowired
+    public DocumentServiceImpl(DocumentRepository documentRepository) {
+        this.documentRepository = documentRepository;
     }
 
     @Override

@@ -51,6 +51,7 @@ public class UserRepository extends MySqlProvider implements CRUDbase<User> {
             user.setCigarettePrice(resultSet.getInt("cigarette_price"));
             user.setDateRegistration(resultSet.getString("registration_date"));
             user.setCigaretteId(resultSet.getInt("cigarette_id"));
+            user.setMoney(resultSet.getInt("money"));
             return user;
         } catch (SQLException e) {
             return null;
@@ -75,6 +76,7 @@ public class UserRepository extends MySqlProvider implements CRUDbase<User> {
                 user.setDateRegistration(resultSet.getString("registration_date"));
                 user.setPassword(resultSet.getString("password"));
                 user.setCigaretteId(resultSet.getInt("cigarette_id"));
+                user.setMoney(resultSet.getInt("money"));
                 return user;
             }
         } catch (SQLException e) {
@@ -101,6 +103,10 @@ public class UserRepository extends MySqlProvider implements CRUDbase<User> {
                 updateInfo.append(",");
             updateInfo.append("cigarette_price = " + user.getCigarettePrice());
         }
+
+        if (updateInfo.length() > 0)
+            updateInfo.append(",");
+        updateInfo.append("money = " + user.getMoney());
 
         try {
             String query = "UPDATE user SET " + updateInfo.toString() + " WHERE id=" + user.getId();
@@ -139,7 +145,7 @@ public class UserRepository extends MySqlProvider implements CRUDbase<User> {
                 user.setCigarettePrice(queryResult.getInt("cigarette_price"));
                 user.setDateRegistration(queryResult.getString("registration_date"));
                 user.setCigaretteId(queryResult.getInt("cigarette_id"));
-
+                user.setMoney(queryResult.getInt("money"));
                 userList.add(user);
             }
         } catch (SQLException e) {

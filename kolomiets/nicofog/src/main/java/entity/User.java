@@ -14,6 +14,7 @@ public class User {
     private String password;
     private long cigaretteId;
     private Cigarette cigarette;
+    private int money;
 
     /**
      * Price 20 cigarettes of user smoke
@@ -87,5 +88,13 @@ public class User {
 
     public void setCigaretteId(long cigaretteId) {
         this.cigaretteId = cigaretteId;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 }

@@ -51,6 +51,7 @@ public class CigaretteRepository extends MySqlProvider implements CRUDbase<Cigar
                 cigarette.setLevel(resultSet.getInt("level"));
                 cigarette.setCigarettesPerDay(resultSet.getInt("cigarettes_per_day"));
                 cigarette.setAllCigarettesSmoke(resultSet.getInt("all_cigarettes_smoke"));
+                cigarette.setOneSecondEconomy(resultSet.getInt("one_second_economy"));
                 return cigarette;
             }
         } catch (SQLException e) {
@@ -66,7 +67,8 @@ public class CigaretteRepository extends MySqlProvider implements CRUDbase<Cigar
                     "average_time=" + cigarette.getAverageTime() + "," +
                     "level=" + cigarette.getLevel() + "," +
                     "cigarettes_per_day=" + cigarette.getCigarettesPerDay() + "," +
-                    "all_cigarettes_smoke=" + cigarette.getAllCigarettesSmoke() + " " +
+                    "all_cigarettes_smoke=" + cigarette.getAllCigarettesSmoke() + "," +
+                    "one_second_economy=" + cigarette.getOneSecondEconomy() + " " +
                     "WHERE id=" + cigarette.getId();
             getConnection().createStatement().execute(sql);
             return cigarette;

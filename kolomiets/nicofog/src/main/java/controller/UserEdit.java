@@ -1,6 +1,7 @@
 package controller;
 
 import entity.User;
+import service.CigaretteService;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -17,11 +18,13 @@ import java.io.IOException;
 public class UserEdit extends HttpServlet {
 
     private UserService userService;
+    private CigaretteService cigaretteService;
 
     @Override
     public void init() throws ServletException {
         super.init();
         userService = new UserService();
+        cigaretteService = new CigaretteService();
     }
 
     @Override
@@ -45,9 +48,11 @@ public class UserEdit extends HttpServlet {
 
         user = userService.update(user);
         if (user != null) {
+            user.setCigarette(cigaretteService.getById(user.getCigaretteId()));
             req.getSession().setAttribute("login", user);
         }
         if ("admin".equals(user.getRole())) {
+
             resp.getWriter().write("admin");
         }
         req.getSession().setAttribute("crud-result", userService.getResultMessage());

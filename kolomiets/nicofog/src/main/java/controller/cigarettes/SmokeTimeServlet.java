@@ -3,6 +3,7 @@ package controller.cigarettes;
 import entity.Cigarette;
 import entity.User;
 import service.CigaretteService;
+import service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,11 +19,13 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/smoke")
 public class SmokeTimeServlet extends HttpServlet {
     private CigaretteService cigaretteService;
+    private UserService userService;
 
     @Override
     public void init() throws ServletException {
         super.init();
         cigaretteService = new CigaretteService();
+        userService = new UserService();
     }
 
     @Override
@@ -32,6 +35,7 @@ public class SmokeTimeServlet extends HttpServlet {
 
         User user = (User) session.getAttribute("login");
         Cigarette cigarette = cigaretteService.updateOnSmoke(user);
+        userService.update(user);
         user.setCigarette(cigarette);
 
         session.setAttribute("login", user);

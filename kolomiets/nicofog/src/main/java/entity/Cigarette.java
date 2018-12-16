@@ -16,6 +16,7 @@ public class Cigarette {
     private int level;
     private int cigarettesPerDay;
     private int allCigarettesSmoke;
+    private int oneSecondEconomy;
 
     public long getId() {
         return id;
@@ -63,5 +64,13 @@ public class Cigarette {
 
     public void setAllCigarettesSmoke(int allCigarettesSmoke) {
         this.allCigarettesSmoke = allCigarettesSmoke;
+    }
+
+    public int getOneSecondEconomy() {
+        return oneSecondEconomy;
+    }
+
+    public void setOneSecondEconomy(int oneSecondEconomy) {
+        this.oneSecondEconomy = oneSecondEconomy;
     }
 }

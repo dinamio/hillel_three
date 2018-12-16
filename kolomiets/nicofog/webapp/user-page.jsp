@@ -17,13 +17,15 @@
 Hello <c:out value="${user.name}"/>
 <br><br>
 You status <c:out value="${user.role}"/><br>
-your 20 sigarets cost <c:out value="${user.cigarettePrice}"/><br>
-and create date accaunt: <c:out value="${user.dateRegistration}"/>
+your 20 cigarettes cost <c:out value="${user.cigarettePrice}"/><br>
+money ${user.money/100}
+
 <div class="smoke-info">
     <div id="trow"></div>
     <button id="smoke">Smoke</button>
     <div id="time">${user.cigarette.lastSmokeTime}</div>
     <div id="count">You smoke ${user.cigarette.allCigarettesSmoke} cigarettes for ${user.cigarettePrice*user.cigarette.allCigarettesSmoke/20} money</div>
+    <div id="economy">${user.cigarette.oneSecondEconomy}</div>
 </div>
 
 <!-- Navigation -->

@@ -44,5 +44,17 @@
         <addForeignKeyConstraint baseTableName="user" baseColumnNames="cigarette_id" constraintName="ucfk"
                                  referencedTableName="cigarette" referencedColumnNames="id"/>
     </changeSet>
+    <changeSet id="2" author="mihail">
+        <addColumn tableName="cigarette">
+            <column name="one_second_economy" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="user">
+            <column name="money" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

@@ -4,6 +4,7 @@ import dao.impl.DBConnection;
 import dao.impl.JDBCDocumentDao;
 import entity.Document;
 import entity.User;
+import services.DocumentService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import java.util.List;
 public class ShowDocumentsServlet extends HttpServlet {
     Connection connection = DBConnection.getInstance().getConnection();
     JDBCDocumentDao documentDao = new JDBCDocumentDao(connection);
+    DocumentService documentService = new DocumentService(documentDao);
 
     @Override
     public void init() throws ServletException {
@@ -46,7 +48,7 @@ public class ShowDocumentsServlet extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User)session.getAttribute("user");
         Document document = new Document(id, name, user);
-        documentDao.updateById(document);
+        documentService.updateById(document);
     }
 
     @Override

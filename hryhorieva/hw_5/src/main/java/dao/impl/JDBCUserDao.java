@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class JDBCUserDao implements UserDao {
+
     Connection connection;
 
     private static final String SELECT_ALL = "SELECT * FROM users ORDER BY id";
@@ -20,6 +21,7 @@ public class JDBCUserDao implements UserDao {
     private static final String INSERT = "INSERT  INTO  users (login, password)  VALUES  (?,?)";
     private static final String DELETE = "DELETE FROM users WHERE id = ?";
 
+    public JDBCUserDao(){}
     public JDBCUserDao(Connection connection) {
         this.connection = connection;
     }

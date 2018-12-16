@@ -4,6 +4,7 @@ import dao.impl.DBConnection;
 import dao.impl.JDBCUserDao;
 import entity.User;
 import org.apache.commons.codec.digest.DigestUtils;
+import services.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class AuthorizationServlet extends HttpServlet {
     Connection connection = DBConnection.getInstance().getConnection();
     JDBCUserDao userDao = new JDBCUserDao(connection);
+    UserService userService = new UserService(userDao);
 
 
     @Override
@@ -39,10 +41,8 @@ public class AuthorizationServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         if((login != null) && (password != null)){
-            User user = null;
-            User currentUser = userDao.getByLoginAndPassword(login, DigestUtils.md5Hex(password));
-            if(currentUser != null){
-                user = currentUser;
+            User user = userService.userAuthorization(new User(login, password));
+            if(user != null){
                 System.out.print(user);
                 session.setAttribute("user", user);
                 req.setAttribute("result_message", "you sign in successfully");

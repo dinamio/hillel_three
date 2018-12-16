@@ -4,6 +4,7 @@ import dao.impl.DBConnection;
 import dao.impl.JDBCDocumentDao;
 import entity.Document;
 import entity.User;
+import services.DocumentService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +19,8 @@ import java.util.List;
 public class AddDocumentServlet extends HttpServlet {
     Connection connection = DBConnection.getInstance().getConnection();
     JDBCDocumentDao documentDao = new JDBCDocumentDao(connection);
+    DocumentService documentService = new DocumentService(documentDao);
+
     @Override
     public void init() throws ServletException {
         System.out.print("init");
@@ -35,7 +38,7 @@ public class AddDocumentServlet extends HttpServlet {
         String name = req.getParameter("document_name");
         HttpSession session = req.getSession();
         User user = (User)session.getAttribute("user");
-        documentDao.insert(new Document(name,user));
+        documentService.newDocument(new Document(name,user));
         System.out.print(name);
         resp.sendRedirect(req.getContextPath() + "/documents");
     }

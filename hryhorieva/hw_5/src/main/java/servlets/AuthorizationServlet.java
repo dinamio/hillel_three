@@ -4,9 +4,12 @@ import dao.impl.DBConnection;
 import dao.impl.JDBCUserDao;
 import entity.User;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import services.UserService;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,15 +20,15 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 public class AuthorizationServlet extends HttpServlet {
-    Connection connection = DBConnection.getInstance().getConnection();
-    JDBCUserDao userDao = new JDBCUserDao(connection);
-    UserService userService = new UserService(userDao);
+    @Autowired
+    UserService userService;
 
 
     @Override
-    public void init() throws ServletException {
-        System.out.print("init authorization");
-        super.init();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        ApplicationContext ac = (ApplicationContext) config.getServletContext().getAttribute("applicationContext");
+        this.userService = ac.getBean(UserService.class);
     }
 
     @Override

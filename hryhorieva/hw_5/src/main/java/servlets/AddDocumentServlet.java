@@ -4,9 +4,14 @@ import dao.impl.DBConnection;
 import dao.impl.JDBCDocumentDao;
 import entity.Document;
 import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 import services.DocumentService;
+import services.UserService;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,15 +21,16 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
 
+
 public class AddDocumentServlet extends HttpServlet {
-    Connection connection = DBConnection.getInstance().getConnection();
-    JDBCDocumentDao documentDao = new JDBCDocumentDao(connection);
-    DocumentService documentService = new DocumentService(documentDao);
+    @Autowired
+    DocumentService documentService;
 
     @Override
-    public void init() throws ServletException {
-        System.out.print("init");
-        super.init();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        ApplicationContext ac = (ApplicationContext) config.getServletContext().getAttribute("applicationContext");
+        this.documentService = ac.getBean(DocumentService.class);
     }
 
     @Override

@@ -3,6 +3,8 @@ package dao.impl;
 import dao.DocumentDao;
 import entity.Document;
 import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 
 import java.sql.*;
@@ -10,20 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+@Repository
 public class JDBCDocumentDao implements DocumentDao {
+    @Autowired
     Connection connection;
+    @Autowired
     JDBCUserDao userDao;
 
     private static final String SELECT_ALL = "SELECT * FROM documents ORDER BY id";
     private static final String INSERT = "INSERT  INTO  documents (name, date, user)  VALUES  (?,?,?)";
     private static final String DELETE_BY_ID = "DELETE FROM documents WHERE id = ?;";
     private static final String UPDATE_BY_ID = "UPDATE documents SET name = ?, user = ? WHERE id = ?;";
-
-    public JDBCDocumentDao(){}
-    public JDBCDocumentDao(Connection connection) {
-        this.connection = connection;
-        this.userDao = new JDBCUserDao(connection);
-    }
 
 
     public List<Document> selectAll() {

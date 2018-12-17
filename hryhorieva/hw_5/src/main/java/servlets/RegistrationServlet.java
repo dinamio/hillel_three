@@ -4,10 +4,15 @@ import dao.impl.DBConnection;
 import dao.impl.JDBCUserDao;
 import entity.User;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 import services.UserService;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,15 +23,16 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+
 public class RegistrationServlet extends HttpServlet {
-    Connection connection = DBConnection.getInstance().getConnection();
-    JDBCUserDao userDao = new JDBCUserDao(connection);
-    UserService userService = new UserService(userDao);
+    @Autowired
+    UserService userService;
 
     @Override
-    public void init() throws ServletException {
-        System.out.print("init registration");
-        super.init();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        ApplicationContext ac = (ApplicationContext) config.getServletContext().getAttribute("applicationContext");
+        this.userService = ac.getBean(UserService.class);
     }
 
     @Override
@@ -41,18 +47,6 @@ public class RegistrationServlet extends HttpServlet {
         String new_password = req.getParameter("user_password");
         HttpSession session = req.getSession();
         System.out.print(new_login + new_password);
-
-//        if((new_login != null) && (new_password != null)){
-//            if(userDao.getByLogin(new_login) == null){
-//                User user = new User(new_login, DigestUtils.md5Hex(new_password));
-//                userDao.insert(user);
-//                User newUser = userDao.getByLoginAndPassword(user.getLogin(), user.getPassword());
-//                session.setAttribute("user", newUser);
-//                req.setAttribute("result_message", "you registered successfully");
-//            }else{
-//                req.setAttribute("result_message", "this login is already used");
-//            }
-//        }
 
         if((new_login != null) && (new_password != null)){
             User newUser = userService.userRegistration(new User(new_login, new_password));

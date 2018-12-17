@@ -3,18 +3,17 @@ package services;
 import dao.impl.JDBCUserDao;
 import entity.User;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class UserService {
+    @Autowired
     JDBCUserDao userDao;
-
-    public UserService(){}
-    public UserService(JDBCUserDao userDao) {
-        this.userDao = userDao;
-    }
 
     public User userRegistration(User user){
         User newUser = null;

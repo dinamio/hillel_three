@@ -3,6 +3,7 @@ package com.kovalenko.repository.user.impl;
 import com.kovalenko.db.DBConnection;
 import com.kovalenko.entity.user.User;
 import com.kovalenko.repository.user.UserRepository;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
     private final static String FIND_ALL_QUERY = "SELECT user_id, name, login FROM users";

@@ -4,11 +4,13 @@ import com.kovalenko.db.DBConnection;
 import com.kovalenko.entity.document.Document;
 import com.kovalenko.entity.user.User;
 import com.kovalenko.repository.document.DocumentRepository;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class DocumentRepositoryImpl implements DocumentRepository {
 
     private final static String FIND_ALL_QUERY = "SELECT d.document_id, d.title, d.created, d.user_id, u.name " +

@@ -2,19 +2,23 @@ package com.kovalenko.service.user.impl;
 
 import com.kovalenko.entity.user.User;
 import com.kovalenko.repository.user.UserRepository;
-import com.kovalenko.repository.user.impl.UserRepositoryImpl;
 import com.kovalenko.service.user.UserService;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl() {
-        this.userRepository = new UserRepositoryImpl();
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
+
 
     @Override
     public List<User> find() {

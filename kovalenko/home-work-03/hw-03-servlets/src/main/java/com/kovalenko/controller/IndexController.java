@@ -1,5 +1,7 @@
 package com.kovalenko.controller;
 
+import org.springframework.stereotype.Controller;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Controller
 @WebServlet(name = "IndexController", urlPatterns = "/index")
 public class IndexController extends HttpServlet {
 

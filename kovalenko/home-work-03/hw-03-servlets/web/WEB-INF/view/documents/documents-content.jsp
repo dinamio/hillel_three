@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="row">
     <div class="col-sm-6 mx-auto mt-3">
         <button class="btn btn-create btn-block btn-success text-center mt-2 mb-2">Create</button>

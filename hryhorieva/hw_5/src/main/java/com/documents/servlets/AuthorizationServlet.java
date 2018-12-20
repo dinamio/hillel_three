@@ -1,12 +1,10 @@
-package servlets;
+package com.documents.servlets;
 
-import dao.impl.DBConnection;
-import dao.impl.JDBCUserDao;
-import entity.User;
-import org.apache.commons.codec.digest.DigestUtils;
+import com.documents.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import services.UserService;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import com.documents.services.impl.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -16,19 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Connection;
-import java.util.ArrayList;
 
+@Component
 public class AuthorizationServlet extends HttpServlet {
     @Autowired
-    UserService userService;
+    UserServiceImpl userServiceImpl;
 
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        ApplicationContext ac = (ApplicationContext) config.getServletContext().getAttribute("applicationContext");
-        this.userService = ac.getBean(UserService.class);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+                config.getServletContext());
     }
 
     @Override
@@ -44,7 +41,7 @@ public class AuthorizationServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         if((login != null) && (password != null)){
-            User user = userService.userAuthorization(new User(login, password));
+            User user = userServiceImpl.userAuthorization(new User(login, password));
             if(user != null){
                 System.out.print(user);
                 session.setAttribute("user", user);

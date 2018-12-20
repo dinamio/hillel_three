@@ -1,7 +1,6 @@
-package dao;
+package com.documents.dao;
 
-import entity.Document;
-import entity.User;
+import com.documents.entity.User;
 
 import java.util.List;
 

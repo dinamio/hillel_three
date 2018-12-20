@@ -1,19 +1,18 @@
-package services;
+package com.documents.services.impl;
 
-import dao.impl.JDBCUserDao;
-import entity.User;
+import com.documents.dao.UserDao;
+import com.documents.entity.User;
+import com.documents.services.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
-    JDBCUserDao userDao;
+    UserDao userDao;
 
     public User userRegistration(User user){
         User newUser = null;

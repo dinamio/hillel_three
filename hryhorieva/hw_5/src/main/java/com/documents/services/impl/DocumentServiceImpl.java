@@ -1,20 +1,22 @@
-package services;
+package com.documents.services.impl;
 
-import dao.impl.JDBCDocumentDao;
-import entity.Document;
+import com.documents.dao.DocumentDao;
+import com.documents.dao.impl.JDBCDocumentDao;
+import com.documents.entity.Document;
+import com.documents.services.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class DocumentService {
+public class DocumentServiceImpl implements DocumentService {
     @Autowired
-    JDBCDocumentDao documentDao;
+    DocumentDao documentDao;
 
-    public DocumentService(){}
-    public DocumentService(JDBCDocumentDao documentDaoDao) {
-        this.documentDao = documentDaoDao;
+    public DocumentServiceImpl(){}
+    public DocumentServiceImpl(JDBCDocumentDao documentDao) {
+        this.documentDao = documentDao;
     }
 
     public List<Document> allDocuments(){

@@ -1,4 +1,4 @@
-package dao.impl;
+package com.documents.dao.impl;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

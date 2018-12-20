@@ -1,12 +1,11 @@
-package servlets;
+package com.documents.servlets;
 
-import dao.impl.DBConnection;
-import dao.impl.JDBCDocumentDao;
-import entity.Document;
-import entity.User;
+import com.documents.entity.Document;
+import com.documents.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import services.DocumentService;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import com.documents.services.impl.DocumentServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -16,23 +15,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.List;
 
+@Component
 public class ShowDocumentsServlet extends HttpServlet {
     @Autowired
-    DocumentService documentService;
+    DocumentServiceImpl documentServiceImpl;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        ApplicationContext ac = (ApplicationContext) config.getServletContext().getAttribute("applicationContext");
-        this.documentService = ac.getBean(DocumentService.class);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+                config.getServletContext());
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Document> documents = documentService.allDocuments();
+        List<Document> documents = documentServiceImpl.allDocuments();
         req.setAttribute("documents", documents);
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/show_docs.jsp");
         requestDispatcher.forward(req,resp);
@@ -41,7 +40,7 @@ public class ShowDocumentsServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer id = Integer.valueOf(req.getParameter("id"));
-        documentService.deleteById(id);
+        documentServiceImpl.deleteById(id);
     }
 
     @Override
@@ -51,7 +50,7 @@ public class ShowDocumentsServlet extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User)session.getAttribute("user");
         Document document = new Document(id, name, user);
-        documentService.updateById(document);
+        documentServiceImpl.updateById(document);
     }
 
     @Override

@@ -1,11 +1,12 @@
-import dao.impl.DBConnection;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+package com.documents;
 
-import javax.annotation.processing.SupportedAnnotationTypes;
+import com.documents.dao.impl.DBConnection;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import java.sql.Connection;
 
-@ComponentScan(basePackages = "services,dao,servlets")
+@Configuration
 public class ApplicationConfig {
 
     @Bean

@@ -1,8 +1,8 @@
-package dao.impl;
+package com.documents.dao.impl;
 
-import dao.DocumentDao;
-import entity.Document;
-import entity.User;
+import com.documents.dao.DocumentDao;
+import com.documents.dao.UserDao;
+import com.documents.entity.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,14 +10,13 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 @Repository
 public class JDBCDocumentDao implements DocumentDao {
     @Autowired
     Connection connection;
     @Autowired
-    JDBCUserDao userDao;
+    UserDao userDao;
 
     private static final String SELECT_ALL = "SELECT * FROM documents ORDER BY id";
     private static final String INSERT = "INSERT  INTO  documents (name, date, user)  VALUES  (?,?,?)";

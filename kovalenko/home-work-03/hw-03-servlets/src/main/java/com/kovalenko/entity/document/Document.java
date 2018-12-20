@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -13,6 +15,8 @@ import java.time.LocalDateTime;
 public class Document {
 
     private long id;
+    @NotNull
+    @NotEmpty
     private String title;
     private LocalDateTime created;
     private User author;

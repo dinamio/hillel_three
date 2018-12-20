@@ -1,30 +1,30 @@
-package servlets;
+package com.documents.servlets;
 
-import dao.impl.DBConnection;
-import dao.impl.JDBCUserDao;
-import entity.User;
-import org.apache.commons.codec.digest.DigestUtils;
+import com.documents.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import com.documents.services.impl.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.util.ArrayList;
 
+@Component
 public class RegistrationServlet extends HttpServlet {
-    Connection connection = DBConnection.getInstance().getConnection();
-    JDBCUserDao userDao = new JDBCUserDao(connection);
+    @Autowired
+    UserServiceImpl userServiceImpl;
 
     @Override
-    public void init() throws ServletException {
-        System.out.print("init registration");
-        super.init();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+                config.getServletContext());
     }
 
     @Override
@@ -41,10 +41,8 @@ public class RegistrationServlet extends HttpServlet {
         System.out.print(new_login + new_password);
 
         if((new_login != null) && (new_password != null)){
-            if(userDao.getByLogin(new_login) == null){
-                User user = new User(new_login, DigestUtils.md5Hex(new_password));
-                userDao.insert(user);
-                User newUser = userDao.getByLoginAndPassword(user.getLogin(), user.getPassword());
+            User newUser = userServiceImpl.userRegistration(new User(new_login, new_password));
+            if(newUser != null){
                 session.setAttribute("user", newUser);
                 req.setAttribute("result_message", "you registered successfully");
             }else{

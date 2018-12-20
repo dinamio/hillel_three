@@ -1,17 +1,18 @@
-package dao.impl;
+package com.documents.dao.impl;
 
-import dao.DocumentDao;
-import dao.UserDao;
-import entity.Document;
-import entity.User;
+import com.documents.dao.UserDao;
+import com.documents.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+@Repository
 public class JDBCUserDao implements UserDao {
-    Connection connection;
+    @Autowired
+    private Connection connection;
 
     private static final String SELECT_ALL = "SELECT * FROM users ORDER BY id";
     private static final String SELECT_BY_LOGIN_AND_PASSWORD = "SELECT * FROM users WHERE login = ? AND password = ?";
@@ -20,9 +21,6 @@ public class JDBCUserDao implements UserDao {
     private static final String INSERT = "INSERT  INTO  users (login, password)  VALUES  (?,?)";
     private static final String DELETE = "DELETE FROM users WHERE id = ?";
 
-    public JDBCUserDao(Connection connection) {
-        this.connection = connection;
-    }
 
     public List<User> selectAll() {
         List<User> userList = new ArrayList<User>();

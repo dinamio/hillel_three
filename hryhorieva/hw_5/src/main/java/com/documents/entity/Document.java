@@ -1,7 +1,6 @@
-package entity;
+package com.documents.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Document {
     private Integer id;

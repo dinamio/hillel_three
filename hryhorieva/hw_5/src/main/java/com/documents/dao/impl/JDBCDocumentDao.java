@@ -1,32 +1,35 @@
-package dao.impl;
+package com.documents.dao.impl;
 
-import dao.DocumentDao;
-import entity.Document;
-import entity.User;
+import com.documents.dao.DocumentDao;
+import com.documents.dao.UserDao;
+import com.documents.entity.Document;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
+@Repository
 public class JDBCDocumentDao implements DocumentDao {
+    @Autowired
     Connection connection;
-    JDBCUserDao userDao;
+    @Autowired
+    UserDao userDao;
 
-    public JDBCDocumentDao(Connection connection) {
-        this.connection = connection;
-        this.userDao = new JDBCUserDao(connection);
-    }
+    private static final String SELECT_ALL = "SELECT * FROM documents ORDER BY id";
+    private static final String INSERT = "INSERT  INTO  documents (name, date, user)  VALUES  (?,?,?)";
+    private static final String DELETE_BY_ID = "DELETE FROM documents WHERE id = ?;";
+    private static final String UPDATE_BY_ID = "UPDATE documents SET name = ?, user = ? WHERE id = ?;";
 
 
     public List<Document> selectAll() {
         List<Document> documentList = new ArrayList<Document>();
         ResultSet rs = null;
         try {
-            String selectDataStatement = "SELECT * FROM documents ORDER BY id";
             Statement statement = connection.createStatement();
-            rs = statement.executeQuery(selectDataStatement);
+            rs = statement.executeQuery(SELECT_ALL);
             while (rs.next()) {
                 Document document = new Document();
                 document.setId(rs.getInt("id"));
@@ -45,8 +48,7 @@ public class JDBCDocumentDao implements DocumentDao {
 
     public void insert(Document document) {
         try {
-            String insertQueryStatement = "INSERT  INTO  documents (name, date, user)  VALUES  (?,?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(insertQueryStatement);
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT);
             preparedStatement.setString(1, document.getName());
             preparedStatement.setTimestamp(2,document.getDate());
             preparedStatement.setInt(3, document.getUser().getId());
@@ -60,8 +62,7 @@ public class JDBCDocumentDao implements DocumentDao {
 
     public void deleteById(Integer id) {
         try {
-            String deleteQueryStatement = "DELETE FROM documents WHERE id = ?;";
-            PreparedStatement preparedStatement = connection.prepareStatement(deleteQueryStatement);
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BY_ID);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -72,8 +73,7 @@ public class JDBCDocumentDao implements DocumentDao {
 
     public void updateById(Document document) {
         try {
-            String updateQueryStatement = "UPDATE documents SET name = ?, user = ? WHERE id = ?;";
-            PreparedStatement preparedStatement = connection.prepareStatement(updateQueryStatement);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_BY_ID);
             preparedStatement.setString(1, document.getName());
             preparedStatement.setInt(2, document.getUser().getId());
             preparedStatement.setInt(3, document.getId());

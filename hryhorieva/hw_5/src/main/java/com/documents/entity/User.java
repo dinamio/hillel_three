@@ -1,4 +1,4 @@
-package entity;
+package com.documents.entity;
 
 public class User {
     private Integer id;

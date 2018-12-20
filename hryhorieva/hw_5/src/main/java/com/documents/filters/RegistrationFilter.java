@@ -1,6 +1,6 @@
-package filters;
+package com.documents.filters;
 
-import entity.User;
+import com.documents.entity.User;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

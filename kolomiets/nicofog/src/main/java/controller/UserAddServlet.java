@@ -20,7 +20,7 @@ public class UserAddServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        userService = new UserService();
+        userService = AppContext.getSpringContext().getBean(UserService.class);
     }
 
     @Override

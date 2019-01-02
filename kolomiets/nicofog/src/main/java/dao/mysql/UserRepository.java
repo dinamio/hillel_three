@@ -3,6 +3,7 @@ package dao.mysql;
 import dao.CRUDbase;
 import entity.Cigarette;
 import entity.User;
+import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  * Created by mihail on 11/9/18.
  */
+@Component
 public class UserRepository extends MySqlProvider implements CRUDbase<User> {
 
     /**

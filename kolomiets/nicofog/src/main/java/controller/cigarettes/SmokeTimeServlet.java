@@ -1,5 +1,6 @@
 package controller.cigarettes;
 
+import controller.AppContext;
 import entity.Cigarette;
 import entity.User;
 import service.CigaretteService;
@@ -22,7 +23,7 @@ public class SmokeTimeServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        cigaretteService = new CigaretteService();
+        cigaretteService = AppContext.getSpringContext().getBean(CigaretteService.class);
     }
 
     @Override

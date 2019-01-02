@@ -1,7 +1,7 @@
 package controller;
 
 import entity.User;
-import org.json.JSONObject;
+import org.springframework.context.ApplicationContext;
 import service.CigaretteService;
 import service.UserService;
 
@@ -24,8 +24,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        userService = new UserService();
-        cigaretteService = new CigaretteService();
+        ApplicationContext context = AppContext.getSpringContext();
+        userService = context.getBean(UserService.class);
+        cigaretteService = context.getBean(CigaretteService.class);
     }
 
     /**

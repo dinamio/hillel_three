@@ -1,8 +1,10 @@
 package service;
 
 import dao.mysql.UserRepository;
-import entity.Cigarette;
 import entity.User;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,14 +12,12 @@ import java.util.List;
 /**
  * Created by mihail on 11/10/18.
  */
+@Service
 public class UserService {
 
+    @Autowired
     private UserRepository userRepository;
     private String resultMessage;
-
-    public UserService() {
-        userRepository = new UserRepository();
-    }
 
     /**
      * Bridge with controller and repository

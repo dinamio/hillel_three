@@ -1,8 +1,11 @@
 package controller;
 
 import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import service.UserService;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +19,13 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/user-edit/*")
 public class UserEdit extends HttpServlet {
 
+    @Autowired
     private UserService userService;
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        userService = AppContext.getSpringContext().getBean(UserService.class);
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
     }
 
     @Override

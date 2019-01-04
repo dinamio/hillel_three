@@ -2,8 +2,11 @@ package controller.cigarettes;
 
 import entity.Cigarette;
 import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import service.CigaretteService;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,12 +20,13 @@ import java.io.IOException;
  */
 @WebServlet(urlPatterns = "/smoke")
 public class SmokeTimeServlet extends HttpServlet {
+    @Autowired
     private CigaretteService cigaretteService;
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        cigaretteService = new CigaretteService();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
     }
 
     @Override

@@ -2,6 +2,7 @@ package dao.mysql;
 
 import dao.CRUDbase;
 import entity.Cigarette;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 /**
  * Created by mihail on 12/9/18.
  */
+@Repository
 public class CigaretteRepository extends MySqlProvider implements CRUDbase<Cigarette> {
 
     private String throwableMessage;

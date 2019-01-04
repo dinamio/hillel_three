@@ -3,22 +3,22 @@ package service;
 import dao.mysql.CigaretteRepository;
 import entity.Cigarette;
 import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 /**
  * Created by mihail on 12/9/18.
  */
+@Service
 public class CigaretteService {
 
+    @Autowired
     private CigaretteRepository cigaretteRepository;
 
-    public CigaretteService() {
-        cigaretteRepository = new CigaretteRepository();
-    }
-
     /**
-     *  Avoid when user smoke cigarette
+     * Avoid when user smoke cigarette
      */
     public Cigarette updateOnSmoke(User user) {
         Cigarette cigarette = user.getCigarette();

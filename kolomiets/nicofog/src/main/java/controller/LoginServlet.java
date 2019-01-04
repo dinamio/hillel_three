@@ -1,10 +1,12 @@
 package controller;
 
 import entity.User;
-import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import service.CigaretteService;
 import service.UserService;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,14 +20,15 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
+    @Autowired
     private UserService userService;
+    @Autowired
     private CigaretteService cigaretteService;
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        userService = new UserService();
-        cigaretteService = new CigaretteService();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
     }
 
     /**

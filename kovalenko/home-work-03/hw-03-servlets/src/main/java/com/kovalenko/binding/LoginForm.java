@@ -2,16 +2,13 @@ package com.kovalenko.binding;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Data
 public class LoginForm {
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String login;
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String password;
 }

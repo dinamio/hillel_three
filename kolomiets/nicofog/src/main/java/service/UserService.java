@@ -6,6 +6,7 @@ import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -55,8 +56,26 @@ public class UserService {
         user = userRepository.update(user);
         resultMessage = user == null ?
                 "User null can't update" :
-                "User " + user.getName() + " success updated";
+                user.getRole();
         return user;
+    }
+
+    public User login(User user) {
+        resultMessage = "";
+        String userName = user.getName();
+        String password = user.getPassword();
+        user = getByName(userName);
+        if (user == null) {
+            resultMessage = "User " + userName + " no exist";
+        } else {
+            if (!user.getPassword().equals(password)) {
+                resultMessage = "Incorrect password";
+            } else {
+                resultMessage = "ok";
+                return user;
+            }
+        }
+        return null;
     }
 
     public User getByName(String name) {

@@ -20,17 +20,20 @@ $(document).ready(function () {
     $("#confirm_edit").click(function () {
 
         var paramethers = 'id=' + $("#user_id").val() +
-            '&userName=' + $("#user_name").val() +
+            '&name=' + $("#user_name").val() +
             '&role=' + $("#role").val() +
-            '&price=' + $("#price").val();
+            '&cigarettePrice=' + $("#price").val();
         $.ajax({
-            url: '/user-edit?' + paramethers,
+            name: 'edit',
+            url: "/user-edit?" + paramethers,
             type: 'PUT',
             success: function (data) {
                 if (data == 'admin') {
                     window.location.replace("/admin-page.jsp");
-                } else {
+                } else if (data == 'user') {
                     window.location.replace("/user-page.jsp");
+                } else {
+                    $("#about-edit").text("Can't change user " + $("#user_name").val())
                 }
             }
         })

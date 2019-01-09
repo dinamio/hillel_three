@@ -21,11 +21,12 @@ $(document).ready(function () {
             validation = 'Price may be digit, like 30 or 23'
         } else {
             //all ok
-            var param = "?username=" + name +
+            var param = "?name=" + name +
                 "&password=" + CryptoJS.MD5(password) +
-                "&price=" + price;
+                "&cigarettePrice=" + price;
 
             $.ajax({
+                name: 'registration',
                 url: "/user-add" + param,
                 type: 'POST',
                 success: function (data) {

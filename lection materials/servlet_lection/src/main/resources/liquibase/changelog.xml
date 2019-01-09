@@ -8,23 +8,23 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     <changeSet id="1"
                author="jimmy">
-        <createTable tableName="pet">
+        <createTable tableName="pets">
             <column name="id" type="int"></column>
-            <column name="name" type="varchar(20)"></column>
+            <column name="pet_name" type="varchar(20)"></column>
             <column name="age" type="int"></column>
         </createTable>
     </changeSet>
     <changeSet id="2" author="jimmy">
-        <addUniqueConstraint tableName="pet" columnNames="id"/>
+        <addUniqueConstraint tableName="pets" columnNames="id"/>
     </changeSet>
     <changeSet id="3" author="jimmy">
-        <addDefaultValue tableName="pet" columnName="age" defaultValue="10"/>
+        <addDefaultValue tableName="pets" columnName="age" defaultValue="10"/>
     </changeSet>
     <changeSet id="4" author="jimmy">
-        <addNotNullConstraint tableName="pet" columnName="id" columnDataType="int"></addNotNullConstraint>
+        <addNotNullConstraint tableName="pets" columnName="id" columnDataType="int"></addNotNullConstraint>
     </changeSet>
     <changeSet id="5" author="jimmy">
-        <addAutoIncrement tableName="pet" columnName="id" columnDataType="int"></addAutoIncrement>
+        <addAutoIncrement tableName="pets" columnName="id" columnDataType="int"></addAutoIncrement>
     </changeSet>
 
 </databaseChangeLog>

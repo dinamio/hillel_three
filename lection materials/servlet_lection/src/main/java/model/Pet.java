@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+
 /**
  * Created by eugen on 11/14/18.
  */
@@ -12,11 +14,23 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "pets")
 public class Pet {
 
-    Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    String name;
+    //@Column(name = "pet_name")
+    private String name;
 
-    Integer age;
+    private Integer age;
+
+
+    public Pet(Integer id) {
+        this.id = id;
+    }
+
+
 }

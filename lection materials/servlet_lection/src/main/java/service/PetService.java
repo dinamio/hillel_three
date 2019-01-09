@@ -1,7 +1,7 @@
 package service;
 
 import dao.PetDao;
-import dao.impl.JdbcPetDaoImpl;
+import dao.impl.HibernatePetDao;
 import model.Pet;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class PetService {
 
-    PetDao petDao = new JdbcPetDaoImpl();
+    PetDao petDao = new HibernatePetDao();
 
     public PetService() {
 
@@ -32,5 +32,13 @@ public class PetService {
                 pet.setAge(pet.getAge() + 1);
             }
         }*/
+    }
+
+    public void savePet(Pet pet) {
+        petDao.insert(pet);
+    }
+
+    public void deletePet(Integer id) {
+        petDao.delete(id);
     }
 }

@@ -15,11 +15,12 @@
 <c:forEach var="pet" items="${pets}">
     <c:out value="${pet.name}"/>
     <c:out value="${pet.age}"/>
-    <button class="btn" pet-id="${pet.id}">Add age</button>
+    <button class="btn" pet-id="${pet.id}">Delete</button>
     <br/>
 </c:forEach>
 <form action="/registration" method="post">
     Enter your name: <input name="first_name">
+    Enter your age: <input name="age">
     <button> Send</button>
 </form>
 </body>

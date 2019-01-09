@@ -30,7 +30,7 @@ public class HelloWorldServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        petService.addOneYear(Integer.valueOf(id));
+        petService.deletePet(Integer.valueOf(id));
 
     }
 }

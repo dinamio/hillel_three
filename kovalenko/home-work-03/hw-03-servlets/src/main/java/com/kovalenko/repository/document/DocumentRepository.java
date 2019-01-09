@@ -5,7 +5,7 @@ import com.kovalenko.entity.document.Document;
 import java.util.List;
 
 public interface DocumentRepository {
-    List<Document> findAll();
+    List<Document> findAll(long userID);
     Document findByID(long id);
     void save(Document document);
     Document update(long id, Document document);

@@ -5,6 +5,7 @@ import com.kovalenko.entity.user.User;
 import com.kovalenko.service.document.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class DocumentController {
@@ -24,9 +26,12 @@ public class DocumentController {
     }
 
     @RequestMapping(value = "/documents", method = RequestMethod.GET)
-    public ModelAndView find() {
+    public ModelAndView find(HttpSession session) {
         ModelAndView view = new ModelAndView("documents/documents");
-        view.addObject("documents", documentService.find());
+        User user = (User) session.getAttribute("user");
+        if (user != null){
+            view.addObject("documents", documentService.find(user));
+        }
         return view;
     }
 
@@ -45,14 +50,26 @@ public class DocumentController {
     }
 
     @RequestMapping(value = "/documents", method = RequestMethod.POST)
-    public ModelAndView create(@ModelAttribute("document") Document document,
+    public ModelAndView create(@Valid @ModelAttribute("document") Document document,
+                               BindingResult bindingResult,
                                HttpSession session) {
+
+        ModelAndView view = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            view.addObject("document", document);
+            view.addAllObjects(bindingResult.getModel());
+            view.setViewName("documents/document-create");
+            return view;
+        }
+
         User author = (User) session.getAttribute("user");
         if (author != null){
             document.setAuthor(author);
         }
         documentService.save(document);
-        return new ModelAndView("redirect:/documents");
+        view.setViewName("redirect:/documents");
+        return view;
     }
 
     @RequestMapping(value = "/documents/{documentID}/update", method = RequestMethod.GET)
@@ -64,9 +81,21 @@ public class DocumentController {
 
     @RequestMapping(value = "/documents/{documentID}", method = RequestMethod.PUT)
     public ModelAndView update(@PathVariable(value = "documentID") long documentID,
-                               @ModelAttribute("document") Document document) {
+                               @Valid @ModelAttribute("document") Document document,
+                               BindingResult bindingResult) {
+
+        ModelAndView view = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            view.addObject("document", document);
+            view.addAllObjects(bindingResult.getModel());
+            view.setViewName("documents/document-update");
+            return view;
+        }
+
         documentService.update(documentID, document);
-        return new ModelAndView("redirect:/documents/" + documentID);
+        view.setViewName("redirect:/documents/" + documentID);
+        return view;
     }
 
     @RequestMapping(value = "/documents/{documentID}", method = RequestMethod.DELETE)

@@ -5,12 +5,14 @@ import com.kovalenko.entity.user.User;
 import com.kovalenko.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class AuthController {
@@ -30,10 +32,19 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@ModelAttribute("loginForm") LoginForm loginForm,
+    public ModelAndView login(@Valid @ModelAttribute("loginForm") LoginForm loginForm,
+                              BindingResult bindingResult,
                               HttpSession session) {
 
         ModelAndView view = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            view.addObject("loginForm", loginForm);
+            view.addAllObjects(bindingResult.getModel());
+            view.setViewName("auth/login");
+            return view;
+        }
+
         User user = userService.getUserByCredentials(loginForm.getLogin(), loginForm.getPassword());
 
         if (user == null) {
@@ -61,9 +72,18 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView register(@ModelAttribute("user") User user) {
+    public ModelAndView register(@Valid @ModelAttribute("user") User user,
+                                 BindingResult bindingResult) {
 
         ModelAndView view = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            view.addObject("user", user);
+            view.addAllObjects(bindingResult.getModel());
+            view.setViewName("auth/register");
+            return view;
+        }
+
         User userWithSameLogin = userService.getUserByLogin(user.getLogin());
 
         if (userWithSameLogin == null) {

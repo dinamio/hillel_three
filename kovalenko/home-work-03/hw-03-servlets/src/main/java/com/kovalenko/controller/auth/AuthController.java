@@ -41,7 +41,7 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             view.addObject("loginForm", loginForm);
             view.addAllObjects(bindingResult.getModel());
-            view.setViewName("redirect:/login");
+            view.setViewName("auth/login");
             return view;
         }
 
@@ -80,7 +80,7 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             view.addObject("user", user);
             view.addAllObjects(bindingResult.getModel());
-            view.setViewName("redirect:/register");
+            view.setViewName("auth/register");
             return view;
         }
 

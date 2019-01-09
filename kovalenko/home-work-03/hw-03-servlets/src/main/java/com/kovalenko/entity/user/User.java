@@ -3,8 +3,7 @@ package com.kovalenko.entity.user;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotBlank;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 public class User {
 
     private long id;
-
     @NotBlank
     private String name;
     @NotBlank

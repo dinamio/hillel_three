@@ -1,8 +1,7 @@
 package com.kovalenko.binding;
 
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Data
 public class LoginForm {

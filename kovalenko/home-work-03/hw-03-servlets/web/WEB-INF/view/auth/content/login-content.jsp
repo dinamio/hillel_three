@@ -13,12 +13,14 @@
                         <form:label path="login" class="col-sm-4 col-form-label">Login:</form:label>
                         <div class="col-sm-8">
                             <form:input type="text" class="form-control" path="login" id="login"  />
+                            <form:errors path="login" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <form:label path="password" class="col-sm-4 col-form-label">Password:</form:label>
                         <div class="col-sm-8">
                             <form:input type="password" class="form-control" path="password" id="password" />
+                            <form:errors path="password" />
                         </div>
                     </div>
                     <div class="form-group row">

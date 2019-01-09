@@ -26,9 +26,12 @@ public class DocumentController {
     }
 
     @RequestMapping(value = "/documents", method = RequestMethod.GET)
-    public ModelAndView find() {
+    public ModelAndView find(HttpSession session) {
         ModelAndView view = new ModelAndView("documents/documents");
-        view.addObject("documents", documentService.find());
+        User user = (User) session.getAttribute("user");
+        if (user != null){
+            view.addObject("documents", documentService.find(user));
+        }
         return view;
     }
 

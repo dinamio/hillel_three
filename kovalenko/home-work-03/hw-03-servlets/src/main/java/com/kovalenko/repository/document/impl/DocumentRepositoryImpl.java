@@ -14,14 +14,15 @@ import java.util.List;
 public class DocumentRepositoryImpl implements DocumentRepository {
 
     private final static String FIND_ALL_QUERY = "SELECT d.document_id, d.title, d.created, d.user_id, u.name " +
-            "FROM documents d INNER JOIN users u ON d.user_id = u.user_id";
-    private final static String FIND_BY_ID_QUERY = FIND_ALL_QUERY.concat(" WHERE d.document_id = ?");
+            "FROM documents d INNER JOIN users u ON d.user_id = u.user_id WHERE u.user_id = ?";
+    private final static String FIND_BY_ID_QUERY = "SELECT d.document_id, d.title, d.created, d.user_id, u.name " +
+            "FROM documents d INNER JOIN users u ON d.user_id = u.user_id WHERE d.document_id = ?";
     private final static String INSERT_QUERY = "INSERT INTO documents (title, created, user_id) VALUES (?, ?, ?)";
     private final static String UPDATE_QUERY = "UPDATE documents SET title = ? WHERE document_id = ?";
     private final static String DELETE_QUERY = "DELETE FROM documents WHERE document_id = ?";
 
     @Override
-    public List<Document> findAll() {
+    public List<Document> findAll(long userID) {
         List<Document> documents = new ArrayList<>();
         Connection connection;
         PreparedStatement pstm;
@@ -29,6 +30,7 @@ public class DocumentRepositoryImpl implements DocumentRepository {
         try {
             connection = DBConnection.getConnection();
             pstm = connection.prepareStatement(FIND_ALL_QUERY);
+            pstm.setLong(1, userID);
             ResultSet rs = pstm.executeQuery();
             Document document;
             while (rs.next()) {

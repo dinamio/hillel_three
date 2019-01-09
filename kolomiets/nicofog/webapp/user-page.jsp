@@ -28,7 +28,7 @@ and create date accaunt: <c:out value="${user.dateRegistration}"/>
 
 <!-- Navigation -->
 <div class="menu" id="mainNav">
-    <a href="/login">exit</a>
+    <a href="" id="logout">exit</a>
     | <a href="edit-user.jsp">edit</a>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

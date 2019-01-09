@@ -15,7 +15,7 @@
         <addAutoIncrement tableName="users" columnName="id" columnDataType="int"/>
         <addNotNullConstraint tableName="users" columnName="login" columnDataType="varchar(100)"/>
         <addNotNullConstraint tableName="users" columnName="password" columnDataType="varchar(100)"/>
-        <sql>ALTER TABLE users CONVERT TO CHARACTER SET utf8_unicode_ci;</sql>
+        <!--<sql>ALTER TABLE users CONVERT TO CHARACTER SET utf8_unicode_ci;</sql>-->
     </changeSet>
     <changeSet id="2" author="hryhorieva">
         <createTable tableName="documents">

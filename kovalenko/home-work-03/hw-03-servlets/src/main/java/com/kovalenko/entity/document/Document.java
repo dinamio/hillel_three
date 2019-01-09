@@ -4,6 +4,7 @@ import com.kovalenko.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 public class Document {
 
     private long id;
+    @NotBlank
     private String title;
     private LocalDateTime created;
     private User author;

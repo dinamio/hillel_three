@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) {
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
         return userRepository.save(user);
     }
 

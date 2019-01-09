@@ -1,6 +1,7 @@
 package com.kovalenko.service.document.impl;
 
 import com.kovalenko.entity.document.Document;
+import com.kovalenko.entity.user.User;
 import com.kovalenko.repository.document.DocumentRepository;
 import com.kovalenko.service.document.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<Document> find() {
-        return documentRepository.findAll();
+    public List<Document> find(User user) {
+        return documentRepository.findAll(user.getId());
     }
 
     @Override

@@ -8,9 +8,10 @@ $(document).ready(function () {
         password = CryptoJS.MD5(password);
         $("#view").text('Need start server side');
 
-        var param = '?username=' + username +
+        var param = '?name=' + username +
             '&password=' + password;
         $.ajax({
+            name: 'login',
             url: '/login' + param,
             type: 'POST',
             success: function (data) {

@@ -15,7 +15,9 @@
 </c:if>
 
 <form action="/user-add" method="post">
-    <input type="text" name="username" placeholder="Input user name">
+    <input type="text" name="name" placeholder="Input user name">
+    <input type="hidden" name="password" value="343b1c4a3ea721b2d640fc8700db0f36">
+    <input type="hidden" name="cigarettePrice" value="25">
     <input type="submit" value="Add in base">
 </form>
 <form action="user-get-all">

@@ -35,10 +35,9 @@ public class UserController {
         return userService.getResultMessage();
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String logout() {
-        request.setAttribute("login", null);
-        return "redirect:/";
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public void logout() {
+        request.getSession().setAttribute("login", null);
     }
 
     @ResponseBody
@@ -56,13 +55,13 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user-delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") int id) {
         userService.delete(id);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user-edit", method = RequestMethod.PUT)
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
     public String edit(@ModelAttribute("edit")User user){
         user = userService.update(user);
         if (user != null) {

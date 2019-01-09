@@ -32,7 +32,7 @@
 </div>
 <!-- Navigation -->
 <div class="menu" id="mainNav">
-    <a href="/">main page</a> |
+    <a href="user-page.jsp">main page</a> |
     <a href="admin-page.jsp">admin page</a>
 </div>
 

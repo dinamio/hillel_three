@@ -6,7 +6,7 @@ function userDelete(id, userName) {
     $(document).ready(function () {
 
         $.ajax({
-            url: "/user-delete/" + id,
+            url: "/user/" + id,
             type: 'DELETE',
             success: function () {
                 $("#result").text("User " + userName + " deleted");
@@ -25,7 +25,7 @@ $(document).ready(function () {
             '&cigarettePrice=' + $("#price").val();
         $.ajax({
             name: 'edit',
-            url: "/user-edit?" + paramethers,
+            url: "/user?" + paramethers,
             type: 'PUT',
             success: function (data) {
                 if (data == 'admin') {

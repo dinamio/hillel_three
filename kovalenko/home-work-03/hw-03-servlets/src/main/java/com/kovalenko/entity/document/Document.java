@@ -25,7 +25,7 @@ public class Document {
     private String title;
     private LocalDateTime created;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
 }

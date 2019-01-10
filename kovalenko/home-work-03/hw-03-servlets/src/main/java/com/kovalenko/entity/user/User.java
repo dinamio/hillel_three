@@ -28,7 +28,7 @@ public class User {
     @NotBlank
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "author")
     private List<Document> documents;
 
     public User(long id, String name) {

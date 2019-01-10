@@ -4,6 +4,7 @@ import com.kovalenko.db.DBConnection;
 import com.kovalenko.entity.document.Document;
 import com.kovalenko.entity.user.User;
 import com.kovalenko.repository.document.DocumentRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -11,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class DocumentRepositoryImpl implements DocumentRepository {
+@Qualifier("jdbcDocumentRepositoryImpl")
+public class JdbcDocumentRepositoryImpl implements DocumentRepository {
 
     private final static String FIND_ALL_QUERY = "SELECT d.document_id, d.title, d.created, d.user_id, u.name " +
             "FROM documents d INNER JOIN users u ON d.user_id = u.user_id WHERE u.user_id = ?";

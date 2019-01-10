@@ -5,6 +5,7 @@ import com.kovalenko.entity.user.User;
 import com.kovalenko.repository.document.DocumentRepository;
 import com.kovalenko.service.document.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ public class DocumentServiceImpl implements DocumentService {
     private final DocumentRepository documentRepository;
 
     @Autowired
-    public DocumentServiceImpl(DocumentRepository documentRepository) {
+    public DocumentServiceImpl(@Qualifier(value = "hibernateDocumentRepositoryImpl") DocumentRepository documentRepository) {
         this.documentRepository = documentRepository;
     }
 

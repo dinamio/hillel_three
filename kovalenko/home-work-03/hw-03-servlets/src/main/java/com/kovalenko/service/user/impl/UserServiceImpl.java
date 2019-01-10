@@ -5,6 +5,7 @@ import com.kovalenko.repository.user.UserRepository;
 import com.kovalenko.service.user.UserService;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(@Qualifier(value = "hibernateUserRepositoryImpl") UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

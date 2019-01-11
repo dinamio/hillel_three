@@ -14,8 +14,15 @@
                     <div class="form-group row">
                         <form:label path="title" class="col-sm-4 col-form-label">Document title</form:label>
                         <div class="col-sm-8">
-                            <form:input type="text" class="form-control" path="title" value="${document.title}" id="title"/>
+                            <form:input type="text" class="form-control" path="title" id="title"/>
                             <form:errors path="title" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <form:label path="description" class="col-sm-4 col-form-label">Document description</form:label>
+                        <div class="col-sm-8">
+                            <form:input type="text" class="form-control" path="description" id="description"/>
+                            <form:errors path="description" />
                         </div>
                     </div>
                     <div class="form-group row float-right">

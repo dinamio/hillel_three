@@ -1,10 +1,12 @@
 package com.kovalenko.controller.document;
 
+import com.kovalenko.binding.UploadDocument;
 import com.kovalenko.entity.document.Document;
 import com.kovalenko.entity.user.User;
 import com.kovalenko.service.document.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 public class DocumentController {
@@ -45,12 +49,12 @@ public class DocumentController {
     @RequestMapping(value = "/documents/create", method = RequestMethod.GET)
     public ModelAndView create() {
         ModelAndView view = new ModelAndView("documents/document-create");
-        view.addObject("document", new Document());
+        view.addObject("document", new UploadDocument());
         return view;
     }
 
     @RequestMapping(value = "/documents", method = RequestMethod.POST)
-    public ModelAndView create(@Valid @ModelAttribute("document") Document document,
+    public ModelAndView create(@Valid @ModelAttribute("document") UploadDocument document,
                                BindingResult bindingResult,
                                HttpSession session) {
 
@@ -65,9 +69,8 @@ public class DocumentController {
 
         User author = (User) session.getAttribute("user");
         if (author != null){
-            document.setAuthor(author);
+            documentService.save(author, document);
         }
-        documentService.save(document);
         view.setViewName("redirect:/documents");
         return view;
     }
@@ -94,7 +97,7 @@ public class DocumentController {
         }
 
         documentService.update(documentID, document);
-        view.setViewName("redirect:/documents/" + documentID);
+        view.setViewName("redirect:/documents");
         return view;
     }
 
@@ -102,5 +105,21 @@ public class DocumentController {
     public ModelAndView delete(@PathVariable(value = "documentID") long documentID) {
         documentService.delete(documentID);
         return new ModelAndView("redirect:/documents");
+    }
+
+    @RequestMapping(value = { "/documents/{documentID}/download" }, method = RequestMethod.GET)
+    public ModelAndView download(@PathVariable(value = "documentID") long documentID,
+                                 HttpServletResponse response) throws IOException {
+
+        ModelAndView view = new ModelAndView();
+        view.setViewName("redirect:/documents");
+        Document document = documentService.find(documentID);
+
+        response.setContentType(document.getType());
+        response.setContentLength(document.getContent().length);
+        response.setHeader("Content-Disposition","attachment; filename=\"" + document.getTitle() +"\"");
+        FileCopyUtils.copy(document.getContent(), response.getOutputStream());
+
+        return view;
     }
 }

@@ -64,6 +64,7 @@ public class HibernateDocumentRepositoryImpl implements DocumentRepository {
             Document existDocument = session.find(Document.class, id);
             if (existDocument != null) {
                 existDocument.setTitle(document.getTitle());
+                existDocument.setDescription(document.getDescription());
                 session.update(existDocument);
                 transaction.commit();
                 return findByID(existDocument.getId());

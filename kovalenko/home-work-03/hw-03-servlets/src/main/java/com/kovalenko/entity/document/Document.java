@@ -23,7 +23,14 @@ public class Document {
 
     @NotBlank
     private String title;
+    private String type;
+    @NotBlank
+    private String description;
     private LocalDateTime created;
+
+    @Lob
+    @Column(name = "content", columnDefinition="BLOB")
+    private byte[] content;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

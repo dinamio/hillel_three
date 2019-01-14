@@ -9,11 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created by mihail on 12/9/18.
  */
-@Repository
+@Repository(value = "cigaretteMysql")
 public class CigaretteRepository extends MySqlProvider implements CRUDbase<Cigarette> {
 
     private String throwableMessage;
@@ -79,6 +80,11 @@ public class CigaretteRepository extends MySqlProvider implements CRUDbase<Cigar
         return null;
     }
 
+    @Override
+    public List<Cigarette> getAll() {
+        return null;
+    }
+
     public boolean deleteById(long id) {
         try {
             String sql = "DELETE FROM cigarette WHERE id=?";
@@ -91,6 +97,7 @@ public class CigaretteRepository extends MySqlProvider implements CRUDbase<Cigar
         return false;
     }
 
+    @Override
     public String getThrowableMessage() {
         return throwableMessage;
     }

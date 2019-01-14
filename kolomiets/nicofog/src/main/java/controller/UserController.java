@@ -4,7 +4,6 @@ import entity.Cigarette;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import service.CigaretteService;
 import service.UserService;
@@ -26,11 +25,10 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public String login(@ModelAttribute("login")User user){
+    public String login(@ModelAttribute("login") User user) {
         user = userService.login(user);
         if (user != null) {
             request.getSession().setAttribute("login", user);
-            user.setCigarette(cigaretteService.getById(user.getCigaretteId()));
         }
         return userService.getResultMessage();
     }
@@ -42,7 +40,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/user-add", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("registration")User user){
+    public String registration(@ModelAttribute("registration") User user) {
         user = userService.addUser(user);
 
         if (user != null) {
@@ -62,10 +60,9 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public String edit(@ModelAttribute("edit")User user){
+    public String edit(@ModelAttribute("edit") User user) {
         user = userService.update(user);
         if (user != null) {
-            user.setCigarette(cigaretteService.getById(user.getCigaretteId()));
             request.getSession().setAttribute("login", user);
         }
         return userService.getResultMessage();
@@ -80,7 +77,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/smoke", method = RequestMethod.GET)
     public void smoke() {
-        User user = (User)request.getSession().getAttribute("login");
+        User user = (User) request.getSession().getAttribute("login");
         Cigarette cigarette = cigaretteService.updateOnSmoke(user);
         user.setCigarette(cigarette);
         request.getSession().setAttribute("login", user);

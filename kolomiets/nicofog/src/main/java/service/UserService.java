@@ -1,12 +1,13 @@
 package service;
 
-import dao.mysql.UserRepository;
+import dao.CRUDbase;
+import entity.Cigarette;
 import entity.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,7 +18,8 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    @Qualifier(value = "userHibernate")
+    private CRUDbase<User> userRepository;
     private String resultMessage;
 
     /**
@@ -29,6 +31,9 @@ public class UserService {
         user.setRole("user");
         user.setDateRegistration(LocalDateTime.now().toString());
         if (userRepository.getByName(user.getName()) == null) {
+            Cigarette cigarette = new Cigarette();
+            cigarette.setLastSmokeTime(LocalDateTime.now());
+            user.setCigarette(cigarette);
             user = userRepository.add(user);
         } else {
             resultMessage = "user " + user.getName() + " is exist";

@@ -1,9 +1,10 @@
 package service;
 
-import dao.mysql.CigaretteRepository;
+import dao.CRUDbase;
 import entity.Cigarette;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,8 +15,12 @@ import java.time.LocalDateTime;
 @Service
 public class CigaretteService {
 
+    /**
+     * Change Qualifier: "cigaretteHibernate" of "cigaretteMysql" for implement one
+     */
     @Autowired
-    private CigaretteRepository cigaretteRepository;
+    @Qualifier(value = "cigaretteHibernate")
+    private CRUDbase<Cigarette> cigaretteRepository;
 
     /**
      * Avoid when user smoke cigarette

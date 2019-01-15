@@ -1,11 +1,20 @@
 package com.documents.entity;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name="documents")
 public class Document {
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private Timestamp date;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user")
     private User user;
 
 

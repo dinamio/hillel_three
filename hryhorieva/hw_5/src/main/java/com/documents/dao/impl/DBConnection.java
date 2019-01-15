@@ -45,11 +45,11 @@ public class DBConnection {
     private void getConnectionData(){
         FileInputStream fis;
         try {
-            fis = new FileInputStream(getClass().getResource("/liquibase/liquibase.properties").getPath());
+            fis = new FileInputStream(getClass().getResource("/config.properties").getPath());
             property.load(fis);
             this.driver = property.getProperty("driver");
             this.url = property.getProperty("url");
-            this.user = property.getProperty("username");
+            this.user = property.getProperty("db.username");
             this.password = property.getProperty("password");
             fis.close();
         } catch (FileNotFoundException e) {

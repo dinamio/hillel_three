@@ -1,9 +1,20 @@
 package com.documents.entity;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name="users")
 public class User {
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String login;
     private String password;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Document> documents;
 
     public User() {
     }
@@ -35,6 +46,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
     }
 
     @Override

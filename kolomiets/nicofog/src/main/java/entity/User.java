@@ -21,6 +21,7 @@ public class User {
     private String password;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Cigarette cigarette;
+    private Integer money;
 
     /**
      * Price 20 cigarettes of user smoke
@@ -90,4 +91,11 @@ public class User {
         this.cigarette = cigarette;
     }
 
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
 }

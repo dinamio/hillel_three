@@ -7,6 +7,8 @@
 <head>
     <title>Admin page</title>
     <link href="css/nicofog-style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 </head>
 <body class="masthead">
 

@@ -29,6 +29,7 @@ public class UserService {
     public User addUser(User user) {
 
         user.setRole("user");
+        user.setMoney(0);
         user.setDateRegistration(LocalDateTime.now().toString());
         if (userRepository.getByName(user.getName()) == null) {
             Cigarette cigarette = new Cigarette();

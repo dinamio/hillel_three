@@ -8,6 +8,7 @@ $(document).ready(function () {
         var confirmPass = $("#cpass").val();
         var price = $("#price").val();
 
+        var show = $("#regResult");
         var validation;
 
         if (name == '') {
@@ -21,6 +22,19 @@ $(document).ready(function () {
             validation = 'Price may be digit, like 30 or 23'
         } else {
             //all ok
+            var effect = true;
+            var outBuf = "";
+            setInterval(function () {
+                if (effect) {
+                    if (outBuf.length == 0) {
+                        outBuf = "===========";
+                        show.text("Please wait. We register " + name);
+                    } else {
+                        outBuf = outBuf.substr(0, outBuf.length - 2);
+                        show.text("~~" + outBuf + "|===|");
+                    }
+                }
+            }, 500);
             var param = "?name=" + name +
                 "&password=" + CryptoJS.MD5(password) +
                 "&cigarettePrice=" + price;
@@ -31,7 +45,8 @@ $(document).ready(function () {
                 type: 'POST',
                 success: function (data) {
                     if (data != 'ok') {
-                        $("#regResult").text(data)
+                        effect = false;
+                        show.text(data)
                     } else {
                         window.location.replace("/user-page.jsp");
                     }
@@ -39,7 +54,7 @@ $(document).ready(function () {
             });
         }
 
-        $("#regResult").text(validation);
+        show.text(validation);
 
     })
 });

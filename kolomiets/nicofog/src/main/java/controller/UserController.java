@@ -4,12 +4,13 @@ import entity.Cigarette;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import service.CigaretteService;
+import service.UserLevel;
 import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 /**
  * Created by mihail on 1/6/19.
@@ -26,11 +27,11 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public String login(@ModelAttribute("login")User user){
+    public String login(@ModelAttribute("login") User user) {
         user = userService.login(user);
         if (user != null) {
             request.getSession().setAttribute("login", user);
-            user.setCigarette(cigaretteService.getById(user.getCigaretteId()));
+            request.getSession().setAttribute("next", nextDateLevel(user));
         }
         return userService.getResultMessage();
     }
@@ -42,11 +43,12 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/user-add", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("registration")User user){
+    public String registration(@ModelAttribute("registration") User user) {
         user = userService.addUser(user);
 
         if (user != null) {
             request.getSession().setAttribute("login", user);
+            request.getSession().setAttribute("next", nextDateLevel(user));
             request.getSession().setAttribute("crud-result", userService.getResultMessage());
             return "ok";
         } else {
@@ -62,10 +64,9 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public String edit(@ModelAttribute("edit")User user){
+    public String edit(@ModelAttribute("edit") User user) {
         user = userService.update(user);
         if (user != null) {
-            user.setCigarette(cigaretteService.getById(user.getCigaretteId()));
             request.getSession().setAttribute("login", user);
         }
         return userService.getResultMessage();
@@ -80,9 +81,23 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/smoke", method = RequestMethod.GET)
     public void smoke() {
-        User user = (User)request.getSession().getAttribute("login");
+        User user = (User) request.getSession().getAttribute("login");
         Cigarette cigarette = cigaretteService.updateOnSmoke(user);
         user.setCigarette(cigarette);
         request.getSession().setAttribute("login", user);
+        request.getSession().setAttribute("next", nextDateLevel(user));
     }
+
+    private LocalDateTime nextDateLevel(User user) {
+        LocalDateTime out = LocalDateTime.parse(user.getDateRegistration());
+        UserLevel userLevel = UserLevel.ZERO.getByValue(user.getCigarette().getLevel());
+
+        if (userLevel != UserLevel.NINE) {
+            userLevel = userLevel.getByValue(userLevel.getValue() + 1);
+            out = out.plusDays(userLevel.getDayAfterRegistration());
+        }
+
+        return out;
+    }
+
 }

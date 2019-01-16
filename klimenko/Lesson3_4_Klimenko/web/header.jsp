@@ -37,7 +37,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="/Appartments">Список объектов</a></li>
-                <li><a href=Appartments/addAppartment.jsp" methods="POST">Добавить объект</a></li>
+                <li><a href="addAppartment.jsp" methods="GET">Добавить объект</a></li>
             </ul>
             <form class="navbar-form navbar-right">
 
@@ -46,11 +46,11 @@
                 %>
                 <div class="form-group">
                     Пользователь
-                    <input type="text" class="form-control" placeholder="Пользователь">
+                    <input type="text" id="name" class="form-control" placeholder="Пользователь">
                 </div>
                 <div class="form-group">
                     Пароль
-                    <input type="text" class="form-control" placeholder="Пароль">
+                    <input type="text" id="password" class="form-control" placeholder="Пароль">
                 </div>
                 <button type="submit" id="Login" class="btn btn-default">Войти</button>
                 <a href="registration.jsp">Регистрация</a>

@@ -95,7 +95,10 @@
                 <button id="edit-button" class="btn btn-primary">
                     Подтвердить
                 </button>
-                <a href="/allApartments.jsp">Cancel</a>
+                <button id="cancel-button"  class="btn btn-danger">
+                    Отменить
+                </button>
+                <%--<a href="/allApartments.jsp">Cancel</a>--%>
             </td>
         </tr>
     </table>

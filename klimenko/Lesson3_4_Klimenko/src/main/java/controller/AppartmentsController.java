@@ -4,7 +4,11 @@ import dao.ApartmentsDAO;
 import dao.impldao.ImplApartmentsDAO;
 import dao.impldao.ImplUserDAO;
 import entity.Apartment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,14 +18,19 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//@Component
 @WebServlet(name = "Appartments", urlPatterns = {"/appartments/*"})
 public class AppartmentsController extends HttpServlet {
 
+//    @Autowired
     ApartmentsDAO apartmentDAO;
 
     @Override
-    public void init() throws ServletException {
-        apartmentDAO = new ImplApartmentsDAO();
+    public void init(ServletConfig config) throws ServletException {
+          apartmentDAO = new ImplApartmentsDAO();
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+                config.getServletContext());
+
     }
 
     @Override

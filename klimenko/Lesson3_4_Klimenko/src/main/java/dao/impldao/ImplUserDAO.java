@@ -3,17 +3,19 @@ package dao.impldao;
 import dao.MySqlConnector;
 import dao.UserDAO;
 import entity.User;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class ImplUserDAO implements UserDAO {
     private Connection connection;
 
     public ImplUserDAO() {
         this.connection = MySqlConnector.getDbConnection();
-        ;
     }
 
     public void deleteUser(int id) {

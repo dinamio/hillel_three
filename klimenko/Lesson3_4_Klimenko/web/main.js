@@ -5,25 +5,25 @@ $(document).ready(function () {
         //     $("#edit-div").hide();
         // }
         // else {
-        $("#edit-div").show();
-        $("#id-for-edit").val($(this).attr("id-apart"));
-        var adress = "adress"+$("#id-for-edit").val();
-        $("#address").val($("#" + adress).text().trim());
-        var typeEstate = "typeEstate"+$("#id-for-edit").val();
-        $("#typeEstate").val($("#" + typeEstate).text().trim());
-        var floor = "floor"+$("#id-for-edit").val();
-        $("#floor").val($("#" + floor).text().trim());
-        var countOfRoom = "countOfRoom"+$("#id-for-edit").val();
-        $("#countOfRoom").val($("#" + countOfRoom).text().trim());
-        var size = "size"+$("#id-for-edit").val();
-        $("#size").val($("#" + size).text().trim());
-        var additionalDescription = "additionalDescription"+$("#id-for-edit").val();
-        $("#additionalDescription").val($("#" + additionalDescription).text().trim());
+            $("#edit-div").show();
+            $("#id-for-edit").val($(this).attr("id-apart"));
+            var adress = "adress"+$("#id-for-edit").val();
+            $("#address").val($("#" + adress).text().trim());
+            var typeEstate = "typeEstate"+$("#id-for-edit").val();
+            $("#typeEstate").val($("#" + typeEstate).text().trim());
+            var floor = "floor"+$("#id-for-edit").val();
+            $("#floor").val($("#" + floor).text().trim());
+            var countOfRoom = "countOfRoom"+$("#id-for-edit").val();
+            $("#countOfRoom").val($("#" + countOfRoom).text().trim());
+            var size = "size"+$("#id-for-edit").val();
+            $("#size").val($("#" + size).text().trim());
+            var additionalDescription = "additionalDescription"+$("#id-for-edit").val();
+            $("#additionalDescription").val($("#" + additionalDescription).text().trim());
         // }
     })
 });
 $(document).ready(function () {
-    $("#cancel-button").click(function () {
+    $(".cancel-btn").click(function () {
         $("#edit-div").hide();
     })
 });

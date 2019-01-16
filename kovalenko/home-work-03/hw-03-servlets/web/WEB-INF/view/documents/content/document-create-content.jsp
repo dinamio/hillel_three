@@ -8,12 +8,19 @@
         <div id="document-create" class="card mb-3 ">
             <div class="card-header text-white bg-success text-center">Create Form</div>
             <div class="card-body">
-                <form:form method="post" id="form-create" action="/documents" modelAttribute="document">
+                <form:form method="post" enctype="multipart/form-data" id="form-create" action="/documents" modelAttribute="document">
                     <div class="form-group row">
-                        <form:label path="title" class="col-sm-4 col-form-label">Document title</form:label>
+                        <form:label path="description" class="col-sm-4 col-form-label">Document description</form:label>
                         <div class="col-sm-8">
-                            <form:input type="text" class="form-control" path="title" id="title"/>
-                            <form:errors path="title" />
+                            <form:input type="text" class="form-control" path="description" id="description"/>
+                            <form:errors path="description" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <form:label path="file" class="col-sm-4 col-form-label">Upload file</form:label>
+                        <div class="col-sm-8">
+                            <form:input type="file" path="file" id="file"/>
+                            <form:errors path="file" />
                         </div>
                     </div>
                     <div class="form-group row float-right">

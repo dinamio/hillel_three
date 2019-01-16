@@ -11,5 +11,13 @@
     <context:annotation-config />
     <context:spring-configured/>
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- Maximum Upload Size (In Bytes) -->
+        <property name="maxUploadSize" value="20971520" />
+        <!-- Maximum Size Of The File In Memory (In Bytes) -->
+        <property name="maxInMemorySize" value="1048576" />
+    </bean>
+
+
 </beans>
 

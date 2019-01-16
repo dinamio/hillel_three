@@ -9,28 +9,35 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-6 mx-auto mt-3">
+    <div class="col-sm-12 mx-auto mt-3">
         <div id="data-list">
             <c:choose>
                 <c:when test="${empty documents}">
                     <h2 class="text-center">No documents are available</h2>
                 </c:when>
                 <c:otherwise>
-                    <table class="table">
+                    <table class="table text-center">
                         <thead class="table-info">
                         <tr>
-                            <th>Doc. Title</th>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Description</th>
                             <th>Date Created</th>
-                            <th colspan="2">Action</th>
+                            <th colspan="3">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="document" items="${documents}">
                             <tr>
                                 <td>${document.title}</td>
+                                <td>${document.type}</td>
+                                <td>${document.description}</td>
                                 <td>${document.created}</td>
                                 <td>
-                                    <a href="/documents/${document.id}" class="btn btn-info text-center">View</a>
+                                    <a href="/documents/${document.id}/download" class="btn btn-primary text-center">Download</a>
+                                </td>
+                                <td>
+                                    <a href="/documents/${document.id}/update" class="btn btn-block btn-update btn-warning text-center">Update</a>
                                 </td>
                                 <td>
                                     <form:form method="post" action="/documents/${document.id}">

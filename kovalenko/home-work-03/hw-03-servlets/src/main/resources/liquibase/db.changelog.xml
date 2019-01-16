@@ -8,5 +8,8 @@
 
     <include file="src/main/resources/liquibase/sql/create_users.sql" />
     <include file="src/main/resources/liquibase/sql/create_documents.sql" />
+    <include file="src/main/resources/liquibase/sql/alter_documents.sql" />
+    <include file="src/main/resources/liquibase/sql/alter_documents_add_description.sql" />
+    <include file="src/main/resources/liquibase/sql/alter_documents_add_type.sql" />
 
 </databaseChangeLog>

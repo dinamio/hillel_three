@@ -1,28 +1,38 @@
 package entity;
 
+import javax.persistence.*;
+
 /**
  * Created by mihail on 11/9/18.
  */
+@Entity
+@Table(name = "user")
 public class User {
 
     public User() {
+
     }
 
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
     private String role;
     private String password;
-    private long cigaretteId;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Cigarette cigarette;
+    private Integer money;
 
     /**
      * Price 20 cigarettes of user smoke
      */
+    @Column(name = "cigarette_price")
     private Integer cigarettePrice;
 
     /**
      * Represent like LocalDateTime.now() to string value
      */
+    @Column(name = "registration_date")
     private String dateRegistration;
 
     public long getId() {
@@ -81,11 +91,11 @@ public class User {
         this.cigarette = cigarette;
     }
 
-    public long getCigaretteId() {
-        return cigaretteId;
+    public Integer getMoney() {
+        return money;
     }
 
-    public void setCigaretteId(long cigaretteId) {
-        this.cigaretteId = cigaretteId;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 }

@@ -5,20 +5,20 @@
          version="4.0">
 
     <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>EncodeFilter</filter-name>
         <filter-class>com.kovalenko.filter.EncodeFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>EncodeFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter>
-        <filter-name>AuthFilter</filter-name>
-        <filter-class>com.kovalenko.filter.AuthFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>AuthFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 

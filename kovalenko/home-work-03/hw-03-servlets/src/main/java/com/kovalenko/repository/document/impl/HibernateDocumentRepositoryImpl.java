@@ -24,9 +24,9 @@ public class HibernateDocumentRepositoryImpl implements DocumentRepository {
     }
 
     @Override
-    public List<Document> findAll(long userID) {
+    public List<Document> findAll() {
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("From Document d WHERE d.author.id = :id").setParameter("id", userID);
+        Query query = session.createQuery("From Document d");
         List<Document> documents = query.list();
         session.close();
         return documents;

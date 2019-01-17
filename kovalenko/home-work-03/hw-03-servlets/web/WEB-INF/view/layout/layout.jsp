@@ -1,5 +1,7 @@
     <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
         <!DOCTYPE html>
         <html>
@@ -19,22 +21,21 @@
         </button>
 
         <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
-        <c:if test="${sessionScope.user != null}">
-            <ul class="navbar-nav ">
+        <sec:authorize access="isAuthenticated()">
+            <ul class="navbar-nav">
             <li class="nav-item dropdown">
             <a class="justify-content-end nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <c:out value="${sessionScope.user.name}"/>
+            <sec:authentication property="principal.username" />
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <div class="dropdown-divider"></div>
-            <form method="post" action="/logout" class="dropdown-item">
+            <form:form method="post" action="/logout" class="dropdown-item">
             <button type="submit" class="dropdown-item">Logout</button>
-            </form>
+            </form:form>
             </div>
             </li>
             </ul>
-        </c:if>
-
+        </sec:authorize>
         </div>
         </nav>
         <div role="main" class="container">

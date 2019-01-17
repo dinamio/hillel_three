@@ -16,7 +16,7 @@ import java.util.List;
 public class JdbcDocumentRepositoryImpl implements DocumentRepository {
 
     private final static String FIND_ALL_QUERY = "SELECT d.document_id, d.title, d.created, d.user_id, u.name " +
-            "FROM documents d INNER JOIN users u ON d.user_id = u.user_id WHERE u.user_id = ?";
+            "FROM documents d INNER JOIN users u ON d.user_id = u.user_id";
     private final static String FIND_BY_ID_QUERY = "SELECT d.document_id, d.title, d.created, d.user_id, u.name " +
             "FROM documents d INNER JOIN users u ON d.user_id = u.user_id WHERE d.document_id = ?";
     private final static String INSERT_QUERY = "INSERT INTO documents (title, created, user_id) VALUES (?, ?, ?)";
@@ -24,7 +24,7 @@ public class JdbcDocumentRepositoryImpl implements DocumentRepository {
     private final static String DELETE_QUERY = "DELETE FROM documents WHERE document_id = ?";
 
     @Override
-    public List<Document> findAll(long userID) {
+    public List<Document> findAll() {
         List<Document> documents = new ArrayList<>();
         Connection connection;
         PreparedStatement pstm;
@@ -32,16 +32,9 @@ public class JdbcDocumentRepositoryImpl implements DocumentRepository {
         try {
             connection = DBConnection.getConnection();
             pstm = connection.prepareStatement(FIND_ALL_QUERY);
-            pstm.setLong(1, userID);
             ResultSet rs = pstm.executeQuery();
-            Document document;
             while (rs.next()) {
-                document = new Document();
-                document.setId(rs.getLong("document_id"));
-                document.setTitle(rs.getString("title"));
-                document.setCreated(rs.getTimestamp("created").toLocalDateTime());
-                document.setAuthor(new User(rs.getLong("user_id"), rs.getString("name")));
-                documents.add(document);
+                documents.add(getDocument(rs));
             }
             rs.close();
             pstm.close();
@@ -49,6 +42,15 @@ public class JdbcDocumentRepositoryImpl implements DocumentRepository {
             e.printStackTrace();
         }
         return documents;
+    }
+
+    private Document getDocument(ResultSet rs) throws SQLException {
+        Document document = new Document();
+        document.setId(rs.getLong("document_id"));
+        document.setTitle(rs.getString("title"));
+        document.setCreated(rs.getTimestamp("created").toLocalDateTime());
+        document.setAuthor(new User(rs.getLong("user_id"), rs.getString("name")));
+        return document;
     }
 
     @Override
@@ -63,11 +65,7 @@ public class JdbcDocumentRepositoryImpl implements DocumentRepository {
             ResultSet rs = pstm.executeQuery();
 
             while (rs.next()) {
-                document = new Document();
-                document.setId(rs.getLong("document_id"));
-                document.setTitle(rs.getString("title"));
-                document.setCreated(rs.getTimestamp("created").toLocalDateTime());
-                document.setAuthor(new User(rs.getLong("user_id"), rs.getString("name")));
+                document = getDocument(rs);
             }
 
             rs.close();

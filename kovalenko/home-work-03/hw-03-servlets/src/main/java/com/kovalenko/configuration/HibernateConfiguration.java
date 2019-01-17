@@ -6,9 +6,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.sql.DataSource;
 import java.util.Properties;
 
 import static org.hibernate.cfg.AvailableSettings.*;
@@ -40,5 +42,15 @@ public class HibernateConfiguration {
         factoryBean.setPackagesToScan("com.kovalenko");
 
         return factoryBean;
+    }
+
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(environment.getProperty("mysql.driver"));
+        dataSource.setUrl(environment.getProperty("mysql.url"));
+        dataSource.setUsername(environment.getProperty("mysql.user"));
+        dataSource.setPassword(environment.getProperty("mysql.password"));
+        return dataSource;
     }
 }

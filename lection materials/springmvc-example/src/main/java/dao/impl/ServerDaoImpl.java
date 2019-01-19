@@ -38,7 +38,8 @@ public class ServerDaoImpl implements ServerDao {
     }
 
     public Server findById(Integer id) {
-        return null;
+        Session session = this.sessionFactory.openSession();
+        return (Server) session.get(Server.class, id);
     }
 
     public void delete(Server server) {

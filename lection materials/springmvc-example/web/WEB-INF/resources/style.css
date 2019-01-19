@@ -1,0 +1,11 @@
+h1 {
+    color: cyan;
+}
+
+.field-error {
+    border: 2px solid red;
+}
+
+.error {
+    color: darkred;
+}

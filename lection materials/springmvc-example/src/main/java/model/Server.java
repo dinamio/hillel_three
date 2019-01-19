@@ -1,6 +1,10 @@
 package model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by eugen on 11/21/17.
@@ -12,12 +16,23 @@ public class Server {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @NotEmpty
     private String name;
+    @Size(min = 3, max = 10, message = "Size is not fit")
+    @NotNull
     private String description;
     @Column(name = "enabled")
     private Boolean isEnabled;
 
     public Server() {
+    }
+
+    public Integer getMyId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Server(String name) {

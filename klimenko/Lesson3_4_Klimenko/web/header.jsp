@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -37,23 +38,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="/Appartments">Список объектов</a></li>
-                <li><a href="addAppartment.jsp" methods="GET">Добавить объект</a></li>
+                <%--<li><a href="addAppartment.jsp" methods="GET">Добавить объект</a></li>--%>
+                <li><a href="/Appartments/add" methods="GET">Добавить объект</a></li>
             </ul>
             <form class="navbar-form navbar-right">
 
                 <%
                     if (session.getAttribute("Name") == null) {
                 %>
-                <div class="form-group">
-                    Пользователь
-                    <input type="text" id="name" class="form-control" placeholder="Пользователь">
-                </div>
-                <div class="form-group">
-                    Пароль
-                    <input type="text" id="password" class="form-control" placeholder="Пароль">
-                </div>
-                <button type="submit" id="Login" class="btn btn-default">Войти</button>
-                <a href="registration.jsp">Регистрация</a>
+                <a href="/UserController/Login">Войти</a>
+                <a href="/UserController/Registration">Регистрация</a>
                 <%
                 } else {
                     out.write(session.getAttribute("Name").toString());
@@ -77,6 +71,6 @@
         crossorigin="anonymous"></script>
 ﻿
 </body>
-<script src="js/main.js">
+<script src="main.js">
 </script>
 </html>

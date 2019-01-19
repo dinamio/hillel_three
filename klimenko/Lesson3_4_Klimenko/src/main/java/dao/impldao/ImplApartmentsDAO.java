@@ -35,7 +35,7 @@ public class ImplApartmentsDAO implements ApartmentsDAO {
 
     public void addApartment(Apartment apartment) {
         String sql = "INSERT INTO `real_estate_agency`.`apartments` (`address`, `typeEstate`, " +
-                "`floor`, `countOfRoom`, `size`, `additionalDescription`, 'user', 'date') " +
+                "`floor`, `countOfRoom`, `size`, `additionalDescription`, `user`, `date`) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
@@ -69,8 +69,10 @@ public class ImplApartmentsDAO implements ApartmentsDAO {
         statement.setInt(4, apartment.getCountOfRoom());
         statement.setInt(5, apartment.getSize());
         statement.setString(6, apartment.getAdditionalDescription());
-        statement.setInt(7, (new ImplUserDAO().getUserByName(apartment.getUser()).getId()));
-        statement.setString(7, apartment.getDate());
+        if(apartment.getUser()!=null)
+            statement.setInt(7, (new ImplUserDAO().getUserByName(apartment.getUser()).getId()));
+        if(apartment.getDate()!=null)
+            statement.setString(8, apartment.getDate());
     }
 
     public Apartment getApartment(int id) {

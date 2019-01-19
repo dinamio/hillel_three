@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
 </head>
@@ -59,49 +60,50 @@
 
 <div id="edit-div" class="table table-hover" hidden=true>
     Редактирование элемента
+<form:form modelAttribute="apartment" action="/Appartments/edit" method="POST">
     <table border="0" class="table table-hover">
         <tr>
             <td>Адрес</td>
-            <td><input autocomplete="off" id="address" type="text" name="address" value="${appartment.address}"/></td>
-            <td><input id="id-for-edit" type="text" hidden=true name="IDApartments"/></td>
+            <td><form:input  path="address" autocomplete="off" id="address" type="text" name="address" value="${appartment.address}"/></td>
+            <td><form:input path="estateId" id="id-for-edit" type="text" hidden="true"/></td>
         </tr>
         <tr>
             <td>Тип</td>
-            <td><input autocomplete="off" id="typeEstate" type="text" name="typeEstate"
+            <td><form:input path="typeEstate" autocomplete="off" id="typeEstate" type="text" name="typeEstate"
                        value="${appartment.typeEstate}"/></td>
         </tr>
         <tr>
             <td>Этаж</td>
-            <td><input pattern="^[ 0-9]+$" autocomplete="off" id="floor" type="text" name="floor"
+            <td><form:input path="floor" pattern="^[ 0-9]+$" autocomplete="off" id="floor" type="text" name="floor"
                        value="${appartment.floor}"/></td>
         </tr>
         <tr>
             <td>Количество комнат</td>
-            <td><input pattern="^[ 0-9]+$" autocomplete="off" id="countOfRoom" type="text" name="countOfRoom"
+            <td><form:input path="countOfRoom" pattern="^[ 0-9]+$" autocomplete="off" id="countOfRoom" type="text" name="countOfRoom"
                        value="${appartment.countOfRoom}"/></td>
         </tr>
         <tr>
             <td>Размер</td>
-            <td><input pattern="^[ 0-9]+$" autocomplete="off" id="size" type="text" name="size"
+            <td><form:input path="size" pattern="^[ 0-9]+$" autocomplete="off" id="size" type="text" name="size"
                        value="${appartment.size}"/></td>
         </tr>
         <tr>
             <td>Дополнительня информация</td>
-            <td><input id="additionalDescription" type="text" name="additionalDescription"
+            <td><form:input path="additionalDescription" id="additionalDescription" type="text" name="additionalDescription"
                        value="${appartment.additionalDescription}"/></td>
         </tr>
         <tr>
             <td colspan="2">
-                <button id="edit-button" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary">
                     Подтвердить
                 </button>
                 <button id="cancel-button"  class="btn btn-danger">
                     Отменить
                 </button>
-                <%--<a href="/allApartments.jsp">Cancel</a>--%>
             </td>
         </tr>
     </table>
+</form:form>
 </div>
 </body>
 

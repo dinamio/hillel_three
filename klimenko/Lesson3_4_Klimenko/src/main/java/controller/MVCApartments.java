@@ -1,9 +1,10 @@
-package controller.MVCController;
+package controller;
 
 import dao.ApartmentsDAO;
 import dao.impldao.ImplApartmentsDAO;
 import entity.Apartment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +23,19 @@ public class MVCApartments {
     @RequestMapping(value = "/Appartments", method = RequestMethod.GET)
     public ModelAndView getAppartments() {
         ModelAndView mav = new ModelAndView("allApartments");
+
         mav.addObject("listApp", apartmentDAO.getAllAppartments());
+        mav.addObject("apartment", new Apartment());
+        return mav;
+    }
+    @RequestMapping(value = "/Appartments/add", method = RequestMethod.GET)
+    public ModelAndView addAppartment() {
+        ModelAndView mav = new ModelAndView("addAppartment");
+        mav.addObject(new Apartment());
         return mav;
     }
 
-    @RequestMapping(value = "/Appartments", method = RequestMethod.PUT)
+    @RequestMapping(value = "/Appartments/edit", method = RequestMethod.POST)
     public String editApartment(@ModelAttribute("Apartment") Apartment apartment) {
         apartmentDAO.updateApartment(apartment);
         return "redirect:/Appartments";
@@ -38,7 +47,7 @@ public class MVCApartments {
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd");
         apartment.setDate(formatForDateNow.format(dateNow));
         apartment.setUser(session.getAttribute("Name").toString());
-        apartmentDAO.updateApartment(apartment);
+        apartmentDAO.addApartment(apartment);
         return "redirect:/Appartments";
     }
 

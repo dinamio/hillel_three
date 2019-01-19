@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 
@@ -25,14 +24,17 @@
         request.setAttribute("UserExist", false);
     }
 %>
-<form:form method="POST" action="/UserController" modelAttribute="User">
+<form:form method="POST" action="/UserController" modelAttribute="user">
 
-<form:label path="name" for="name"> Name <input type="text" class="form-control" id="name" required></form:label><br>
-<form:label path="email" for="email"> E-mail <input type="text" id="email" class="form-control" required></form:label><br>
-<form:label path="password" for="password"> Password <input type="password" id="password" class="form-control" required></form:label>
-<br>
+    <label for="name"> Name <form:input path="name" type="text" class="form-control"/>
+    </label><br>
+    <label for="email"> E-mail <form:input path="email" type="text" id="email" class="form-control"/> </label><br>
+    <label for="password"> Password <form:input path="password" type="password" id="password"
+                                                class="form-control"/></label>
+    <br>
     <input type="submit" class="btn btn-primary" value="Зарегистрироваться"/>
 </form:form>
+
 </body>
 <script src="js/main.js">
 </script>

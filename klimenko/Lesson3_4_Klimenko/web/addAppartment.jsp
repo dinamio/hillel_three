@@ -18,7 +18,7 @@
 
 </head>
 <body>
-<form:form method="POST" action="/Appartments" modelAttribute="Appartments">
+<form:form method="POST" action="/Appartments" modelAttribute="apartment">
     <table border="0" class="table table-hover" >
         <tr>
             <td>Адрес</td>
@@ -55,7 +55,7 @@
         <tr>
             <td colspan="2">
                 <input type="submit" class="btn btn-primary" value="Добавить"/>
-                <a href="/allApartments.jsp">Отменить</a>
+                <a href="/WEB-INF/view/allApartments.jsppartments.jsp">Отменить</a>
             </td>
         </tr>
     </table>

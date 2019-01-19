@@ -10,7 +10,7 @@
 
     <filter>
         <filter-name>RegisterFilter</filter-name>
-        <filter-class>controller.filters.RegisterFilter</filter-class>
+        <filter-class>filters.RegisterFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -25,7 +25,7 @@
     <filter>
 
         <filter-name>EncodingFilter</filter-name>
-        <filter-class>controller.filters.EncodingFilter</filter-class>
+        <filter-class>filters.EncodingFilter</filter-class>
 
         <init-param>
             <param-name>encoding</param-name>
@@ -39,44 +39,33 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <!--<servlet>-->
-        <!--<servlet-name>Appartments</servlet-name>-->
-        <!--<servlet-class>controller.AppartmentsController</servlet-class>-->
+    <!--<servlet-name>Appartments</servlet-name>-->
+    <!--<servlet-class>controller.AppartmentsController</servlet-class>-->
     <!--</servlet>-->
     <!--<servlet-mapping>-->
-        <!--<servlet-name>Appartments</servlet-name>-->
-        <!--<url-pattern>/Appartments/*</url-pattern>-->
+    <!--<servlet-name>Appartments</servlet-name>-->
+    <!--<url-pattern>/Appartments/*</url-pattern>-->
     <!--</servlet-mapping>-->
     <!--<servlet>-->
-        <!--<servlet-name>UserController</servlet-name>-->
-        <!--<servlet-class>controller.UserController</servlet-class>-->
+    <!--<servlet-name>UserController</servlet-name>-->
+    <!--<servlet-class>controller.UserController</servlet-class>-->
     <!--</servlet>-->
     <!--<servlet-mapping>-->
-        <!--<servlet-name>UserController</servlet-name>-->
-        <!--<url-pattern>/UserController</url-pattern>-->
+    <!--<servlet-name>UserController</servlet-name>-->
+    <!--<url-pattern>/UserController</url-pattern>-->
     <!--</servlet-mapping>-->
 
     <servlet>
-        <servlet-name>MVCApartments</servlet-name>
+        <servlet-name>dispatcher</servlet-name>
         <servlet-class>
             org.springframework.web.servlet.DispatcherServlet
         </servlet-class>
         <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>MVCApartments</servlet-name>
-        <url-pattern>/Appartments</url-pattern>
-    </servlet-mapping>
 
-    <servlet>
-        <servlet-name>MVCUser</servlet-name>
-        <servlet-class>
-            org.springframework.web.servlet.DispatcherServlet
-        </servlet-class>
-        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MVCUser</servlet-name>
-        <url-pattern>/UserController</url-pattern>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
 </web-app>

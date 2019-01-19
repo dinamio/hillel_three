@@ -1,4 +1,4 @@
-package controller.MVCController;
+package controller;
 
 
 import dao.ApartmentsDAO;
@@ -26,19 +26,20 @@ public class MVCUser {
     @Autowired
     UserDAO userDAO;
 
+    @ModelAttribute("user")
+    public User populateUser() {
+        User user = new User();
+        return user;
+    }
 
     @RequestMapping(value = "/UserController", method = RequestMethod.POST)
-    public ModelAndView addUser(@PathVariable(value = "name") String name,
-                                @PathVariable(value = "password") String password,
-                                @PathVariable(value = "email") String email,
+    public ModelAndView addUser(@ModelAttribute("user") User user,
                                 HttpSession httpSession, Model model){
 
-        User user = new User();
-        user.setEmail(email);
-        user.setName(name);
+
         ModelAndView view = new ModelAndView();
         try {
-            user.setPassword(encodeString(password));
+            user.setPassword(encodeString(user.getPassword()));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -46,26 +47,41 @@ public class MVCUser {
         if (userDAO.getUserByName(user.getName()) == null) {
             userDAO.addUser(user);
             httpSession.setAttribute("Name", user.getName());
-            view.setViewName("redirect/allApartments");
+            view.setViewName("redirect:/Appartments");
         } else {
-            view.setViewName("redirect/registration");
+            view.addObject(new User());
+            view.setViewName("registration");
             model.addAttribute("UserExist", true);
         }
         return view;
     }
 
-    @RequestMapping(value = "/UserController", method = RequestMethod.GET)
-    public ModelAndView checkUser(@PathVariable(value = "name") String name,
-                                  @PathVariable(value = "password") String password,
+    @RequestMapping(value = "/UserController/Registration", method = RequestMethod.GET)
+    public ModelAndView registerUser() {
+        ModelAndView mav = new ModelAndView("registration");
+        mav.addObject(new User());
+        return mav;
+    }
+
+    @RequestMapping(value = "/UserController/Login", method = RequestMethod.GET)
+    public ModelAndView loginUser() {
+        ModelAndView mav = new ModelAndView("login");
+        mav.addObject(new User());
+        return mav;
+    }
+
+    @RequestMapping(value = "/UserController/login", method = RequestMethod.POST)
+    public ModelAndView checkUser(@ModelAttribute("user") User user,
                                   HttpSession httpSession) {
 
         ModelAndView view = new ModelAndView();
         try {
-            if (userDAO.checkUser(name, encodeString(password)) == null) {
-                view.setViewName("redirect/registration");
+            if (userDAO.checkUser(user.getName(), encodeString(user.getPassword())) == null) {
+                view.setViewName("redirect:/registration");
             } else {
-                httpSession.setAttribute("Name", name);
-                view.setViewName("redirect/allApartments");
+                httpSession.setAttribute("Name", user.getName());
+
+                view.setViewName("redirect:/Appartments");
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -75,7 +91,7 @@ public class MVCUser {
     @RequestMapping(value = "/UserController", method = RequestMethod.DELETE)
     public ModelAndView resetUser(HttpSession httpSession){
         httpSession.setAttribute("Name", null);
-        return new ModelAndView("redirect:login");
+        return new ModelAndView("redirect:/login");
 
 
     }

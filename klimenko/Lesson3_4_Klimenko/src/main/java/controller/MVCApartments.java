@@ -1,12 +1,11 @@
 package controller;
 
 import dao.ApartmentsDAO;
-import dao.impldao.ImplApartmentsDAO;
+import dao.UserDAO;
 import entity.Apartment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,7 +17,11 @@ import java.util.Date;
 public class MVCApartments {
 
     @Autowired
+    @Qualifier("ImplApartmentDAOHibernate")
     ApartmentsDAO apartmentDAO;
+    @Autowired
+    @Qualifier("ImplUserDAOHibernate")
+    UserDAO userDAO;
 
     @RequestMapping(value = "/Appartments", method = RequestMethod.GET)
     public ModelAndView getAppartments() {
@@ -46,7 +49,7 @@ public class MVCApartments {
         Date dateNow = new Date();
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd");
         apartment.setDate(formatForDateNow.format(dateNow));
-        apartment.setUser(session.getAttribute("Name").toString());
+        apartment.setUser(userDAO.getUserByName(session.getAttribute("Name").toString()));
         apartmentDAO.addApartment(apartment);
         return "redirect:/Appartments";
     }

@@ -1,11 +1,25 @@
 package entity;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "users")
 public class User {
 
-    private String name;
-    private String password;
-    private String email;
+    @Id
+    @GeneratedValue
+    @Column(name = "user_id")
     private int id;
+    @Column(name = "Name")
+    private String name;
+    @Column(name = "Password")
+    private String password;
+    @Column(name = "Email")
+    private String email;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Apartment> apartment;
 
     public int getId() {
         return id;
@@ -16,6 +30,14 @@ public class User {
     }
 
     public User() {
+    }
+
+    public List<Apartment> getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(List<Apartment> apartment) {
+        this.apartment = apartment;
     }
 
     public User(String name, String password, String email, int id) {
@@ -48,4 +70,5 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

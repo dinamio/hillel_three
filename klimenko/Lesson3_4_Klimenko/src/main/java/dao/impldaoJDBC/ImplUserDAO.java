@@ -1,9 +1,8 @@
-package dao.impldao;
+package dao.impldaoJDBC;
 
 import dao.MySqlConnector;
 import dao.UserDAO;
 import entity.User;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -19,7 +18,7 @@ public class ImplUserDAO implements UserDAO {
     }
 
     public void deleteUser(int id) {
-        String sql = "delete from `real_estate_agency`.`users`  where id = ?; ";
+        String sql = "delete from `real_estate_agency`.`users`  where user_id = ?; ";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -47,7 +46,7 @@ public class ImplUserDAO implements UserDAO {
     public void updateUser(User user) {
         String sql = "UPDATE `real_estate_agency`.`Users` set `name` = ?, `password` = ?, " +
                 "`email` = ?" +
-                " where id = ?; ";
+                " where user_id = ?; ";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -82,7 +81,7 @@ public class ImplUserDAO implements UserDAO {
     }
 
     public User getUser(int id) {
-        String sql = "SELECT * from `real_estate_agency`.`Users` where id = ?;";
+        String sql = "SELECT * from `real_estate_agency`.`Users` where user_id = ?;";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);

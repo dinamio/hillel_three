@@ -25,7 +25,7 @@
 </changeSet>
 <changeSet author="Klimenko" id="2">
         <createTable tableName="users">
-            <column autoIncrement="true" name="id" type="INT">
+            <column autoIncrement="true" name="user_id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
             <column name="Name" type="VARCHAR(255)"/>

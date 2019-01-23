@@ -5,20 +5,20 @@
          version="4.0">
 
     <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>EncodeFilter</filter-name>
         <filter-class>com.kovalenko.filter.EncodeFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>EncodeFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter>
-        <filter-name>AuthFilter</filter-name>
-        <filter-class>com.kovalenko.filter.AuthFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>AuthFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
@@ -38,6 +38,11 @@
             <param-name>ContextConfigLocation</param-name>
             <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
         </init-param>
+        <multipart-config>
+            <max-file-size>1000000</max-file-size>
+            <max-request-size>1000000</max-request-size>
+            <file-size-threshold>10000</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>

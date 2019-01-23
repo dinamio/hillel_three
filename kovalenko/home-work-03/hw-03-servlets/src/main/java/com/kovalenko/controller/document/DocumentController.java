@@ -2,9 +2,9 @@ package com.kovalenko.controller.document;
 
 import com.kovalenko.binding.UploadDocument;
 import com.kovalenko.entity.document.Document;
-import com.kovalenko.entity.user.User;
 import com.kovalenko.service.document.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 public class DocumentController {
@@ -30,12 +30,9 @@ public class DocumentController {
     }
 
     @RequestMapping(value = "/documents", method = RequestMethod.GET)
-    public ModelAndView find(HttpSession session) {
+    public ModelAndView find() {
         ModelAndView view = new ModelAndView("documents/documents");
-        User user = (User) session.getAttribute("user");
-        if (user != null){
-            view.addObject("documents", documentService.find(user));
-        }
+        view.addObject("documents", documentService.find());
         return view;
     }
 
@@ -46,6 +43,7 @@ public class DocumentController {
         return view;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/documents/create", method = RequestMethod.GET)
     public ModelAndView create() {
         ModelAndView view = new ModelAndView("documents/document-create");
@@ -53,10 +51,11 @@ public class DocumentController {
         return view;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/documents", method = RequestMethod.POST)
     public ModelAndView create(@Valid @ModelAttribute("document") UploadDocument document,
                                BindingResult bindingResult,
-                               HttpSession session) {
+                               Principal principal) {
 
         ModelAndView view = new ModelAndView();
 
@@ -67,14 +66,16 @@ public class DocumentController {
             return view;
         }
 
-        User author = (User) session.getAttribute("user");
-        if (author != null){
-            documentService.save(author, document);
+        String authorLogin = principal.getName();
+
+        if (authorLogin != null){
+            documentService.save(authorLogin, document);
         }
         view.setViewName("redirect:/documents");
         return view;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/documents/{documentID}/update", method = RequestMethod.GET)
     public ModelAndView update(@PathVariable(value = "documentID") long documentID) {
         ModelAndView view = new ModelAndView("documents/document-update");
@@ -82,6 +83,7 @@ public class DocumentController {
         return view;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/documents/{documentID}", method = RequestMethod.PUT)
     public ModelAndView update(@PathVariable(value = "documentID") long documentID,
                                @Valid @ModelAttribute("document") Document document,
@@ -101,6 +103,7 @@ public class DocumentController {
         return view;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/documents/{documentID}", method = RequestMethod.DELETE)
     public ModelAndView delete(@PathVariable(value = "documentID") long documentID) {
         documentService.delete(documentID);

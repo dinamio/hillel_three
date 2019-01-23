@@ -31,33 +31,6 @@ public class AuthController {
         return view;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@Valid @ModelAttribute("loginForm") LoginForm loginForm,
-                              BindingResult bindingResult,
-                              HttpSession session) {
-
-        ModelAndView view = new ModelAndView();
-
-        if (bindingResult.hasErrors()) {
-            view.addObject("loginForm", loginForm);
-            view.addAllObjects(bindingResult.getModel());
-            view.setViewName("auth/login");
-            return view;
-        }
-
-        User user = userService.getUserByCredentials(loginForm.getLogin(), loginForm.getPassword());
-
-        if (user == null) {
-           view.setViewName("auth/login");
-           view.addObject("loginForm", loginForm);
-           return view;
-        }
-
-        session.setAttribute("user", user);
-        view.setViewName("index");
-        return view;
-    }
-
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ModelAndView logout(HttpSession session) {
         session.invalidate();

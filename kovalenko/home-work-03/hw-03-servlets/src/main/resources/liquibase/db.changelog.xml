@@ -11,5 +11,9 @@
     <include file="src/main/resources/liquibase/sql/alter_documents.sql" />
     <include file="src/main/resources/liquibase/sql/alter_documents_add_description.sql" />
     <include file="src/main/resources/liquibase/sql/alter_documents_add_type.sql" />
+    <include file="src/main/resources/liquibase/sql/create_roles.sql" />
+    <include file="src/main/resources/liquibase/sql/insert_roles.sql" />
+    <include file="src/main/resources/liquibase/sql/create_user_role.sql" />
+    <include file="src/main/resources/liquibase/sql/alter_users_add_enabled.sql" />
 
 </databaseChangeLog>

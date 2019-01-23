@@ -1,23 +1,36 @@
 package com.kovalenko.service.user.impl;
 
 import com.kovalenko.entity.user.User;
+import com.kovalenko.entity.user.role.Role;
+import com.kovalenko.entity.user.role.RoleType;
+import com.kovalenko.repository.role.RoleRepository;
 import com.kovalenko.repository.user.UserRepository;
 import com.kovalenko.service.user.UserService;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public UserServiceImpl(@Qualifier(value = "hibernateUserRepositoryImpl") UserRepository userRepository) {
+    public UserServiceImpl(@Qualifier(value = "hibernateUserRepositoryImpl") UserRepository userRepository,
+                           BCryptPasswordEncoder passwordEncoder,
+                           RoleRepository roleRepository) {
+
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
 
@@ -46,7 +59,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) {
-        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEnabled(1);
+        Role role = roleRepository.findByRoleType(RoleType.USER);
+        user.setRoles(new HashSet<>(Collections.singleton(role)));
         return userRepository.save(user);
     }
 

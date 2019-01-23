@@ -2,9 +2,9 @@ package com.kovalenko.service.document.impl;
 
 import com.kovalenko.binding.UploadDocument;
 import com.kovalenko.entity.document.Document;
-import com.kovalenko.entity.user.User;
 import com.kovalenko.repository.document.DocumentRepository;
 import com.kovalenko.service.document.DocumentService;
+import com.kovalenko.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,19 @@ import java.util.List;
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepository;
+    private final UserService userService;
 
     @Autowired
-    public DocumentServiceImpl(@Qualifier(value = "hibernateDocumentRepositoryImpl") DocumentRepository documentRepository) {
+    public DocumentServiceImpl(@Qualifier(value = "hibernateDocumentRepositoryImpl") DocumentRepository documentRepository,
+                               UserService userService) {
+
         this.documentRepository = documentRepository;
+        this.userService = userService;
     }
 
     @Override
-    public List<Document> find(User user) {
-        return documentRepository.findAll(user.getId());
+    public List<Document> find() {
+        return documentRepository.findAll();
     }
 
     @Override
@@ -35,9 +39,9 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public void save(User author, UploadDocument document) {
+    public void save(String authorLogin, UploadDocument document) {
         Document savedDocument = new Document();
-        savedDocument.setAuthor(author);
+        savedDocument.setAuthor(userService.getUserByLogin(authorLogin));
         savedDocument.setCreated(LocalDateTime.now());
         savedDocument.setDescription(document.getDescription());
 

@@ -111,18 +111,14 @@ public class DocumentController {
     }
 
     @RequestMapping(value = { "/documents/{documentID}/download" }, method = RequestMethod.GET)
-    public ModelAndView download(@PathVariable(value = "documentID") long documentID,
+    public void download(@PathVariable(value = "documentID") long documentID,
                                  HttpServletResponse response) throws IOException {
 
-        ModelAndView view = new ModelAndView();
-        view.setViewName("redirect:/documents");
         Document document = documentService.find(documentID);
 
         response.setContentType(document.getType());
         response.setContentLength(document.getContent().length);
         response.setHeader("Content-Disposition","attachment; filename=\"" + document.getTitle() +"\"");
         FileCopyUtils.copy(document.getContent(), response.getOutputStream());
-
-        return view;
     }
 }

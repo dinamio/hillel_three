@@ -1,7 +1,11 @@
 package servlets;
 
+import dao.DAOFactory;
+import dao.UserDAO;
 import model.User;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -10,14 +14,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
+@Component
 public class Registration extends HttpServlet {
-    UserService userService;
+    @Autowired
+    UserService userDAO;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        userService = new UserService();
+        //userService = new UserService();
+        try {
+            userDAO = DAOFactory.getInstance().getUserDAO();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -27,7 +39,12 @@ public class Registration extends HttpServlet {
             String name = request.getParameter("newUserName");
             String pass = md5Apache(request.getParameter("newUserPass"));
             User newUser = new User(name, pass);
-            userService.addUser(newUser);
+            //userService.addUser(newUser);
+            try {
+                userDAO.add(newUser);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             request.getSession().setAttribute("newUser", newUser);
             RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
             rs.forward(request, response);

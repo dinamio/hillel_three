@@ -1,40 +1,39 @@
 package service;
 
+import dao.UserDAO;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service("userService")
 public class UserService {
+    @Autowired
+    UserDAO userDAO;
+
     private List<User> usersList = new ArrayList<>();
 
-    public UserService() {
-     User admin = new User("admin", "admin");
+
+    public void add(User user) throws SQLException {
+        userDAO.add(user);
     }
 
-    public void addUser(User user){
-        usersList.add(user);
+    public void delete(int id) throws SQLException {
+        userDAO.delete(id);
     }
 
-    public void deleteUser(User user){
-        if (checkRegisteredUsers(user)){
-            usersList.remove(user);
-        }
+    public String getById(int id) throws SQLException {
+        return userDAO.getById(id);
     }
 
-    public boolean checkRegisteredUsers(User user) {
-        boolean isUserExists = false;
-        if ((user.getUserName() != null) && (user.getUserPass() != null)) {
-            if ( (user.getUserName().equals("admin"))&& (user.getUserPass().equals("admin"))) {
-                isUserExists = true;
-            } else {
-                for (User _user : usersList) {
-                    if ((_user.getUserName() == user.getUserName()) && (_user.getUserPass() == user.getUserPass())) {
-                        isUserExists = true;
-                    }
-                }
-            }
-        }
-        return isUserExists;
+    public List<User> getAll() throws SQLException {
+        return userDAO.getAll();
+    }
+
+    public int getIdByNamePass(User user) throws SQLException {
+        return userDAO.getIdByNamePass(user);
     }
 }

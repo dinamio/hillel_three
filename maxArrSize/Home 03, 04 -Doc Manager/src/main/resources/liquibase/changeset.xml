@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="1" author="vanda">
+        <createTable tableName="users">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="pass" type="varchar(50)"/>
+        </createTable>
+        <createTable tableName="docs">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="date" type="date(20)"/>
+            <column name="userID" type="int"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="vanda">
+        <addForeignKeyConstraint baseColumnNames="userID"
+        baseTableName="docs"
+        constraintName="constr_User"
+        referencedColumnNames="id"
+        referencedTableName="users"/>
+    </changeSet>
+</databaseChangeLog>

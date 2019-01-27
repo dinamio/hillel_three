@@ -1,31 +1,39 @@
 package model;
 
+
 public class User {
-    private String userName;
-    private String userPass;
+    private int id;
+    private String name;
+    private String pass;
 
     public User(){
 
     }
 
-    public User(String userName,String userPass){
-        this.userName = userName;
-        this.userPass = userPass;
+    public User(String name,String userPass){
+        this.name = name;
+        this.name = pass;
     }
 
-    public void setUserName(String userName){
-        this.userName = userName;
+    public void setId(int id){
+        this.id = id;
     }
 
-    public String getUserName(){
-        return userName;
+    public int getId(){ return id;}
+
+    public void setName(String name){
+        this.name = name;
     }
 
-    public void setUserPass(String userPass){
-        this.userPass = userPass;
+    public String getName(){
+        return name;
     }
 
-    public String getUserPass(){
-        return userPass;
+    public void setPass(String pass){
+        this.pass = pass;
+    }
+
+    public String getPass(){
+        return pass;
     }
 }

@@ -17,7 +17,7 @@ public class AccessFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        HttpServletRequest req = (HttpServletRequest) request;
+       /* HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
         String uri = req.getRequestURI();
@@ -29,9 +29,8 @@ public class AccessFilter implements Filter {
             this.context.log("Unauthorized access request");
             res.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }else{
-            // pass the request along the filter chain
             chain.doFilter(request, response);
-        }
+        }*/
 
 
     }

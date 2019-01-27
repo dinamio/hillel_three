@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -22,22 +25,20 @@
                 <div class="shape6"></div>
                 <div class="shape7"></div>
                 <div class="float">
-                    <form class="form" method="post" action="login">
+                    <form class="form" method="post" action="/login">
                         <div class="form-group">
-                            <label for="username" class="text-white">Username:</label><br>
-                            <input type="text" name="name" placeholder="admin" id="username" class="form-control">
+                            <label name="username" class="text-white">Username:</label><br>
+                            <input type="text" name="name" placeholder="admin" id="username" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <label for="password" class="text-white">Password:</label><br>
-                            <input type="text" name="pass" placeholder="admin" id="password" class="form-control">
+                            <label name="password" class="text-white">Password:</label><br>
+                            <input type="text" name="pass" placeholder="admin" id="password" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="LOGIN">
-                            <!--<input type="button" class="btn btn-info btn-md" value="REGISTRY NOW" onclick="window.location.href='/registrationForm'"/>-->
                             <form method="LINK" action="/registrationForm">
                                 <input type="button" class="btn btn-info btn-md" value="REGISTRY NOW" onclick="window.location.href='/registrationForm'">
                             </form>
-
                         </div>
                     </form>
                 </div>

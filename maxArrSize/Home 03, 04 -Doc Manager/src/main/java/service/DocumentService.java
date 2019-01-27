@@ -1,40 +1,42 @@
 package service;
 
+import dao.DocumentDAO;
 import model.Document;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service("documentService")
 public class DocumentService {
+    @Autowired
+    DocumentDAO documentDAO;
+
     private List<Document> docs = new ArrayList<Document>();
 
-    public List<Document> getAllDocs(){
-        return docs;
+    public List<Document> getAll() throws SQLException {
+        return documentDAO.getAll();
     }
 
-    public Document getDocById (long id) {
-        for(Document _doc : docs) {
-            if (_doc.getId() == id){
-                return _doc;
-            }
-        }
-        return null;
+    public Document getByID (int id) throws SQLException {
+        return documentDAO.getByID(id);
     }
 
-    public void addDoc(Document newDoc){
-
-        long id = docs.size();
-        if(id == 0) {
-            id = 1;
-        } else {
-            Document tempDoc = docs.get(docs.size() - 1);
-            id = tempDoc.getId() + 1;
-        }
-        newDoc.setId(id);
-        docs.add(newDoc);
+    public void add(Document newDoc) throws SQLException {
+        documentDAO.add(newDoc);
     }
 
-    public void deleteDoc(Document removedDoc) {
-        docs.remove(removedDoc);
+    public void delete(int id) throws SQLException {
+        documentDAO.delete(id);
+    }
+
+    public void update(Document removedDoc) throws SQLException {
+        documentDAO.update(removedDoc);
+    }
+
+    public int getNumRow() throws SQLException {
+        return documentDAO.getNumRow();
     }
 }

@@ -8,7 +8,8 @@
 
     <context:component-scan base-package="com.documents"/>
     <context:annotation-config />
-    <bean name="ApplicationConfig" class="com.documents.ApplicationConfig" />
+    <bean name="ApplicationConfig" class="com.documents.config.ApplicationConfig" />
+    <!--<bean name="SecurityConfig" class="com.documents.config.SecurityConfig" />-->
     <context:spring-configured/>
 
 </beans>

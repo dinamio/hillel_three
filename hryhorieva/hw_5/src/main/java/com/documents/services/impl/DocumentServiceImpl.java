@@ -1,7 +1,7 @@
 package com.documents.services.impl;
 
 import com.documents.dao.DocumentDao;
-import com.documents.dao.impl.JDBCDocumentDao;
+import com.documents.dao.impl.jdbc.JDBCDocumentDao;
 import com.documents.entity.Document;
 import com.documents.services.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.documents.dao.impl;
+package com.documents.dao.impl.jdbc;
 
 import com.documents.dao.DocumentDao;
 import com.documents.dao.UserDao;

@@ -1,4 +1,4 @@
-package com.documents;
+package com.documents.config;
 
 import com.documents.dao.impl.DBConnection;
 import org.hibernate.SessionFactory;
@@ -21,6 +21,22 @@ import java.util.Properties;
 @PropertySource(value = {"classpath:/config.properties"})
 public class ApplicationConfig {
 
+    @Value("${driver}")
+    private String driverClassName;
+    @Value("${url}")
+    private String url;
+    @Value("${db.username}")
+    private String username;
+    @Value("${password}")
+    private String password;
+
+    @Value("${hibernate.dialect}")
+    private String hibernateDialect;
+    @Value("${hibernate.show_sql}")
+    private String hibernateShowSql;
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String hibernateHBM2DDLAuto;
+
     @Bean
     Connection connection() {
         Connection connection = DBConnection.getInstance().getConnection();
@@ -32,16 +48,6 @@ public class ApplicationConfig {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    @Value("${driver}")
-    private String driverClassName;
-    @Value("${url}")
-    private String url;
-    @Value("${db.username}")
-    private String username;
-    @Value("${password}")
-    private String password;
-
-
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -51,15 +57,6 @@ public class ApplicationConfig {
         dataSource.setPassword(password);
         return dataSource;
     }
-
-
-    @Value("${hibernate.dialect}")
-    private String hibernateDialect;
-    @Value("${hibernate.show_sql}")
-    private String hibernateShowSql;
-    @Value("${hibernate.hbm2ddl.auto}")
-    private String hibernateHBM2DDLAuto;
-
 
     @Bean
     public Properties hibernateProperties() {
@@ -92,28 +89,5 @@ public class ApplicationConfig {
 
         return txManager;
     }
-
-//    @Bean
-//    @SuppressWarnings("deprecation")
-//    public SessionFactory sessionFactory() {
-//        SessionFactory sessionFactory;
-//        Configuration configuration = new Configuration();
-//        try {
-//            sessionFactory = new Configuration().configure()
-//                    .buildSessionFactory();
-//        } catch (Throwable ex) {
-//            System.err.println("Initial SessionFactory creation failed." + ex);
-//            throw new ExceptionInInitializerError(ex);
-//        }
-//        return sessionFactory;
-//    }
-
-//    @Bean
-//    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-//        HibernateTransactionManager htm = new HibernateTransactionManager();
-//        htm.setSessionFactory(sessionFactory);
-//        return htm;
-//    }
-
 
 }

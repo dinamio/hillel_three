@@ -6,25 +6,27 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="templates/header.jsp" >
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<jsp:include page="../../templates/header.jsp" >
     <jsp:param name="title" value="Add form" />
 </jsp:include>
 
 <div class="form_block py-5">
 <div class="container">
-    <form action="/add" method="post">
+    <form:form method="POST" action="/add" modelAttribute="document">
         <div class="row align-items-center">
             <div class="col-md-12 col-sm-12 col-12 mb-2">
                 <div class="title">Add new document:</div>
             </div>
             <div class="col-md-4 col-sm-6 col-12">
-                <input type="text" name="document_name" placeholder="document name">
+                <form:input path="name" type="text" placeholder="document name"/>
             </div>
             <div class="col-md-4 col-sm-6 col-12">
                 <input type="submit" class="button" value="send">
             </div>
         </div>
-    </form>
+    </form:form>
 </div>
 </div>
-<jsp:include page="templates/footer.jsp" ></jsp:include>
+<jsp:include page="../../templates/footer.jsp" ></jsp:include>

@@ -26,6 +26,8 @@
             <column name="id" type="int" autoIncrement="1"></column>
             <column name="name" type="varchar(100)"></column>
             <column name="date" type="timestamp"></column>
+            <column name="file" type="longblob"></column>
+            <column name="type" type="varchar(20)"></column>
             <column name="user" type="int"></column>
         </createTable>
         <addPrimaryKey tableName="documents" columnNames="id"/>
@@ -34,6 +36,8 @@
         <addAutoIncrement tableName="documents" columnName="id" columnDataType="int"/>
         <addNotNullConstraint tableName="documents" columnName="name" columnDataType="varchar(100)"/>
         <addNotNullConstraint tableName="documents" columnName="date" columnDataType="timestamp"/>
+        <addNotNullConstraint tableName="documents" columnName="file" columnDataType="longblob"/>
+        <addNotNullConstraint tableName="documents" columnName="type" columnDataType="varchar(20)"/>
         <addNotNullConstraint tableName="documents" columnName="user" columnDataType="int"/>
     </changeSet>
 

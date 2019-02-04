@@ -9,4 +9,5 @@ public interface DocumentDao {
     void insert(Document document);
     void deleteById(Integer id);
     void updateById(Document document);
+    Document getById(Integer id);
 }

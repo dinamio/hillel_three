@@ -10,6 +10,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -36,6 +37,8 @@ public class ApplicationConfig {
     private String hibernateShowSql;
     @Value("${hibernate.hbm2ddl.auto}")
     private String hibernateHBM2DDLAuto;
+    @Value("${javax.persistence.validation.mode}")
+    private String javaxDatabase;
 
     @Bean
     Connection connection() {
@@ -64,6 +67,7 @@ public class ApplicationConfig {
         properties.put("hibernate.dialect", hibernateDialect);
         properties.put("hibernate.show_sql", hibernateShowSql);
         properties.put("hibernate.hbm2ddl.auto", hibernateHBM2DDLAuto);
+        properties.put("javax.persistence.validation.mode", javaxDatabase);
         return properties;
     }
 
@@ -90,4 +94,11 @@ public class ApplicationConfig {
         return txManager;
     }
 
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver getCommonsMultipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(20971520);   // 20MB
+        multipartResolver.setMaxInMemorySize(1048576);  // 1MB
+        return multipartResolver;
+    }
 }

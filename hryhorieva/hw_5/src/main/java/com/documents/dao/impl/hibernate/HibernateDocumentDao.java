@@ -74,4 +74,11 @@ public class HibernateDocumentDao implements DocumentDao {
         }
         session.close();
     }
+
+    public Document getById(Integer id){
+        Session session = sessionFactory.openSession();
+        Document document = (Document)session.get(Document.class, id);
+        session.close();
+        return document;
+    }
 }

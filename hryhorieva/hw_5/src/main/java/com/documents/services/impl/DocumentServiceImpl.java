@@ -33,6 +33,10 @@ public class DocumentServiceImpl implements DocumentService {
         documentDao.updateById(document);
     }
 
+    public Document getById(Integer id){
+        return documentDao.getById(id);
+    }
+
     public void deleteById(Integer id){
         documentDao.deleteById(id);
     }

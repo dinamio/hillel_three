@@ -83,4 +83,8 @@ public class JDBCDocumentDao implements DocumentDao {
             e.printStackTrace();
         }
     }
+
+    public Document getById(Integer id){
+        return null;
+    }
 }

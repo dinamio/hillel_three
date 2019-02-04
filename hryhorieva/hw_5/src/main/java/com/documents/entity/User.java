@@ -1,5 +1,8 @@
 package com.documents.entity;
 
+import com.documents.validation.UniqueLogin;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,7 +13,10 @@ public class User {
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+    @NotEmpty
+    @UniqueLogin
     private String login;
+    @NotEmpty
     private String password;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

@@ -14,13 +14,13 @@
 
 <div class="form_block py-5">
 <div class="container">
-    <form:form method="POST" action="/add" modelAttribute="document">
+    <form:form method="POST" action="/admin/add" modelAttribute="document" enctype="multipart/form-data">
         <div class="row align-items-center">
             <div class="col-md-12 col-sm-12 col-12 mb-2">
                 <div class="title">Add new document:</div>
             </div>
             <div class="col-md-4 col-sm-6 col-12">
-                <form:input path="name" type="text" placeholder="document name"/>
+                <input type="file" name="file" size="50" />
             </div>
             <div class="col-md-4 col-sm-6 col-12">
                 <input type="submit" class="button" value="send">

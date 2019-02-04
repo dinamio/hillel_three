@@ -14,10 +14,12 @@
             <div class="title">Registration:</div>
         </div>
         <div class="col-md-4 col-sm-6 col-12">
-            <form:input path="login" type="text" placeholder="your login"/>
+            <form:input path="login" type="text" placeholder="your login" cssErrorClass="field-error"/>
+            <form:errors path="login" cssClass="error"/>
         </div>
         <div class="col-md-4 col-sm-6 col-12">
-            <form:input path="password" type="password" placeholder="your password"/>
+            <form:input path="password" type="password" placeholder="your password" cssErrorClass="field-error"/>
+            <form:errors path="password" cssClass="error"/>
         </div>
         <div class="col-md-4 col-sm-6 col-12">
             <input type="submit" class="button" value="send">

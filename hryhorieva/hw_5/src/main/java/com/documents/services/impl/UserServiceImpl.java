@@ -1,10 +1,12 @@
 package com.documents.services.impl;
 
 import com.documents.dao.UserDao;
+import com.documents.dao.impl.HibernateUserDao;
 import com.documents.entity.User;
 import com.documents.services.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
+    @Qualifier("HibernateUserDao")
     UserDao userDao;
 
     public User userRegistration(User user){

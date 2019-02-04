@@ -5,6 +5,7 @@ import com.documents.dao.impl.JDBCDocumentDao;
 import com.documents.entity.Document;
 import com.documents.services.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @Service
 public class DocumentServiceImpl implements DocumentService {
     @Autowired
+    @Qualifier("HibernateDocumentDao")
     DocumentDao documentDao;
 
     public DocumentServiceImpl(){}

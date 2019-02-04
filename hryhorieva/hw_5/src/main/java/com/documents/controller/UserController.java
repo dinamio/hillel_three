@@ -49,7 +49,7 @@ public class UserController {
                          HttpServletRequest req) {
         if(!(user.getLogin().equals("")) && !(user.getPassword().equals(""))){
             User currentUser = userServiceImpl.userAuthorization(user);
-            if(user != null){
+            if(currentUser != null){
                 session.setAttribute("user", currentUser);
                 req.setAttribute("result_message", "you sign in successfully");
             }else{

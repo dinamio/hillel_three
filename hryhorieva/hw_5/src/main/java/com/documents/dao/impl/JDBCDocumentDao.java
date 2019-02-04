@@ -15,7 +15,7 @@ import java.util.List;
 public class JDBCDocumentDao implements DocumentDao {
     @Autowired
     Connection connection;
-    @Autowired
+
     UserDao userDao;
 
     private static final String SELECT_ALL = "SELECT * FROM documents ORDER BY id";

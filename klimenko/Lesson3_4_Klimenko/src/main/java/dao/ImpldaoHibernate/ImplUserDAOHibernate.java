@@ -61,9 +61,13 @@ public class ImplUserDAOHibernate implements UserDAO {
         Root<User> root = query.from(User.class);
         query.select(root).where(builder.equal(root.get("name"), name));
         Query<User> q = session.createQuery(query);
-        User user = q.getSingleResult();
 
-        return user;
+        List<User> user = q.getResultList();
+        if (user.size() == 0)
+            return null;
+        else
+            return user.get(0);
+
     }
 
     @Override
@@ -103,14 +107,14 @@ public class ImplUserDAOHibernate implements UserDAO {
                         builder.equal(root.get("name"), name),
                         builder.equal(root.get("password"), password)));
         Query<User> q = session.createQuery(query);
-        User user = q.getSingleResult();
+        User user = q.getResultList().get(0);
         return user;
     }
 
     @Override
     public List<User> getAllUsers() {
         Session session = sessionFactory.openSession();
-        List<User> apartments = session.createQuery("from users ").list();
+        List<User> apartments = session.createQuery("from User").list();
         return apartments;
     }
 }

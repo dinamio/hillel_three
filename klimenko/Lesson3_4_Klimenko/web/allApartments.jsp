@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
 </head>
@@ -25,6 +26,7 @@
         <th>Количество комнат</th>
         <th>Квадратура</th>
         <th>Дополнительная информация</th>
+        <th>Изображение</th>
         <th>Действие</th>
 
     </tr>
@@ -50,9 +52,14 @@
     <td id="additionalDescription${Appart.getEstateId()}">
         <c:out value="${Appart.getAdditionalDescription()}"/>
     </td>
+    <td id="picture${Appart.getEstateId()}">
+        <img src="data:image/jpeg;base64,${Appart.getPicture()}" />
+    </td>
     <td>
         <button class="del-btn btn btn-danger" id="del" id-apart="${Appart.getEstateId()}">Удалить</button>
-        <button class="edit-btn btn btn-primary" id-apart="${Appart.getEstateId()}">Редактировать</button>
+        <sec:authorize access="hasAnyAuthority('ADMIN')">
+            <button class="edit-btn btn btn-primary" id-apart="${Appart.getEstateId()}">Редактировать</button>
+        </sec:authorize>
     </td>
     </c:forEach>
     </tbody>
@@ -75,17 +82,20 @@
         <tr>
             <td>Этаж</td>
             <td><form:input path="floor" pattern="^[ 0-9]+$" autocomplete="off" id="floor" type="text" name="floor"
-                       value="${appartment.floor}"/></td>
+                       value="${appartment.floor}"/>
+                <form:errors path="floor"  cssStyle="color: #ff0000;" /></td>
         </tr>
         <tr>
             <td>Количество комнат</td>
             <td><form:input path="countOfRoom" pattern="^[ 0-9]+$" autocomplete="off" id="countOfRoom" type="text" name="countOfRoom"
-                       value="${appartment.countOfRoom}"/></td>
+                       value="${appartment.countOfRoom}"/>
+                <form:errors path="countOfRoom"  cssStyle="color: #ff0000;" /></td>
         </tr>
         <tr>
             <td>Размер</td>
             <td><form:input path="size" pattern="^[ 0-9]+$" autocomplete="off" id="size" type="text" name="size"
-                       value="${appartment.size}"/></td>
+                       value="${appartment.size}"/>
+                <form:errors path="size"  cssStyle="color: #ff0000;"/></td>
         </tr>
         <tr>
             <td>Дополнительня информация</td>

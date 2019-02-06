@@ -5,6 +5,18 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="Klimenko" id="2">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="user_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="Name" type="VARCHAR(255)"/>
+            <column name="Email" type="VARCHAR(255)"/>
+            <column name="Password" type="VARCHAR(255)"/>
+            <column name="role" type="VARCHAR(255)"/>
+            <column name="enabled" type="INT"/>
+        </createTable>
+    </changeSet>
     <changeSet author="Klimenko" id="1">
         <createTable tableName="apartments">
             <column name="IDApartments" type="INT">
@@ -23,14 +35,5 @@
             <column name="date" type="VARCHAR(250)"/>
     </createTable>
 </changeSet>
-<changeSet author="Klimenko" id="2">
-        <createTable tableName="users">
-            <column autoIncrement="true" name="user_id" type="INT">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="Name" type="VARCHAR(255)"/>
-            <column name="Email" type="VARCHAR(255)"/>
-            <column name="Password" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
+
 </databaseChangeLog>

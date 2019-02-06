@@ -18,11 +18,11 @@
 
 </head>
 <body>
-<form:form method="POST" action="/Appartments" modelAttribute="apartment">
+<form:form method="POST" action="/Appartments" modelAttribute="apartment"  enctype="multipart/form-data">
     <table border="0" class="table table-hover" >
         <tr>
             <td>Адрес</td>
-            <td><form:input path="address" autocomplete="off" type="text" name="address"/></td>
+            <td><form:input path="address" autocomplete="off" type="text" name="address" /></td>
         </tr>
         <tr>
             <td>Тип</td>
@@ -53,9 +53,13 @@
             <td><form:input path="additionalDescription" autocomplete="off" type="text" name="additionalDescription"/></td>
         </tr>
         <tr>
+            <td>Выберите изображение</td>
+            <td><form:input path="uploadfile" type="file" name="uploadfile"/></td>
+        </tr>
+        <tr>
             <td colspan="2">
                 <input type="submit" class="btn btn-primary" value="Добавить"/>
-                <a href="/WEB-INF/view/allApartments.jsppartments.jsp">Отменить</a>
+                <a href="/WEB-INF/view/allApartments.jsp">Отменить</a>
             </td>
         </tr>
     </table>

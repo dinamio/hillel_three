@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -42,18 +43,14 @@
                 <li><a href="/Appartments/add" methods="GET">Добавить объект</a></li>
             </ul>
             <form class="navbar-form navbar-right">
-
-                <%
-                    if (session.getAttribute("Name") == null) {
-                %>
-                <a href="/UserController/Login">Войти</a>
-                <a href="/UserController/Registration">Регистрация</a>
-                <%
-                } else {
-                    out.write(session.getAttribute("Name").toString());
-                %>
-                <button type="submit" id="Logout" class="btn btn-default">Выйти</button>
-                <%}%>
+                <sec:authorize access="!isAuthenticated()">
+                    <a href="/UserController/Login">Войти</a>
+                    <a href="/UserController/Registration">Регистрация</a>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    Hello, <sec:authentication property="name"/>
+                    <a class="glyphicon-heart" href="/logout" />Logout</a>
+                </sec:authorize>
             </form>
         </div>
     </div>

@@ -5,15 +5,22 @@ import dao.UserDAO;
 import entity.Apartment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
+@MultipartConfig
 public class MVCApartments {
 
     @Autowired
@@ -31,6 +38,7 @@ public class MVCApartments {
         mav.addObject("apartment", new Apartment());
         return mav;
     }
+
     @RequestMapping(value = "/Appartments/add", method = RequestMethod.GET)
     public ModelAndView addAppartment() {
         ModelAndView mav = new ModelAndView("addAppartment");
@@ -45,17 +53,35 @@ public class MVCApartments {
     }
 
     @RequestMapping(value = "/Appartments", method = RequestMethod.POST)
-    public String addApartment(@ModelAttribute("Apartment") Apartment apartment, HttpSession session) {
+    public ModelAndView addApartment(@Valid @ModelAttribute("apartment") Apartment apartment, BindingResult bindingResult,
+                               HttpSession session) {
+        ModelAndView view = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            view.addObject("apartment", apartment);
+            view.addAllObjects(bindingResult.getModel());
+            view.setViewName("addAppartment");
+            return view;
+        }
+
         Date dateNow = new Date();
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd");
         apartment.setDate(formatForDateNow.format(dateNow));
-        apartment.setUser(userDAO.getUserByName(session.getAttribute("Name").toString()));
+        apartment.setUser(userDAO.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName()));
+
+        apartment.setTitle(apartment.getUploadfile().getOriginalFilename());
+        apartment.setType(apartment.getUploadfile().getContentType());
+        try {
+            apartment.setPicture(apartment.getUploadfile().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         apartmentDAO.addApartment(apartment);
-        return "redirect:/Appartments";
+        view.setViewName("redirect:/documents");
+        return view;
     }
 
     @RequestMapping(value = "/Appartments/{idAdpartment}", method = RequestMethod.DELETE)
-    public ModelAndView  deleteApartment(@PathVariable(value = "idAdpartment") int idAdpartment) {
+    public ModelAndView deleteApartment(@PathVariable(value = "idAdpartment") int idAdpartment) {
         apartmentDAO.deleteApartment(idAdpartment);
         return new ModelAndView("redirect:/Appartments");
     }

@@ -12,8 +12,11 @@
 
     <mvc:annotation-driven />
     <mvc:resources location="/" mapping="/**" />
-    <context:component-scan base-package="config,entity,controller,dao" />
+    <context:component-scan base-package="entity,controller,dao,config" />
     <context:annotation-config />
     <context:spring-configured/>
-
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="500000" />
+    </bean>
 </beans>

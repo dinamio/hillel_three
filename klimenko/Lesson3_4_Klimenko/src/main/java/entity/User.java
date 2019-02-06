@@ -1,25 +1,62 @@
 package entity;
 
+import validation.CheckEmail;
+
 import javax.persistence.*;
+
+
+import  org.hibernate.validator.constraints.NotBlank;
+
+
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+
 public class User {
 
     @Id
     @GeneratedValue
     @Column(name = "user_id")
     private int id;
+
     @Column(name = "Name")
+    @NotBlank(message = "Имя не может быть пустым")
     private String name;
+
     @Column(name = "Password")
+    @NotBlank(message = "Пароль не может быть пустым")
     private String password;
+
     @Column(name = "Email")
+    @CheckEmail
     private String email;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column(name = "role")
+    private String role;
+
+    @Column(name = "enabled")
+    private int enabled;
+
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Apartment> apartment;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
 
     public int getId() {
         return id;
@@ -45,6 +82,8 @@ public class User {
         this.password = password;
         this.email = email;
         this.id = id;
+        this.enabled= 1;
+        this.role = "USER";
     }
 
     public String getName() {

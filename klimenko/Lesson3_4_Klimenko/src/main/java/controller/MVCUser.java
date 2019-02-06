@@ -9,14 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 
 import java.io.UnsupportedEncodingException;
 
@@ -35,11 +37,18 @@ public class MVCUser {
     }
 
     @RequestMapping(value = "/UserController", method = RequestMethod.POST)
-    public ModelAndView addUser(@ModelAttribute("user") User user,
+    public ModelAndView addUser(@Valid @ModelAttribute("user")User user, BindingResult bindingResult,
                                 HttpSession httpSession, Model model){
 
 
         ModelAndView view = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            view.addObject("user", user);
+            view.addAllObjects(bindingResult.getModel());
+            view.setViewName("registration");
+            return view;
+        }
         try {
             user.setPassword(encodeString(user.getPassword()));
         } catch (UnsupportedEncodingException e) {
@@ -65,7 +74,7 @@ public class MVCUser {
         return mav;
     }
 
-    @RequestMapping(value = "/UserController/Login", method = RequestMethod.GET)
+    @RequestMapping(value = "/UserController/login", method = RequestMethod.GET)
     public ModelAndView loginUser() {
         ModelAndView mav = new ModelAndView("login");
         mav.addObject(new User());
@@ -94,8 +103,6 @@ public class MVCUser {
     public ModelAndView resetUser(HttpSession httpSession){
         httpSession.setAttribute("Name", null);
         return new ModelAndView("redirect:/login");
-
-
     }
 
 }

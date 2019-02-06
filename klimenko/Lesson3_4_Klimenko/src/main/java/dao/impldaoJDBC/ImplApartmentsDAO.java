@@ -104,7 +104,7 @@ public class ImplApartmentsDAO implements ApartmentsDAO {
         String date = resultSet.getString("date");
         User user = new ImplUserDAO().getUser(resultSet.getInt("user"));
 
-        return new Apartment(address, typeEstate, floor, countOfRoom, size, additionalDescription, IDApartments, user, date);
+        return new Apartment(address, typeEstate, floor, countOfRoom, size, additionalDescription, IDApartments, user, date,null,null);
     }
 
     public List<Apartment> getAllAppartments() {

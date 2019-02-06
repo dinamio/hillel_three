@@ -9,9 +9,11 @@
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--<context:component-scan base-package="entity,controller,dao,config" />-->
     <mvc:resources location="/" mapping="/**" />
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
 </beans>

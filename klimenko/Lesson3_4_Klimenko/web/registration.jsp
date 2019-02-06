@@ -27,10 +27,15 @@
 <form:form method="POST" action="/UserController" modelAttribute="user">
 
     <label for="name"> Name <form:input path="name" type="text" class="form-control"/>
+        <form:errors path="name" cssStyle="color: #ff0000;"/>
     </label><br>
-    <label for="email"> E-mail <form:input path="email" type="text" id="email" class="form-control"/> </label><br>
+    <label for="email"> E-mail <form:input path="email" type="text" id="email" class="form-control"/>
+        <form:errors path="email" cssStyle="color: #ff0000;"/>
+    </label><br>
     <label for="password"> Password <form:input path="password" type="password" id="password"
-                                                class="form-control"/></label>
+                                                class="form-control"/>
+        <form:errors path="password" cssStyle="color: #ff0000;" />
+    </label>
     <br>
     <input type="submit" class="btn btn-primary" value="Зарегистрироваться"/>
 </form:form>

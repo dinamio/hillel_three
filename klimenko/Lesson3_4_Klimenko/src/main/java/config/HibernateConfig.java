@@ -1,22 +1,23 @@
 package config;
 
-import java.util.Properties;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+<<<<<<< HEAD
 
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+=======
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.sql.DataSource;
+
+import java.util.Properties;
 
 
 @Configuration

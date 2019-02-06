@@ -18,6 +18,16 @@
         </createTable>
     </changeSet>
     <changeSet author="Klimenko" id="1">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="user_id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="Name" type="VARCHAR(255)"/>
+            <column name="Email" type="VARCHAR(255)"/>
+            <column name="Password" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Klimenko" id="2">
         <createTable tableName="apartments">
             <column name="IDApartments" type="INT">
                 <constraints primaryKey="true"/>
@@ -29,11 +39,14 @@
             <column name="size" type="DECIMAL(2)"/>
             <column name="additionalDescription" type="VARCHAR(250)"/>
             <column name="user" type="INT">
-                <constraints foreignKeyName="fk_user" references="users(id)"/>
+                <constraints foreignKeyName="fk_user" references="users(user_id)"/>
             </column>
 
             <column name="date" type="VARCHAR(250)"/>
     </createTable>
 </changeSet>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
 </databaseChangeLog>

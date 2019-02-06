@@ -9,7 +9,7 @@ public class MySqlConnector {
     public static Connection getDbConnection() {
         Connection connection = null;
         String url = "jdbc:mysql://localhost:3306/real_estate_agency?serverTimezone=UTC&characterEncoding=utf8";
-        String pass = "root";
+        String pass = "qwerty";
         String user = "root";
         try {
             Class.forName("com.mysql.jdbc.Driver");

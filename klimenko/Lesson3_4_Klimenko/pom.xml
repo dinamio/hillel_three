@@ -66,21 +66,30 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
+<<<<<<< HEAD
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
+=======
             <artifactId>spring-webmvc</artifactId>
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
             <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
+<<<<<<< HEAD
+            <artifactId>spring-webmvc</artifactId>
+=======
+            <artifactId>spring-orm</artifactId>
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+<<<<<<< HEAD
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
@@ -164,6 +173,39 @@
             <!--</plugin>-->
         <!--</plugins>-->
     <!--</build>-->
+=======
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.2.Final</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.6.2</version>
+                <configuration>
+                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                    <changeLogFile>src/main/resources/changelog.xml</changeLogFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
 
 
 </project>

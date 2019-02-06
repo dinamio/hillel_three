@@ -12,7 +12,7 @@
 
     <mvc:annotation-driven />
     <mvc:resources location="/" mapping="/**" />
-    <context:component-scan base-package="entity,controller,dao" />
+    <context:component-scan base-package="config,entity,controller,dao" />
     <context:annotation-config />
     <context:spring-configured/>
 

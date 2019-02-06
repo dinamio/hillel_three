@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -37,29 +39,18 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="/Appartments">Список объектов</a></li>
-                <li><a href=Appartments/addAppartment.jsp" methods="POST">Добавить объект</a></li>
+                <%--<li><a href="addAppartment.jsp" methods="GET">Добавить объект</a></li>--%>
+                <li><a href="/Appartments/add" methods="GET">Добавить объект</a></li>
             </ul>
             <form class="navbar-form navbar-right">
-
-                <%
-                    if (session.getAttribute("Name") == null) {
-                %>
-                <div class="form-group">
-                    Пользователь
-                    <input type="text" class="form-control" placeholder="Пользователь">
-                </div>
-                <div class="form-group">
-                    Пароль
-                    <input type="text" class="form-control" placeholder="Пароль">
-                </div>
-                <button type="submit" id="Login" class="btn btn-default">Войти</button>
-                <a href="registration.jsp">Регистрация</a>
-                <%
-                } else {
-                    out.write(session.getAttribute("Name").toString());
-                %>
-                <button type="submit" id="Logout" class="btn btn-default">Выйти</button>
-                <%}%>
+                <sec:authorize access="!isAuthenticated()">
+                    <a href="/UserController/Login">Войти</a>
+                    <a href="/UserController/Registration">Регистрация</a>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    Hello, <sec:authentication property="name"/>
+                    <a class="glyphicon-heart" href="/logout" />Logout</a>
+                </sec:authorize>
             </form>
         </div>
     </div>
@@ -77,6 +68,6 @@
         crossorigin="anonymous"></script>
 ﻿
 </body>
-<script src="js/main.js">
+<script src="main.js">
 </script>
 </html>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: Klimenko
@@ -15,11 +16,17 @@
     <jsp:param name="title" value="Index Page"/>
     <jsp:param name="content" value="/index/index-content"/>
 </jsp:include>
-<label for="name"> Name <input type="text" class="form-control" id="name" required></label><br>
-<label for="password"> Password <input type="password" id="password" class="form-control" required></label>
+
+<form:form method="POST" action="/UserController/login" modelAttribute="user">
+
+<label for="name"> Name <form:input path="name" type="text" class="form-control" id="name"/></label><br>
+<label for="password"> Password <form:input path="password" type="password" id="password" class="form-control"/></label>
 <br>
-<button id="login-btn" class="btn btn-primary">
+<button type="submit" id="login-btn" class="btn btn-primary">
     Войти
 </button>
+
+</form:form>
+
 </body>
 </html>

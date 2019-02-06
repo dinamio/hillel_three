@@ -1,14 +1,17 @@
-package dao.impldao;
+package dao.impldaoJDBC;
 
 import dao.ApartmentsDAO;
 import dao.MySqlConnector;
 import entity.Apartment;
+import entity.User;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository
 public class ImplApartmentsDAO implements ApartmentsDAO {
+
 
     private Connection connection;
 
@@ -32,7 +35,7 @@ public class ImplApartmentsDAO implements ApartmentsDAO {
 
     public void addApartment(Apartment apartment) {
         String sql = "INSERT INTO `real_estate_agency`.`apartments` (`address`, `typeEstate`, " +
-                "`floor`, `countOfRoom`, `size`, `additionalDescription`, 'user', 'date') " +
+                "`floor`, `countOfRoom`, `size`, `additionalDescription`, `user_id`, `date`) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
@@ -66,8 +69,10 @@ public class ImplApartmentsDAO implements ApartmentsDAO {
         statement.setInt(4, apartment.getCountOfRoom());
         statement.setInt(5, apartment.getSize());
         statement.setString(6, apartment.getAdditionalDescription());
-        statement.setInt(7, (new ImplUserDAO().getUserByName(apartment.getUser()).getId()));
-        statement.setString(7, apartment.getDate());
+        if(apartment.getUser()!=null)
+            statement.setInt(7, (apartment.getUser().getId()));
+        if(apartment.getDate()!=null)
+            statement.setString(8, apartment.getDate());
     }
 
     public Apartment getApartment(int id) {
@@ -97,15 +102,15 @@ public class ImplApartmentsDAO implements ApartmentsDAO {
         int IDApartments = resultSet.getInt("IDApartments");
         int size = resultSet.getInt("size");
         String date = resultSet.getString("date");
-        String user = new ImplUserDAO().getUser(resultSet.getInt("user")).getName();
+        User user = new ImplUserDAO().getUser(resultSet.getInt("user"));
 
-        return new Apartment(address, typeEstate, floor, countOfRoom, size, additionalDescription, IDApartments, user, date);
+        return new Apartment(address, typeEstate, floor, countOfRoom, size, additionalDescription, IDApartments, user, date,null,null);
     }
 
     public List<Apartment> getAllAppartments() {
 
         String sql = "SELECT * from `real_estate_agency`.`apartments` as ap " +
-                "inner JOIN real_estate_agency.users as us on ap.user = us.id;";
+                "inner JOIN real_estate_agency.users as us on ap.user_id = us.user_id;";
         ArrayList<Apartment> list = new ArrayList<Apartment>();
 
         try {

@@ -1,33 +1,25 @@
 package entity;
 
+import javax.persistence.MappedSuperclass;
+
+
 public abstract class RealEstate {
 
 
     private String address;
     private String typeEstate;
-    private int estateId;
-    private String user;
     private String date;
 
-    public RealEstate(String address, String typeEstate, int estateId, String user, String date) {
+    public RealEstate(String address, String typeEstate, String date) {
 
         this.address = address;
         this.typeEstate = typeEstate;
-        this.estateId = estateId;
-        this.user = user;
         this.date = date;
     }
 
     public RealEstate() {
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
 
     public String getDate() {
         return date;
@@ -37,13 +29,7 @@ public abstract class RealEstate {
         this.date = date;
     }
 
-    public int getEstateId() {
-        return estateId;
-    }
 
-    public void setEstateId(int estateId) {
-        this.estateId = estateId;
-    }
 
     public String getAddress() {
         return address;

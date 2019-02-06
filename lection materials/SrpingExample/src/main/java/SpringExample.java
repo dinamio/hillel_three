@@ -21,8 +21,5 @@ public class SpringExample {
 
         ModelService service = context.getBean(ModelService.class);
         service.useDao();
-
-
     }
-
 }

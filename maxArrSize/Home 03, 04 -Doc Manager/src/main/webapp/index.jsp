@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -9,6 +12,7 @@
     <title>Servlet Login</title>
 </head>
 <body>
+<div style="color:red" align="center">${errorMsg}</div>
 <div class="container">
     <div id="login-row" class="row justify-content-center align-items-center">
         <div id="login-column" class="col-md-6">
@@ -21,28 +25,30 @@
                 <div class="shape6"></div>
                 <div class="shape7"></div>
                 <div class="float">
-                    <form class="form" method="post" action="login">
+                    <form class="form" method="post" action="/login">
                         <div class="form-group">
-                            <label for="username" class="text-white">Username:</label><br>
-                            <input type="text" name="name" placeholder="admin" id="username" class="form-control">
+                            <label name="username" class="text-white">Username:</label><br>
+                            <input type="text" name="name" placeholder="admin" id="username" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <label for="password" class="text-white">Password:</label><br>
-                            <input type="text" name="pass" placeholder="admin" id="password" class="form-control">
+                            <label name="password" class="text-white">Password:</label><br>
+                            <input type="text" name="pass" placeholder="admin" id="password" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="LOGIN">
+                            <form method="LINK" action="/registrationForm">
+                                <input type="button" class="btn btn-info btn-md" value="REGISTRY NOW" onclick="window.location.href='/registrationForm'">
+                            </form>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<!--<form method="post" action="login">
-    User:<input type="text" name="name" placeholder="admin"/><br/>
-    Password:<input type="text" name="pass" placeholder="admin"/><br/>
-    <input type="submit" value="LOGIN" />
-</form>-->
-</body>
-</html>
+            <!-- <div class="col-md-6 text-right">
+               <form> -->
+                <!--  </form>
+             </div>-->
+         </div>
+     </div>
+ </div>
+ </body>
+ </html>

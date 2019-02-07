@@ -25,19 +25,18 @@
                         <h2>Manage <b>Documents</b></h2>
                     </div>
                     <a href="#addDocModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Document</span></a>
-                   <!-- <a href="#deleteDocModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
                 </div>
             </div>
         </div>
         <table class="table table-striped table-hover" id="docsTable">
             <thead>
             <tr>
-                <th>
+                <!--<th>
                     <span class="custom-checkbox">
                         <input type="checkbox" id="selectAll">
                         <label for="selectAll"></label>
                     </span>
-                </th>
+                </th>-->
                 <th hidden="hidden">ID</th>
                 <th>Name</th>
                 <th>Date</th>
@@ -48,19 +47,24 @@
             <tbody>
             <c:forEach var="doc" items="${docs}">
             <tr id=${doc.id}>
-                <td>
+                <!--<td>
 							<span class="custom-checkbox">
 								<input type="checkbox" id="checkbox1" name="options[]" value="1">
 								<label for="checkbox1"></label>
 							</span>
-                </td>
+                </td>-->
                 <td name="docID" hidden="hidden">${doc.id}</td>
                 <td>${doc.name}</td>
                 <td>${doc.date}</td>
-                <td><%=session.getAttribute("currentUserName")%></td>
                 <td>
-                    <!--<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>-->
-                    <!--<a href="#deleteDocModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
+                    <c:forEach var="user" items="${users}">
+                        <c:if test="${doc.user_id == user.id}">
+                            <p>${user.userName}</p>
+                        </c:if>
+                    </c:forEach>
+                </td>
+                <td>
+                    <a href="/updateDoc?docId=${doc.id}&docName=${doc.name}&docDate=${doc.date}&docUser=${doc.user_id}" class="edit-btn btn btn-primary"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     <a href="${pageContext.request.contextPath}/documentsList/${doc.id}" class="btn btn-delete btn-danger text-center"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 
                 </td>
@@ -97,66 +101,6 @@
         </div>
     </div>
 </div>
-<!-- Edit Modal HTML -->
-<!--<div id="editEmployeeModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form>
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit Employee</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Address</label>
-                        <textarea class="form-control" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-info" value="Save">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>-->
-<!-- Delete Modal HTML -->
-<!--
-<div id="deleteDocModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post" action="/documentsList" name="delete">
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete Document</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete these Records?</p>
-                    <p class="text-warning"><small>This action cannot be undone.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <!--<input type="submit" class="btn btn-danger" value="Delete">-->
-                   <!-- <a href="${pageContext.request.contextPath}/documentsList/${doc.id}" class="btn btn-delete btn-danger text-center">Delete</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>-->
-
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script

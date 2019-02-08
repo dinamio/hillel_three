@@ -39,4 +39,13 @@ public class Document {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
+
+    public Document(@NotNull @Size(min = 1) String description) {
+        this.description = description;
+    }
+
+    public Document(@NotNull @Size(min = 1) String title, @NotNull @Size(min = 1) String description) {
+        this.title = title;
+        this.description = description;
+    }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DocumentService {
     List<Document> find();
-    Document find(long id);
+    Document findByID(long id);
     void save(String authorLogin, UploadDocument document);
     Document update(long id, Document document);
     void delete(long id);

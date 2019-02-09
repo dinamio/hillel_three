@@ -3,6 +3,7 @@ package controller;
 import entity.Cigarette;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.CigaretteService;
@@ -33,6 +34,7 @@ public class UserController {
             request.getSession().setAttribute("login", user);
             request.getSession().setAttribute("next", nextDateLevel(user));
         }
+        System.out.println("logining");
         return userService.getResultMessage();
     }
 
@@ -75,7 +77,7 @@ public class UserController {
     @RequestMapping(value = "/user-get-all", method = RequestMethod.GET)
     public String getAll() {
         request.getSession().setAttribute("all-users", userService.getAll());
-        return "admin-page";
+        return "/admin-page";
     }
 
     @ResponseBody

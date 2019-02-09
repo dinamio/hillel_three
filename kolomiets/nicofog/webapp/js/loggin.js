@@ -5,7 +5,7 @@ $(document).ready(function () {
     $("#enter").click(function () {
         var username = $("#user").val();
         var password = $("#password").val();
-        password = CryptoJS.MD5(password);
+      //  password = CryptoJS.MD5(password);
 
         var param = '?name=' + username +
             '&password=' + password;
@@ -28,7 +28,7 @@ $(document).ready(function () {
             name: 'login',
             url: '/login' + param,
             type: 'POST',
-            success: function (data) {
+            success: function (data, status) {
                 if (data == 'ok') {
                     window.location.replace("/user-page.jsp");
                 } else {

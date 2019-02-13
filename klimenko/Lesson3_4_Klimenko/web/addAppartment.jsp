@@ -18,11 +18,19 @@
 
 </head>
 <body>
+<<<<<<< HEAD
 <form:form method="POST" action="/Appartments" modelAttribute="apartment"  enctype="multipart/form-data">
     <table border="0" class="table table-hover" >
         <tr>
             <td>Адрес</td>
             <td><form:input path="address" autocomplete="off" type="text" name="address" /></td>
+=======
+<form:form method="POST" action="/Appartments" modelAttribute="apartment">
+    <table border="0" class="table table-hover" >
+        <tr>
+            <td>Адрес</td>
+            <td><form:input path="address" autocomplete="off" type="text" name="address"/></td>
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
         </tr>
         <tr>
             <td>Тип</td>
@@ -51,15 +59,22 @@
         <tr>
             <td>Дополнительня информация</td>
             <td><form:input path="additionalDescription" autocomplete="off" type="text" name="additionalDescription"/></td>
+<<<<<<< HEAD
         </tr>
         <tr>
             <td>Выберите изображение</td>
             <td><form:input path="uploadfile" type="file" name="uploadfile"/></td>
+=======
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
         </tr>
         <tr>
             <td colspan="2">
                 <input type="submit" class="btn btn-primary" value="Добавить"/>
+<<<<<<< HEAD
                 <a href="/WEB-INF/view/allApartments.jsp">Отменить</a>
+=======
+                <a href="/WEB-INF/view/allApartments.jsppartments.jsp">Отменить</a>
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
             </td>
         </tr>
     </table>

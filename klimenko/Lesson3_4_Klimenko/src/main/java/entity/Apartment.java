@@ -1,15 +1,19 @@
 package entity;
 
+<<<<<<< HEAD
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+=======
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
 import javax.persistence.*;
 
 @Entity
 @Table(name = "apartments")
+<<<<<<< HEAD
 public class Apartment {
 
     @NotNull
@@ -30,6 +34,15 @@ public class Apartment {
     private String type;
 
     @ManyToOne
+=======
+public class Apartment extends RealEstate {
+
+    public int floor;
+    public int countOfRoom;
+    public int size;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
     @JoinColumn(name = "user")
     public User user;
 
@@ -104,11 +117,16 @@ public class Apartment {
     }
 
     public Apartment(String address, String typeEstate, int floor,
+<<<<<<< HEAD
                      int countOfRoom, int size, String additionalDescription, int estateID, User user, String date, byte[] picture, MultipartFile uploadfile) {
 //        super(address, typeEstate, date);
         this.address = address;
         this.typeEstate = typeEstate;
         this.date = date;
+=======
+                     int countOfRoom, int size, String additionalDescription, int estateID, User user, String date) {
+        super(address, typeEstate, date);
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
         this.user = user;
         this.floor = floor;
         this.countOfRoom = countOfRoom;

@@ -1,5 +1,6 @@
 package entity;
 
+<<<<<<< HEAD
 import validation.CheckEmail;
 
 import javax.persistence.*;
@@ -8,17 +9,24 @@ import javax.persistence.*;
 import  org.hibernate.validator.constraints.NotBlank;
 
 
+=======
+import javax.persistence.*;
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+<<<<<<< HEAD
 
+=======
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
 public class User {
 
     @Id
     @GeneratedValue
     @Column(name = "user_id")
     private int id;
+<<<<<<< HEAD
 
     @Column(name = "Name")
     @NotBlank(message = "Имя не может быть пустым")
@@ -57,6 +65,17 @@ public class User {
     public void setEnabled(int enabled) {
         this.enabled = enabled;
     }
+=======
+    @Column(name = "Name")
+    private String name;
+    @Column(name = "Password")
+    private String password;
+    @Column(name = "Email")
+    private String email;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Apartment> apartment;
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
 
     public int getId() {
         return id;

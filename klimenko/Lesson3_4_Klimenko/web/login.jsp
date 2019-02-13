@@ -18,6 +18,7 @@
 </jsp:include>
 
 <form:form method="POST" action="/UserController/login" modelAttribute="user">
+    <%--modelAttribute="user">--%>
 
 <label for="name"> Name <form:input path="name" type="text" class="form-control" id="name"/></label><br>
 <label for="password"> Password <form:input path="password" type="password" id="password" class="form-control"/></label>

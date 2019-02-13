@@ -8,7 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<<<<<<< HEAD
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+=======
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
 <html>
 <head>
 </head>
@@ -82,20 +85,32 @@
         <tr>
             <td>Этаж</td>
             <td><form:input path="floor" pattern="^[ 0-9]+$" autocomplete="off" id="floor" type="text" name="floor"
+<<<<<<< HEAD
                        value="${appartment.floor}"/>
                 <form:errors path="floor"  cssStyle="color: #ff0000;" /></td>
+=======
+                       value="${appartment.floor}"/></td>
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
         </tr>
         <tr>
             <td>Количество комнат</td>
             <td><form:input path="countOfRoom" pattern="^[ 0-9]+$" autocomplete="off" id="countOfRoom" type="text" name="countOfRoom"
+<<<<<<< HEAD
                        value="${appartment.countOfRoom}"/>
                 <form:errors path="countOfRoom"  cssStyle="color: #ff0000;" /></td>
+=======
+                       value="${appartment.countOfRoom}"/></td>
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
         </tr>
         <tr>
             <td>Размер</td>
             <td><form:input path="size" pattern="^[ 0-9]+$" autocomplete="off" id="size" type="text" name="size"
+<<<<<<< HEAD
                        value="${appartment.size}"/>
                 <form:errors path="size"  cssStyle="color: #ff0000;"/></td>
+=======
+                       value="${appartment.size}"/></td>
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
         </tr>
         <tr>
             <td>Дополнительня информация</td>

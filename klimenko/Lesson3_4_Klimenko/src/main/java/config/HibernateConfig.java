@@ -1,5 +1,6 @@
 package config;
 
+<<<<<<< HEAD
 import java.util.Properties;
 
 
@@ -17,6 +18,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.sql.DataSource;
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.Properties;
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
 
 
 @Configuration
@@ -48,6 +60,7 @@ public class HibernateConfig {
 
         return factoryBean;
     }
+<<<<<<< HEAD
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -57,5 +70,7 @@ public class HibernateConfig {
         dataSource.setPassword(env.getProperty("jdbc.password"));
         return dataSource;
     }
+=======
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
 
 }

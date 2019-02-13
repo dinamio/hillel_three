@@ -27,6 +27,7 @@
 <form:form method="POST" action="/UserController" modelAttribute="user">
 
     <label for="name"> Name <form:input path="name" type="text" class="form-control"/>
+<<<<<<< HEAD
         <form:errors path="name" cssStyle="color: #ff0000;"/>
     </label><br>
     <label for="email"> E-mail <form:input path="email" type="text" id="email" class="form-control"/>
@@ -36,6 +37,12 @@
                                                 class="form-control"/>
         <form:errors path="password" cssStyle="color: #ff0000;" />
     </label>
+=======
+    </label><br>
+    <label for="email"> E-mail <form:input path="email" type="text" id="email" class="form-control"/> </label><br>
+    <label for="password"> Password <form:input path="password" type="password" id="password"
+                                                class="form-control"/></label>
+>>>>>>> 60cac7ff53855449b2d79895fe9cc70f360cc243
     <br>
     <input type="submit" class="btn btn-primary" value="Зарегистрироваться"/>
 </form:form>

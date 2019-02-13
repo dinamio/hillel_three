@@ -4,7 +4,6 @@ package com.klimenko.Lesson14.controller;
 import com.klimenko.Lesson14.dao.UserDaoSD;
 import com.klimenko.Lesson14.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -68,21 +67,7 @@ public class MVCUser {
         return mav;
     }
 
-    @RequestMapping(value = "/UserController/login", method = RequestMethod.POST)
-    public ModelAndView checkUser(@ModelAttribute("user") User user,
-                                  HttpSession httpSession) {
 
-        ModelAndView view = new ModelAndView();
-            if (userDAO.findUserByNameAndPassword(user.getName(), user.getPassword()) == null) {
-                view.setViewName("redirect:/registration");
-            } else {
-                httpSession.setAttribute("Name", user.getName());
-
-                view.setViewName("redirect:/Appartments");
-            }
-
-        return view;
-    }
     @RequestMapping(value = "/UserController", method = RequestMethod.DELETE)
     public ModelAndView resetUser(HttpSession httpSession){
         httpSession.setAttribute("Name", null);

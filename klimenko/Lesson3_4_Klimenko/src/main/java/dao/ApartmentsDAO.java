@@ -1,9 +1,9 @@
 package dao;
 
 import entity.Apartment;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
 public interface ApartmentsDAO {
 
     public void deleteApartment(int id);

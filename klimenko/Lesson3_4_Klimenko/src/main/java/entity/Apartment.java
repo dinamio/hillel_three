@@ -1,24 +1,142 @@
 package entity;
 
-public class Apartment extends RealEstate {
-    public int floor;
-    public int countOfRoom;
-    public int size;
-    String additionalDescription;
+import org.springframework.web.multipart.MultipartFile;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "apartments")
+public class Apartment {
+
+    @NotNull
+    private int floor;
+
+    @NotNull
+    @Min(value = 1, message = "Количество комнат не может быть меньше 1")
+    private int countOfRoom;
+
+    @NotNull
+    @Min(value = 1, message = "Размер не может быть меньше 1")
+    private int size;
+
+    private String address;
+    private String typeEstate;
+    private String date;
+    private String title;
+    private String type;
+
+    @ManyToOne
+    @JoinColumn(name = "user")
+    public User user;
+
+    @Id
+    @GeneratedValue
+    @Column(name = "IDApartments")
+    private int estateId;
+    String additionalDescription;
+    @Lob
+    @Column(name = "picture", columnDefinition = "BLOB")
+    private byte[] picture;
+
+    @Transient
+    private MultipartFile uploadfile;
+
+    public MultipartFile getUploadfile() {
+        return uploadfile;
+    }
+
+    public void setUploadfile(MultipartFile uploadfile) {
+        this.uploadfile = uploadfile;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTypeEstate() {
+        return typeEstate;
+    }
+
+    public void setTypeEstate(String typeEstate) {
+        this.typeEstate = typeEstate;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
 
     public Apartment(String address, String typeEstate, int floor,
-                     int countOfRoom, int size, String additionalDescription, int estateID, String user, String date) {
-        super(address, typeEstate, estateID, user, date);
+                     int countOfRoom, int size, String additionalDescription, int estateID, User user, String date, byte[] picture, MultipartFile uploadfile) {
+//        super(address, typeEstate, date);
+        this.address = address;
+        this.typeEstate = typeEstate;
+        this.date = date;
+        this.user = user;
         this.floor = floor;
         this.countOfRoom = countOfRoom;
         this.size = size;
+        this.estateId = estateID;
         this.additionalDescription = additionalDescription;
-
+        this.picture = picture;
+        this.uploadfile = uploadfile;
     }
 
     public Apartment() {
 
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getEstateId() {
+        return estateId;
+    }
+
+    public void setEstateId(int estateId) {
+        this.estateId = estateId;
     }
 
     public int getFloor() {

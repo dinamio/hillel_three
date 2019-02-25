@@ -39,7 +39,7 @@ public class DocumentController {
     @RequestMapping(value = "/documents/{documentID}", method = RequestMethod.GET)
     public ModelAndView find(@PathVariable(value = "documentID") long documentID) {
         ModelAndView view = new ModelAndView("documents/document");
-        view.addObject("document", documentService.find(documentID));
+        view.addObject("document", documentService.findByID(documentID));
         return view;
     }
 
@@ -79,7 +79,7 @@ public class DocumentController {
     @RequestMapping(value = "/documents/{documentID}/update", method = RequestMethod.GET)
     public ModelAndView update(@PathVariable(value = "documentID") long documentID) {
         ModelAndView view = new ModelAndView("documents/document-update");
-        view.addObject("document", documentService.find(documentID));
+        view.addObject("document", documentService.findByID(documentID));
         return view;
     }
 
@@ -114,7 +114,7 @@ public class DocumentController {
     public void download(@PathVariable(value = "documentID") long documentID,
                                  HttpServletResponse response) throws IOException {
 
-        Document document = documentService.find(documentID);
+        Document document = documentService.findByID(documentID);
 
         response.setContentType(document.getType());
         response.setContentLength(document.getContent().length);

@@ -6,7 +6,6 @@ import com.kovalenko.repository.document.DocumentRepository;
 import com.kovalenko.service.document.DocumentService;
 import com.kovalenko.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,7 +34,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public Document find(long id) {
+    public Document findByID(long id) {
         return documentRepository.findById(id).orElse(null);
     }
 
@@ -47,12 +46,14 @@ public class DocumentServiceImpl implements DocumentService {
         savedDocument.setDescription(document.getDescription());
 
         MultipartFile file = document.getFile();
-        savedDocument.setTitle(file.getOriginalFilename());
-        savedDocument.setType(file.getContentType());
-        try {
-            savedDocument.setContent(file.getBytes());
-        } catch (IOException e) {
-            savedDocument.setContent(null);
+        if (file != null) {
+            savedDocument.setTitle(file.getOriginalFilename());
+            savedDocument.setType(file.getContentType());
+            try {
+                savedDocument.setContent(file.getBytes());
+            } catch (IOException e) {
+                savedDocument.setContent(null);
+            }
         }
         documentRepository.save(savedDocument);
     }
@@ -66,7 +67,7 @@ public class DocumentServiceImpl implements DocumentService {
             updatedDocument.setDescription(document.getDescription());
             documentRepository.save(updatedDocument);
         }
-        return find(id);
+        return findByID(id);
     }
 
     @Override

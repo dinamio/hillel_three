@@ -1,6 +1,9 @@
 package com.documents.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -10,8 +13,17 @@ public class Document {
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+    @NotEmpty
+    @NotNull
     private String name;
+    @NotEmpty
+    @NotNull
+    private byte[] file;
+    @NotEmpty
+    @NotNull
+    private String type;
     private Timestamp date;
+
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user")
@@ -73,6 +85,21 @@ public class Document {
         this.date = date;
     }
 
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     @Override
     public String toString() {

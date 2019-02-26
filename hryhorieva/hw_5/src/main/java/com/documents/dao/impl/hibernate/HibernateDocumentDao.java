@@ -1,4 +1,4 @@
-package com.documents.dao.impl;
+package com.documents.dao.impl.hibernate;
 
 import com.documents.dao.DocumentDao;
 import com.documents.dao.UserDao;
@@ -26,7 +26,6 @@ public class HibernateDocumentDao implements DocumentDao {
 
     private static final String SELECT_ALL = "from Document";
     private static final String DELETE = "delete from Document where id=:id";
-    private static final String UPDATE = "update Document set name = :name, user = :user where id = :id";
 
     public List<Document> selectAll() {
         Session session = sessionFactory.openSession();
@@ -67,16 +66,19 @@ public class HibernateDocumentDao implements DocumentDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            Query documentQuery = session.createQuery(UPDATE);
-            documentQuery.setString("name", document.getName());
-            documentQuery.setEntity("user", document.getUser());
-            documentQuery.setInteger("id", document.getId());
-            documentQuery.executeUpdate();
+            session.update(document);
             transaction.commit();
         }catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
         }
         session.close();
+    }
+
+    public Document getById(Integer id){
+        Session session = sessionFactory.openSession();
+        Document document = (Document)session.get(Document.class, id);
+        session.close();
+        return document;
     }
 }

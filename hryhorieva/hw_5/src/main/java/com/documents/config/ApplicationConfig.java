@@ -1,4 +1,4 @@
-package com.documents;
+package com.documents.config;
 
 import com.documents.dao.impl.DBConnection;
 import org.hibernate.SessionFactory;
@@ -10,6 +10,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -20,6 +21,24 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:/config.properties"})
 public class ApplicationConfig {
+
+    @Value("${driver}")
+    private String driverClassName;
+    @Value("${url}")
+    private String url;
+    @Value("${db.username}")
+    private String username;
+    @Value("${password}")
+    private String password;
+
+    @Value("${hibernate.dialect}")
+    private String hibernateDialect;
+    @Value("${hibernate.show_sql}")
+    private String hibernateShowSql;
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String hibernateHBM2DDLAuto;
+    @Value("${javax.persistence.validation.mode}")
+    private String javaxDatabase;
 
     @Bean
     Connection connection() {
@@ -32,16 +51,6 @@ public class ApplicationConfig {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    @Value("${driver}")
-    private String driverClassName;
-    @Value("${url}")
-    private String url;
-    @Value("${db.username}")
-    private String username;
-    @Value("${password}")
-    private String password;
-
-
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -52,21 +61,13 @@ public class ApplicationConfig {
         return dataSource;
     }
 
-
-    @Value("${hibernate.dialect}")
-    private String hibernateDialect;
-    @Value("${hibernate.show_sql}")
-    private String hibernateShowSql;
-    @Value("${hibernate.hbm2ddl.auto}")
-    private String hibernateHBM2DDLAuto;
-
-
     @Bean
     public Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", hibernateDialect);
         properties.put("hibernate.show_sql", hibernateShowSql);
         properties.put("hibernate.hbm2ddl.auto", hibernateHBM2DDLAuto);
+        properties.put("javax.persistence.validation.mode", javaxDatabase);
         return properties;
     }
 
@@ -93,27 +94,11 @@ public class ApplicationConfig {
         return txManager;
     }
 
-//    @Bean
-//    @SuppressWarnings("deprecation")
-//    public SessionFactory sessionFactory() {
-//        SessionFactory sessionFactory;
-//        Configuration configuration = new Configuration();
-//        try {
-//            sessionFactory = new Configuration().configure()
-//                    .buildSessionFactory();
-//        } catch (Throwable ex) {
-//            System.err.println("Initial SessionFactory creation failed." + ex);
-//            throw new ExceptionInInitializerError(ex);
-//        }
-//        return sessionFactory;
-//    }
-
-//    @Bean
-//    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-//        HibernateTransactionManager htm = new HibernateTransactionManager();
-//        htm.setSessionFactory(sessionFactory);
-//        return htm;
-//    }
-
-
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver getCommonsMultipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(20971520);   // 20MB
+        multipartResolver.setMaxInMemorySize(1048576);  // 1MB
+        return multipartResolver;
+    }
 }

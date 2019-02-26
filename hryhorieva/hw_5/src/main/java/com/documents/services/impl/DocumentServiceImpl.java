@@ -1,7 +1,7 @@
 package com.documents.services.impl;
 
 import com.documents.dao.DocumentDao;
-import com.documents.dao.impl.JDBCDocumentDao;
+import com.documents.dao.impl.jdbc.JDBCDocumentDao;
 import com.documents.entity.Document;
 import com.documents.services.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,10 @@ public class DocumentServiceImpl implements DocumentService {
 
     public void updateById(Document document){
         documentDao.updateById(document);
+    }
+
+    public Document getById(Integer id){
+        return documentDao.getById(id);
     }
 
     public void deleteById(Integer id){

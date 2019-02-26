@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="../../templates/header.jsp" >
     <jsp:param name="title" value="Documents (watch, edit, delete)" />
 </jsp:include>
@@ -33,16 +34,17 @@
                             <td><span>${doc.getDate()}</span></td>
                             <td><span>${doc.getUser().getLogin()}</span></td>
                             <td>
-                                <c:set var="user" value='<%=session.getAttribute("user")%>'/>
-                                <c:choose>
-                                    <c:when test="${user==doc.getUser()}">
-                                        <button class="button edit"><i class="fas fa-pencil-alt"></i>edit</button>
-                                        <button class="button delete"><i class="fas fa-trash-alt"></i>delete</button>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <p>You can't edit this document</p>
-                                    </c:otherwise>
-                                </c:choose>
+                                <sec:authorize access="hasRole('ADMIN')">
+                                    <button class="button edit"><i class="fas fa-pencil-alt"></i>edit</button>
+                                    <button class="button delete"><i class="fas fa-trash-alt"></i>delete</button>
+                                </sec:authorize>
+                                <sec:authorize access="hasAnyRole('USER','ADMIN')">
+                                    <button class="button download">
+                                        <a href="/documents/download?id=${doc.getId()}" target="_blank">
+                                            <i class="fas fa-download"></i>download
+                                        </a>
+                                    </button>
+                                </sec:authorize>
                             </td>
                         </tr>
                     </c:forEach>
@@ -50,7 +52,9 @@
             </table>
         </div>
 
-    <a href="/add" class="add mt-3">add new document</a>
+    <sec:authorize access="hasRole('ADMIN')">
+        <a href="/admin/add" class="add mt-3">add new document</a>
+    </sec:authorize>
     </div>
 </div>
 

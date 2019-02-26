@@ -1,6 +1,5 @@
-package com.documents.dao.impl;
+package com.documents.dao.impl.hibernate;
 
-import com.documents.Util.HibernateUtil;
 import com.documents.dao.UserDao;
 import com.documents.entity.User;
 import org.hibernate.Query;
@@ -81,10 +80,11 @@ public class HibernateUserDao implements UserDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-        Query userQuery = session.createQuery(DELETE);
-        userQuery.setInteger("id", id);
-        userQuery.executeUpdate();
-        transaction.commit();
+            Query userQuery = session.createQuery(DELETE);
+            userQuery.setInteger("id", id);
+            userQuery.executeUpdate();
+            session.delete(id);
+            transaction.commit();
         }catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();

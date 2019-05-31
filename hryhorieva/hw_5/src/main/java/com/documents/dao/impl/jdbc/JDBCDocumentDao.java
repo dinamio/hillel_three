@@ -1,4 +1,4 @@
-package com.documents.dao.impl;
+package com.documents.dao.impl.jdbc;
 
 import com.documents.dao.DocumentDao;
 import com.documents.dao.UserDao;
@@ -82,5 +82,9 @@ public class JDBCDocumentDao implements DocumentDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Document getById(Integer id){
+        return null;
     }
 }

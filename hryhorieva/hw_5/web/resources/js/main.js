@@ -8,6 +8,14 @@ $(document).ready(function () {
         })
     });
 
+    // $('button.download').on("click", function(){
+    //     var id = $(this).parents(".doc").attr("data-id");
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "/documents/download?id=" + id
+    //     })
+    // });
+
     $('button.edit').on("click", function(){
         var parent = $(this).parents(".doc");
         var id = parent.attr("data-id");

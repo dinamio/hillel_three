@@ -1,5 +1,8 @@
 package com.documents.entity;
 
+import com.documents.validation.UniqueLogin;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,11 +13,23 @@ public class User {
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+    @NotEmpty
+    @UniqueLogin
     private String login;
+    @NotEmpty
     private String password;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Document> documents;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles",
+            joinColumns = {
+                    @JoinColumn(name = "user_id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "role_id")
+            })
+    private List<Role> roles;
 
     public User() {
     }
@@ -22,6 +37,11 @@ public class User {
     public User(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+    public User(String login, String password, List<Role> role) {
+        this.login = login;
+        this.password = password;
+        this.roles=role;
     }
 
     public Integer getId() {
@@ -54,6 +74,14 @@ public class User {
 
     public void setDocuments(List<Document> documents) {
         this.documents = documents;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

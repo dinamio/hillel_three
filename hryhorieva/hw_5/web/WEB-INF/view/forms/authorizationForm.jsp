@@ -7,8 +7,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form:form method="POST" action="/authorization" modelAttribute="user">
+<%--<c:if test="${error} == true">--%>
+    <%--Wrong login or password--%>
+<%--</c:if>--%>
+<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+    <div class="error">
+        Your login attempt was not successful.
+        <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>.
+    </div>
+</c:if>
+<form:form method="POST" action="/login" modelAttribute="user">
     <div class="row align-items-center">
         <div class="col-md-12 col-sm-12 col-12 mb-2">
             <div class="title">Sign in:</div>

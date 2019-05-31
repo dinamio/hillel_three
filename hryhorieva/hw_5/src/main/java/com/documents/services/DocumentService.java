@@ -12,4 +12,6 @@ public interface DocumentService {
     void updateById(Document document);
 
     void deleteById(Integer id);
+
+    Document getById(Integer id);
 }
